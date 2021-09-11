@@ -1,4 +1,5 @@
 {
+    "guzzlehttp/guzzle": "^5",
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -7,11 +8,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.10",
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/socialite": "^5.2",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.3",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
