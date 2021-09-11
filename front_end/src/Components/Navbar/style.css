@@ -1,0 +1,40 @@
+.navbar-container{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+.navbar-logo{
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.navbar-logo img{
+    object-fit: cover;
+    width: 100%;
+
+}
+.navbar-menu{
+    font-size: 20px;
+    width: 500px;
+}
+.navbar-login{
+    width: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.navbar-login img{
+    object-fit: cover;
+    width: 100%;
+}
+
+.navbar-list{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 0;
+    
+
+}
