@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RentItem;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,9 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Google_Client;
 use Illuminate\Support\Facades\Validator;
-use JWTAuth;
-use DB;
-use Illuminate\Support\Facades\Mail;
+use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class AuthController extends Controller
 {
@@ -20,20 +19,10 @@ class AuthController extends Controller
         return Auth::user();
     }
 
-    public function logout(Request $request) {
-        $cookie = cookie('jwt', null, 0);
-        return response([
-            'message' => 'Success'
-        ])->withCookie($cookie);
-    }
-
     public function login(Request $request) {
-        $users = DB::collection('users')->skip(2)->take(2)->get();
-        error_log(json_encode($users));
         $input = $request->only('email', 'password');
-        $token = null;
 
-        if (!$token = JWTAuth::attempt($input)) {
+        if (!$token = FacadesJWTAuth::attempt($input)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid Email or Password',
@@ -48,34 +37,43 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        try {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'string', 'min:8'],
-                'repassword' => ['required', 'same:password']
-            ]);
-           
-            if ($validator->fails()) {
-                return response([$validator->getMessageBag()], Response::HTTP_BAD_REQUEST);   
-            } else {
-                $email = $request->input('email');
-                $user = User::where('email', '=', $email)->first();    
-                if ($user != null){
-                    return response(['message' => 'Email already exists'], Response::HTTP_CONFLICT);   
-                }  
-                else {
-                    User::create([
-                        'name' => $request->input('name'),
-                        'email' => $request->input('email'),
-                        'password' => Hash::make($request->input('password'))
-                    ]);
-                    return response(['message' => 'Success'], Response::HTTP_OK);   
-                }
+        $validator = $this->validateUser($request);     
+        if ($validator->fails()) {
+            return response([$validator->getMessageBag()], Response::HTTP_BAD_REQUEST);   
+        } else {
+            $email = $request->input('email');
+            $name = $request->input('name');
+            $password = $request->input('password');
+            $user = User::where('email', '=', $email)->first();    
+            if ($user != null){
+                return response(['message' => 'Email already exists'], Response::HTTP_CONFLICT);   
+            }  
+            else {
+                $this->createNewUser($name, $email, $password);
+                return response(['message' => 'Success'], Response::HTTP_OK); 
             }
-        } catch (Exception $e) {
-            return response(['message' => $e], Response::HTTP_BAD_REQUEST);   
         }
+    }
+
+    public function validateUser(Request $request) {
+        return Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+            'repassword' => ['required', 'same:password']
+        ]);
+    }
+
+    public function createNewUser($name, $email, $password) {
+        User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'imageAddress' => null,
+            'phoneNumber' => null,
+            'zaloURL' => null,
+            'facebookURL' => null
+        ]);  
     }
 
     public function loginWithGG(Request $request) { 
@@ -87,14 +85,10 @@ class AuthController extends Controller
             $name = $payload['name'];
             $user = User::where('email', '=', $email)->first();
             if (!$user){
-                User::create([
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => Hash::make(env('SECRET_PASS_FOR_GGLOGIN')),
-                ]);
+                $this->createNewUser($name, $email, env('SECRET_PASS_FOR_GGLOGIN'));
             } 
 
-            if(!$token = JWTAuth::attempt(['email' => $email,'password' => env('SECRET_PASS_FOR_GGLOGIN')])) {
+            if(!$token = FacadesJWTAuth::attempt(['email' => $email,'password' => env('SECRET_PASS_FOR_GGLOGIN')])) {
                 return response([
                     'message' => 'Invalid',
                 ], Response::HTTP_UNAUTHORIZED);

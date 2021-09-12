@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RentItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,21 +15,27 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-
-
-
-Route::post('/user',[AuthController::class, 'register']);
+Route::post('/register',[AuthController::class, 'register']);
 
 Route::post('/login',[AuthController::class, 'login']);
 
 Route::post('/logout',[AuthController::class, 'logout']);
 
-Route::post('/loginwithgg',[AuthController::class, 'loginWithGG']);
+Route::post('/loginWithGG',[AuthController::class, 'loginWithGG']);
+
+Route::get('/rentItems', [RentItemController::class, 'getAllRentItems']);
+
+Route::get('/blogItems', [BlogController::class, 'getAllBlogs']);
 
 Route::middleware('auth.jwt')->group(function () {
     Route::get('/user',[AuthController::class, 'user']);
+
+    Route::get('/userRentItems', [RentItemController::class, 'getAllUserRentItems']);
+
+    Route::get('/userBlogItems', [BlogController::class, 'getAllUserBlogs']);
+
 });
+
 
 
 

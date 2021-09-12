@@ -11,6 +11,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+
 class User extends Model implements AuthenticatableContract, JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, Authenticatable;
@@ -20,12 +21,25 @@ class User extends Model implements AuthenticatableContract, JWTSubject
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'imageAddress',
+        'phoneNumber',
+        'zaloURL',
+        'facebookURL',
+        'address'
     ];
 
     protected $hidden = [
         'password'
     ];
+
+    public function getAllUserRentItems() {
+        return $this->hasMany(RentItem::class, 'userID');
+    }
+
+    public function getAllUserBlogs() {
+        return $this->hasMany(Blog::class, 'userID');
+    }
 
     public function getJWTIdentifier()
     {
