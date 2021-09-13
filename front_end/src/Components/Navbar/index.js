@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './style.css'
 import logo from '../../assets/images/logo.png'
 import login from '../../assets/images/login.png'
 import {Link} from 'react-router-dom'
+import Dropdown from './Dropdown'
+const items = [{'name':'Thuê một người'},{'name':'Thuê nhiều người'}]
+
+
+
 function index() {
     return (
         <>
@@ -12,11 +17,11 @@ function index() {
 
                 <div className="navbar-menu">
                     <ul className="navbar-list">
-                        <li className="navbar-item">
+                        <li className="navbar-item active">
                             <Link to='/'>Trang Chủ</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to='/'>Thuê Trọ</Link>
+                            <Dropdown title='Thuê Trọ' items={items}/>
                         </li>
                         <li className="navbar-item">
                             <Link to='/'>Danh Sách</Link>

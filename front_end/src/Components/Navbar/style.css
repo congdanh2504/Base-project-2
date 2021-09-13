@@ -35,6 +35,41 @@
     align-items: flex-end;
     justify-content: space-between;
     margin-bottom: 0;
-    
-
+}
+.navbar-item{
+    font-weight: 500;  
+    opacity: .7;
+    transition: .1s;
+}
+.navbar-item.active, .navbar-item:hover{
+    opacity: 1;
+}
+.dropdown-menu{
+    position: relative;
+}
+.dropdown-list.active{
+    display: flex;
+    opacity: 1;
+    top: 20px;
+}
+.dropdown-title{
+    cursor: pointer;
+}
+.dropdown-list{
+    position: absolute;
+    width: 200px;
+    left: -20px;
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transition: .2s;
+    border-radius: 10px;
+    background-color: rgb(201, 201, 201);
+}
+.dropdown-item{
+    padding: 10px;
+    border-radius: 10px;
+}
+.dropdown-item:hover{
+    background-color: rgb(224, 224, 224);
 }
