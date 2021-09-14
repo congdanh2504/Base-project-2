@@ -14,8 +14,7 @@ class Blog extends Model
         'userID',
         'name',
         'html',
-        'imageAddress',
-        'blogID'
+        'imageAddress'
     ];
 
     public function user() {
