@@ -19,60 +19,14 @@ class RentItemController extends Controller
     }
 
     public function addRentItem(Request $request) {
-        $userID = $request->input('userID');
-        $price = $request->input('price');
-        $type = $request->input('type');
-        $name = $request->input('name');
-        $imagesAddress = $request->input('imagesAddress');
-        $address = $request->input('address');
-        $province = $request->input('province');
-        $description = $request->input('description');
-        $people = $request->input('people');
-        $rate = $request->input('rate');
-        $area = $request->input('area');
-        RentItem::create([
-            'userID' => $userID,
-            'price'=> $price,
-            'type' => $type,
-            'name' => $name,
-            'imagesAddress' => $imageAddress,
-            'address' => $address,
-            'province' => $province,
-            'description' => $description,
-            'people' => $people,
-            'rate' => $rate,
-            'area' => $area
-        ]);
+        RentItem::addRentItem($request);
     }
 
     public function updateRentItem(Request $request) {
-        $price = $request->input('price');
-        $type = $request->input('type');
-        $name = $request->input('name');
-        $imagesAddress = $request->input('imagesAddress');
-        $address = $request->input('address');
-        $province = $request->input('province');
-        $description = $request->input('description');
-        $people = $request->input('people');
-        $rate = $request->input('rate');
-        $area = $request->input('area');
-        RentItem::where('id', $id)
-        ->update([
-            'price'=> $price,
-            'type' => $type,
-            'name' => $name,
-            'imagesAddress' => $imageAddress,
-            'address' => $address,
-            'province' => $province,
-            'description' => $description,
-            'people' => $people,
-            'rate' => $rate,
-            'area' => $area
-        ]);
+        RentItem::updateRentItem($request);
     }
 
     public function deleteRentItem(Request $request) {
-        $id = $request->input('id');
-        RentItem::where('id', $id)->delete();
+        RentItem::deleteRentItem($request);
     }
 }

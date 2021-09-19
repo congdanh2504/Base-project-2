@@ -104,4 +104,22 @@ class AuthController extends Controller
             return response(['message' => 'Error'], Response::HTTP_BAD_REQUEST);   
         }
     }
+
+    public function updateProfile(Request $request) {
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $image = $request->file('imageAddress');
+        $imageAddress = ImageController::saveImage($image);
+        $phoneNumber = $request->input('phoneNumber');
+        $zaloURL = $request->input('zaloURL');
+        $facebookURL = $request->input('facebookURL');
+        User::where('id', $id)
+        ->update([
+            'name' => $name,
+            'imageAddress' => $imageAddress,
+            'phoneNumber' => $phoneNumber,
+            'zaloURL' => $zaloURL,
+            'facebookURL' => $facebookURL
+        ]);
+    }
 }
