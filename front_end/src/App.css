@@ -1,3 +1,4 @@
+
 .App{
   max-width: 1340px;
   margin: auto;
@@ -8,6 +9,7 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none;
 }
+
 ul{
   padding: 0;
 }
@@ -17,4 +19,8 @@ ul li{
 a{
   color: black;
   text-decoration: none;
+}
+p,h1,h2,h3,h4,h5,h6{
+  padding: 0;
+  margin: 0;
 }

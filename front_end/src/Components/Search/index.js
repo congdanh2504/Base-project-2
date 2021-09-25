@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 import banner from '../../assets/images/search-banner.jpg'
-import Dropdown from './Dropdown'
+import Dropdown from '../Dropdown'
 
 const options = {
 
