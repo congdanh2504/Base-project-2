@@ -8,7 +8,7 @@ const index = () => {
             <Link to="/" className="logo-image">
                 <img src={Logo} alt="" />
             </Link>
-            <div className="loginForm-container">
+            <form action="" method="POST" className="loginForm-container">
                 <h4>Đăng nhập</h4>
                 <label htmlFor="login-field">Tên tài khoản</label>
                 <input type="text" name="login-field"/>
@@ -16,9 +16,9 @@ const index = () => {
                 <input type="password" name="password-field" id="" />
                 <input type="submit" value="Đăng nhập" className="sign-button"/>
                 <Link to="/login">Bạn quên mật khẩu?</Link>
-            </div>
+            </form>
             <p className="login-callout">
-                Bạn là người mới? <Link to="/signup">Tạo tài khoản ngay</Link>.
+                Bạn là người mới? <Link to="/join">Tạo tài khoản ngay</Link>.
             </p>
         </div>
     )
