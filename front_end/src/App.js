@@ -11,14 +11,17 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path='/' exact component={Search,MostRent,Blog,Navbar} />
+          <Route path='/' exact >
+            <Navbar/>
+            <Search/>
+            <MostRent/>
+            <Blog/>
+          </Route>
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}></Route>
         </Switch>
       </Router>
-      {/* <Search/>
-      <MostRent/>
-      <Blog/> */}
+      
     </div>
   );
 }
