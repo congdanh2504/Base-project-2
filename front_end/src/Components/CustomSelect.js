@@ -25,23 +25,24 @@ option: (provided, state) => ({
   })
 }
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' },
+// ];
 
 
 
-export default function Dropdown(label) {
+export default function CustomSelect({label,opts}) {
 //   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <div style={defaultStyles}>
       <Select
         styles={customStyles}
-        defaultValue={label}
-        options={options}
+        defaultValue=""
+        placeholder={label}
+        options={opts}
         theme={selectTheme}
       />
     </div>

@@ -5,6 +5,7 @@ import MostRent from './Components/MostRent'
 import Blog from "./Components/Blog"
 import Login from "./Components/Login"
 import Join from "./Components/Login/Join"
+import Post from "./Components/Post"
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 function App() {
   return (
@@ -18,7 +19,11 @@ function App() {
             <Blog/>
           </Route>
           <Route path="/login" component={Login}/>
-          <Route path="/join" component={Join}></Route>
+          <Route path="/join" component={Join}/>
+          <Route path="/post">
+            <Navbar />
+            <Post />
+          </Route>
         </Switch>
       </Router>
       
