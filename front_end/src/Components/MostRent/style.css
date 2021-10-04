@@ -49,17 +49,15 @@
     width: 100%;
     object-fit: cover;
 }
-.row{
-    display: flex;
-    flex-direction: row;
-    padding: 20px 0;
-}
-.col{
+.card-detail-col{
     width: 33%;
 }
 .card-detail{
     border-bottom: 2px solid #E5E5E5;
     height: 70px;
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
 }
 .card-detail-desc{
     margin-top: 10px;
@@ -68,10 +66,14 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    
 }
 .card-price-label{
     display: flex;
     justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
 }
 .price{
     margin-bottom: 15px;

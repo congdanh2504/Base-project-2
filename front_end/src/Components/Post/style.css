@@ -1,0 +1,45 @@
+.post-address h1{
+    margin-left: 20px;
+}
+
+
+.post-address-detail{
+    display: flex;
+    flex-wrap: wrap;
+}
+.post-address-col{
+    margin: 10px;
+}
+.map{
+    width: 100%;
+}
+.map iframe{
+    object-fit: contain;
+}
+#post-address-input{
+    width: 200px;
+    border-radius: 15px;
+    border: 1px solid hsl(0, 0%, 80%);
+    height: 48px;
+    font-size: 1.1rem;
+    padding: 10px;
+    color: hsl(0, 0%, 10%);
+    box-sizing: border-box;
+}
+#post-address-input:focus{
+    outline: 2px solid #2684ff;
+}
+
+.post-input{
+    border-radius: 15px;
+    border: 1px solid hsl(0, 0%, 80%);
+    font-size: 1.1rem;
+    padding: 10px;
+    color: hsl(0, 0%, 10%);
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+.post-textarea{
+    height: 200px;
+    text-align:start
+}

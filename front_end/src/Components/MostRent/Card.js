@@ -9,8 +9,8 @@ const Card = (props) => {
                 </div>
                 <h2>{props.obj.title}</h2>
             </div>
-            <div className="card-detail row">
-                <div className="col">
+            <div className="card-detail">
+                <div className="card-detail-col">
                     <h5 className="card-detail-label">
                         Số người
                     </h5>
@@ -18,7 +18,7 @@ const Card = (props) => {
                         {props.obj.people}
                     </p>
                 </div>
-                <div className="col">
+                <div className="card-detail-col">
                     <h5 className="card-detail-label">
                         Diện tích
                     </h5>
@@ -26,7 +26,7 @@ const Card = (props) => {
                         {props.obj.area}
                     </p>
                 </div>
-                <div className="col">
+                <div className="card-detail-col">
                     <h5 className="card-detail-label">
                         Địa chỉ
                     </h5>
@@ -36,7 +36,7 @@ const Card = (props) => {
                 </div>
             </div>
             <div className="card-price">
-                <div className="card-price-label row">
+                <div className="card-price-label">
                     <h5 className="card-detail-label">Giá</h5>
                     <h5>#{rank++}</h5>
                 </div>

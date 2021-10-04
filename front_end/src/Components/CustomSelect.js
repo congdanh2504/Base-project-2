@@ -33,7 +33,7 @@ option: (provided, state) => ({
 
 
 
-export default function CustomSelect({label,opts}) {
+export default function CustomSelect({label,opts,onChange}) {
 //   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
@@ -43,6 +43,7 @@ export default function CustomSelect({label,opts}) {
         defaultValue=""
         placeholder={label}
         options={opts}
+        onChange={onChange}
         theme={selectTheme}
       />
     </div>
