@@ -25,6 +25,10 @@ const Join = () => {
                 <input type="submit" value="Đăng ký" className="sign-button"/>
                 
             </form>
+
+            <p className="login-callout">
+                Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>.
+            </p>
             
         </div>
     )
