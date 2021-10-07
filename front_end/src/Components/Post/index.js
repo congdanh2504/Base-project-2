@@ -3,6 +3,7 @@ import { useState } from 'react/cjs/react.development';
 import CustomSelect from '../CustomSelect'
 import "./style.css"
 import { Container,Row,Col,Form} from 'react-bootstrap';
+
 const options = [
     { value: 'da nang', label: 'da nang' },
     { value: 'hue', label: 'hue' },
@@ -103,9 +104,11 @@ const PostForm = () => {
                 <Form.Group as={Row} className="my-3">
                     <Form.Control type="submit" className="post-input mb-2 col-xl-12"/>
                 </Form.Group>
+                
             </div>
+            
         </Form>
-
+        
     )
 }
 const index = () => {
