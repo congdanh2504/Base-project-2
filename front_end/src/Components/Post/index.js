@@ -1,30 +1,50 @@
-import React from 'react'
-import { useState } from 'react/cjs/react.development';
+import React, { useEffect,useState } from 'react'
 import CustomSelect from '../CustomSelect'
 import "./style.css"
 import { Container,Row,Col,Form} from 'react-bootstrap';
-
-const options = [
-    { value: 'da nang', label: 'da nang' },
-    { value: 'hue', label: 'hue' },
-    { value: 'ha noi', label: 'ha noi' },
-];
+import {getDistricts, getProvinces, getWards} from '../../api/api'
 
 const PostForm = () => {
-    var defaultLocation = "viet_nam";
-    const [city, changeCity] = useState("");
-    const updateCity = (param) => changeCity(param.value)
-    const [district, changeDistrict] = useState("");
-    const updateDistrict = (param) => changeDistrict(param.value)
-    const [ward, changeWard] = useState("");
-    const updateWard = (param) => changeWard(param.value)
-    const [street, changeStreet] = useState("");
-    const updateStreet = (param) => changeStreet(param.value)
-    const [num, changeNum] = useState("");
-    const updateNum = (param) => changeNum(param.value)
-    if (city || district || ward || street || num) {
-        defaultLocation = `${num},${street},${ward},${district},${city}`
+
+    const [provinceOptions, changeProvinceOptions] = useState([]);
+    const [districtOptions, changeDistrictOptions] = useState([]);
+    const [wardOptions, changeWardOptions] = useState([]);
+    const [province, changeProvince] = useState("");
+    const updateProvince = (param) => {
+        changeProvince(param.label)
+        async function fetchDistricts() {
+            let response = await getDistricts(param.value)
+            changeDistrictOptions(response)
+        }
+        fetchDistricts()  
     }
+
+    const [district, changeDistrict] = useState("");
+    const updateDistrict = (param) => {
+        changeDistrict(param.label)
+        async function fetchWards() {
+            let response = await getWards(param.value)
+            changeWardOptions(response)
+        }
+        fetchWards()  
+    }    
+
+    const [ward, changeWard] = useState("");
+    const updateWard = (param) => changeWard(param.label)
+    const [street, changeStreet] = useState("");
+    const updateStreet = (param) => changeStreet(param.target.value)
+    const [num, changeNum] = useState("");
+    const updateNum = (param) => changeNum(param.target.value)
+    var defaultLocation = `${num},${street},${ward},${district},${province},viet_nam`;
+
+    useEffect(() => {
+        async function fetchProvinces() {
+            let response = await getProvinces()
+            changeProvinceOptions(response)
+        }
+        fetchProvinces()      
+    }, []) 
+
     return (
         <Form action=" " className="post-form" as={Row}>
 
@@ -35,21 +55,21 @@ const PostForm = () => {
                 
                 <Row className="post-address-row">
                     <Col className="post-address-detail" md={6}>
-                            <Col className="post-address-col">
-                                <CustomSelect label="Tỉnh/Thành phố" onChange={updateCity} opts={options} />
-                            </Col>
-                            <Col className="post-address-col">
-                                <CustomSelect label="Quận/Huyện" onChange={updateDistrict} opts={options} />
-                            </Col>
-                            <Col className="post-address-col">
-                                <CustomSelect label="Phường/Xã" onChange={updateWard} opts={options} />
-                            </Col>
-                            <Col className="post-address-col">
-                                <CustomSelect label="Đường/Phố" onChange={updateStreet} opts={options} />
-                            </Col>
-                            <Col className="post-address-col">
-                                <input type="text" placeholder="Số nhà" id="post-address-input" onChange={updateNum} />
-                            </Col>
+                        <Col className="post-address-col">
+                            <CustomSelect label="Tỉnh/Thành phố" onChange={updateProvince} opts={provinceOptions} />
+                        </Col>
+                        <Col className="post-address-col">
+                            <CustomSelect label="Quận/Huyện" onChange={updateDistrict} opts={districtOptions} />
+                        </Col>
+                        <Col className="post-address-col">
+                            <CustomSelect label="Phường/Xã" onChange={updateWard} opts={wardOptions} />
+                        </Col>
+                        <Col className="post-address-col">
+                        <input type="text" placeholder="Đường/Phố" id="post-address-input" onChange={updateStreet} />
+                        </Col>
+                        <Col className="post-address-col">
+                            <input type="text" placeholder="Số nhà" id="post-address-input" onChange={updateNum} />
+                        </Col>
                         
                     </Col>
 
