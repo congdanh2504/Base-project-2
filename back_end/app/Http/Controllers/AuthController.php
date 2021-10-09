@@ -16,7 +16,8 @@ use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 class AuthController extends Controller
 {
     public function user() {
-        return Auth::user();
+        $user = Auth::user();
+        return $user;
     }
 
     public function login(Request $request) {

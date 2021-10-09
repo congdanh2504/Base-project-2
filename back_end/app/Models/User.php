@@ -25,12 +25,18 @@ class User extends Model implements AuthenticatableContract, JWTSubject
         'phoneNumber',
         'zaloURL',
         'facebookURL',
-        'address'
+        'address',
+        'rentItems',
+        'blogs'
     ];
 
     protected $hidden = [
         'password'
     ];
+
+    public function addRentItemId($id) {
+        
+    }
 
     public function getAllUserRentItems() {
         return $this->hasMany(RentItem::class, 'userID');
