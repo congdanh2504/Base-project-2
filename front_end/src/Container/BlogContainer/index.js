@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap';
-import Navbar from '../Components/Navbar'
+import Navbar from '../../Components/Navbar'
 import { Link } from 'react-router-dom';
 import "./style.css"
 const blogButton = {
@@ -23,7 +23,7 @@ const blogContainer = {
 const imageHeight = {
     height: "400px"
 }
-const BlogContainer = () => {
+const index = () => {
     return (
         <div>
             <Navbar />
@@ -85,8 +85,7 @@ const BlogContainer = () => {
                             <div className="blog-sub-content mt-3">
                                 <p>Bởi <Link to="/">asdasd</Link></p>
                                 <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-                                <p className="text-overflow-4 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, impedit deleniti, ipsa necessitatibus maiores possimus ratione voluptatem iste illum consequuntur enim, incidunt ex fugiat inventore expedita libero magnam! Inventore, omnis?
-                                    Iusto eius ad delectus, cumque tempore, amet ea, unde fugiat quia quibusdam ab magnam incidunt quam totam. Rerum iusto similique sequi molestiae fuga at dolorem minus, praesentium porro corporis possimus.</p>
+                                <p className="text-overflow-4 mt-2">quam totam. Rerum iusto similique sequi molestiae fuga at dolorem minus, praesentium porro corporis possimus.</p>
                             </div>
                         </div>
                     </Link>
@@ -115,8 +114,8 @@ const BlogContainer = () => {
                             <div className="blog-sub-content mt-3">
                                 <p>Bởi <Link to="/">asdasd</Link></p>
                                 <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-                                <p className="text-overflow-4 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, impedit deleniti, ipsa necessitatibus maiores possimus ratione voluptatem iste illum consequuntur enim, incidunt ex fugiat inventore expedita libero magnam! Inventore, omnis?
-                                    Iusto eius ad delectus, cumque tempore, amet ea, unde fugiat quia quibusdam ab magnam incidunt quam totam. Rerum iusto similique sequi molestiae fuga at dolorem minus, praesentium porro corporis possimus.</p>
+                                <p className="text-overflow-4 mt-2">dm consequuntur enim, incidunt ex fugiat inventore expedita libero magnam! Inventore, omnis?
+                                    </p>
                             </div>
                         </div>
                     </Link>
@@ -131,7 +130,7 @@ const BlogContainer = () => {
                                 <p>Bởi <Link to="/">asdasd</Link></p>
                                 <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
                                 <p className="text-overflow-4 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, impedit deleniti, ipsa necessitatibus maiores possimus ratione voluptatem iste illum consequuntur enim, incidunt ex fugiat inventore expedita libero magnam! Inventore, omnis?
-                                    Iusto eius ad delectus, cumque tempore, amet ea, unde fugiat quia quibusdam ab magnam incidunt quam totam. Rerum iusto similique sequi molestiae fuga at dolorem minus, praesentium porro corporis possimus.</p>
+                                    </p>
                             </div>
                         </div>
                     </Link>
@@ -143,4 +142,4 @@ const BlogContainer = () => {
     )
 }
 
-export default BlogContainer
+export default index;

@@ -1,5 +1,4 @@
 import React from 'react'
-var rank = 1;
 const Card = (props) => {
     return(
         <div className="card-container">
@@ -38,7 +37,6 @@ const Card = (props) => {
             <div className="card-price">
                 <div className="card-price-label">
                     <h5 className="card-detail-label">Giá</h5>
-                    <h5>#{rank++}</h5>
                 </div>
                 <p className="price">{props.obj.price} VND/Tháng</p>
                 

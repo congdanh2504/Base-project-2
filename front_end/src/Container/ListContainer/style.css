@@ -1,0 +1,22 @@
+
+.form-label{
+    width: 100%;
+    padding: 0 5px;
+}
+.form-control{
+    border-radius: 15px;
+    border: 1px solid hsl(0, 0%, 80%);
+    padding: 15px;
+    color: hsl(0, 0%, 10%);
+    box-sizing: border-box;
+}
+.list-search-container{
+    color: white;
+    border-radius: 10px;
+    background-color: #4c94ff;
+    padding: 15px 10px;
+    margin: 20px;
+}
+.list-card-container{
+    margin: 20px 0;
+}
