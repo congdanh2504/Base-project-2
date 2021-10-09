@@ -1,0 +1,22 @@
+{
+    "id": "1",
+    "userId": "1",
+    "price": 200,
+    "type": "house",
+    "name": "3-Bedrooms Modern House For Rent in Hoi An",
+    "imagesAddress": {
+        "imageAddress1": "storage/rentItems/example1.png",
+        "imageAddress2": "storage/rentItems/example2.png",
+        "imageAddress3": "storage/rentItems/example3.png"
+    },
+    "address": {
+        "province": "Hue",
+        "district": "Phu Loc",
+        "wards": "Loc Tien"
+    },
+    "description": "Fully equipped- Kitchen with full utensils, dishes, laundry machine and dryer, air conditioner,...",
+    "rate": 4,
+    "area": 300,
+    "people": 3
+}
+
