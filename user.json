@@ -1,0 +1,16 @@
+{
+    "id": "1",
+    "name": "Truong Cong Danh",
+    "password": "$2y$10$4t15L5.ACbMUIOjNhyMw.OzHkdsXhA3EZ/wkFUNrGc9EBrK5Aiw9C",
+    "imageAddress": "storage/users/example.png",
+    "phoneNumber": "01254995675",
+    "zaloUrl": "https://zalo.me/01254995675",
+    "facebookUrl": "https://www.facebook.com/congdanh254",
+    "address": {
+        "province": "Hue",
+        "district": "Phu Loc",
+        "wards": "Loc Tien"
+    }
+}
+
+
