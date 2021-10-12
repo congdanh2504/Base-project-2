@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../assets/images/logo.png'
+import Logo from '../../assets/images/logo-black.png'
 import {Link} from 'react-router-dom'
 import "./style.css"
 const Join = () => {

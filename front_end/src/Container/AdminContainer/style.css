@@ -1,0 +1,118 @@
+.navbar{
+    width:100%;
+    height: 50px;
+    background-color: #0d6efd;
+    color: white;
+    padding: 0 20px;
+    padding-top: 5px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+}
+.navbar-logo img{
+    height: 100%;
+}
+.navbar .left,.navbar .right{
+    display: flex;
+    align-items: center;
+}
+.navbar .right{
+    justify-content: flex-end;
+}
+#admin-nav-logo{
+    height: 50px;
+}
+.searchbar-container{
+    padding-left: 20px;
+}
+.searchbar{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    background-color: #71a9fd;
+    border-radius: 3px;
+    padding: 5px;
+}
+.searchbar:hover{
+    background-color: white;
+    color: #9b9b9b;
+}
+.searchbar input{
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    transition: .2s;
+}
+
+.searchbar input::placeholder{
+    color: inherit;
+}
+.sidebar-icon svg{
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.sidebar-icon svg:hover{
+    background-color: #71a9fd;
+}
+.sidebar{
+    display: block;
+    background-color: gainsboro;
+    height: calc(100vh - 50px);
+    font-size: 1.2rem;
+    position: fixed;
+    position: relative;
+    top: 0;
+    left: -250px;
+    transition: 500ms;
+    width: 250px;
+    box-sizing: border-box;
+    border-radius: 0px 10px 10px 0px;
+    padding: 20px;
+}
+.sidebar.active{
+    
+    left: 0;
+    transition: 200ms;
+}
+.sidebar-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.sidebar-toggle{
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+.sidebar-item{
+    padding: 1rem 0;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+.sidebar-item a{
+    padding: 1rem 1rem;
+}
+.sidebar-item:hover{
+    background-color: #c5c5c5;
+}
+.admin-page{
+    width: 1000px !important;
+    margin-left: 0;
+    margin-top: 50px;
+    transition: margin-left .2s ease-in-out;
+    padding: 0;
+}
+.admin-page.on{
+    margin-left:200px;
+}
+@keyframes margin-left {
+    
+}
+.admin-mainpage{
+    display: flex;
+}

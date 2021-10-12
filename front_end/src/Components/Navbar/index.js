@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import './style.css'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo-black.png'
 import login from '../../assets/images/login.png'
 import {NavLink} from 'react-router-dom'
 import Dropdown from './Dropdown'

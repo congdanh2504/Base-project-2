@@ -9,6 +9,7 @@ import Post from "./Components/Post"
 import PostBlog from "./Components/PostBlog"
 import BlogContainer from './Container/BlogContainer';
 import ListContainer from './Container/ListContainer';
+import AdminContainer from './Container/AdminContainer';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/blog" component={BlogContainer}/>
           <Route path="/postBlog" component={PostBlog}/>
           <Route path="/List" component={ListContainer}/>
+          <Route path="/Admin" component={AdminContainer}/>
           <Route path="/post">
             <Navbar />
             <Post />
