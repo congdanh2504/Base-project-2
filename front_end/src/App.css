@@ -9,6 +9,7 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 kbd {
   background-color: #eee;

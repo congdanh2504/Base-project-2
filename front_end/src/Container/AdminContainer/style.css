@@ -154,3 +154,17 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.user-item span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.admin-table-header>*{
+    padding: 0;
+}
+.blog-item-image{
+    width: 70px;
+    height: 50px;
+}
