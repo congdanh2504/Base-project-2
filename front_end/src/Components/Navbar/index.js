@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo-black.png'
 import login from '../../assets/images/login.png'
 import {NavLink} from 'react-router-dom'
 import Dropdown from './Dropdown'
+import { getUser } from '../../api/Common'
 
 const dropdownItems = [{'name':'Thuê một người'},{'name':'Thuê nhiều người'}]
 
@@ -35,6 +36,7 @@ function index() {
                         </li>
                     </ul>
                 </div>
+                    <h3>{getUser() && getUser().name}</h3>   
                     <NavLink to='/login' className="navbar-login"><img src={login} alt="" /></NavLink>
             </div>   
         </>
