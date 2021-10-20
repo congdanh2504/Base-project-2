@@ -10,22 +10,18 @@ const blogButton = {
     border: "none",
     cursor: "pointer",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-    // position:"absolute",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#e3e3e3",
     float: "right",
 }
-// const blogContainer = {
-//     margin: "50px 10px"
-// }
 const imageHeight = {
     height: "400px"
 }
 const index = () => {
     return (
-        <div>
+        <>
             <Navbar />
             <div className="content-container">
             <Row className="mt-5">
@@ -140,7 +136,7 @@ const index = () => {
             </Row>
             </div>
 
-        </div>
+        </>
     )
 }
 

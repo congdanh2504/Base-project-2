@@ -46,7 +46,7 @@ const PostForm = () => {
     }, [])
 
     return (
-        <div className="content-container">
+        <div className="post-content-container">
             <Form action=" " className="post-form" as={Row}>
                 <Row className="my-5">
                     <h1 className="main-content-title">Đăng bài</h1>

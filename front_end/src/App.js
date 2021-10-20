@@ -1,7 +1,5 @@
 import './App.css';
 import Navbar from './Components/Navbar'
-import Search from './Components/Search'
-import MostRent from './Components/MostRent'
 import Blog from "./Components/Blog"
 import Login from "./Components/Login"
 import Join from "./Components/Login/Join"
@@ -10,6 +8,7 @@ import PostBlog from "./Components/PostBlog"
 import BlogContainer from './Container/BlogContainer';
 import ListContainer from './Container/ListContainer';
 import AdminContainer from './Container/AdminContainer';
+import MainContainer from './Container/MainContainer'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 function App() {
   return (
@@ -17,10 +16,11 @@ function App() {
       <Router>
         <Switch>
           <Route path='/' exact >
-            <Navbar/>
+          <MainContainer />
+            {/* <Navbar/>
             <Search/>
             <MostRent/>
-            <Blog/>
+            <Blog/> */}
           </Route>
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}/>

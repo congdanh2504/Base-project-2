@@ -1,44 +1,59 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import './style.css'
 import logo from '../../assets/images/logo-black.png'
 import login from '../../assets/images/login.png'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Dropdown from './Dropdown'
 import { getUser } from '../../api/Common'
 
-const dropdownItems = [{'name':'Thuê một người'},{'name':'Thuê nhiều người'}]
+const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhiều người' }]
 
+function DisplayUser({ user }) {
+    if (user) {
+        return (
+            <div className="navbar-login">
+                <NavLink to='/' ><img src={user.imageAddress} alt="" /></NavLink>
+            </div>
+        )
+    } else {
+        return (
+            <div className="navbar-login">
+                <NavLink to='/login' ><img src={login} alt="" /></NavLink>
+            </div>
+        )
 
+    }
+}
 
 function index() {
     return (
         <>
             <div className="navbar-container">
                 <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
-                    
+
 
                 <div className="navbar-menu">
                     <ul className="navbar-list">
                         <li >
-                            <NavLink  className="navbar-item" activeClassName="navbar-item-active" to='/' exact>Trang Chủ</NavLink>
+                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/' exact>Trang Chủ</NavLink>
                         </li>
                         <li className="navbar-item">
-                            <Dropdown  title='Thuê Trọ' items={dropdownItems}/>
+                            <Dropdown title='Thuê Trọ' items={dropdownItems} />
                         </li>
                         <li >
-                            <NavLink  className="navbar-item" activeClassName="navbar-item-active" to='/List' exact>Danh Sách</NavLink>
+                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/List' exact>Danh Sách</NavLink>
                         </li>
                         <li >
-                            <NavLink  className="navbar-item" activeClassName="navbar-item-active" to='/Blog'>Blog</NavLink>
+                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Blog'>Blog</NavLink>
                         </li>
                         <li >
-                            <NavLink  className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
+                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
                         </li>
                     </ul>
                 </div>
-                    <h3>{getUser() && getUser().name}</h3>   
-                    <NavLink to='/login' className="navbar-login"><img src={login} alt="" /></NavLink>
-            </div>   
+                <DisplayUser user={getUser()} />
+
+            </div>
         </>
     )
 }
