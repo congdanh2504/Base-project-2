@@ -4,14 +4,14 @@ import logo from '../../assets/images/logo-white.png'
 import { Row, Col } from 'react-bootstrap';
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
-import { SidebarData } from './SidebarData'
+import { SidebarData } from './SidebarData' 
 import { Router, Switch, Route, useRouteMatch } from 'react-router-dom'
 import ManageUser from './ManageUser';
 import ManageBlog from './ManageBlog';
 import ManagePost from './ManagePost';
 import "./style.css"
 const Index = () => {
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
     let { path, url } = useRouteMatch();
     return (

@@ -17,9 +17,9 @@ const blogButton = {
     backgroundColor: "#e3e3e3",
     float: "right",
 }
-const blogContainer = {
-    margin: "50px 10px"
-}
+// const blogContainer = {
+//     margin: "50px 10px"
+// }
 const imageHeight = {
     height: "400px"
 }
@@ -27,8 +27,9 @@ const index = () => {
     return (
         <div>
             <Navbar />
-            <Row style={blogContainer}>
-                <Col xs="10"><h1>Blog</h1></Col>
+            <div className="content-container">
+            <Row className="mt-5">
+                <Col xs="10"><h1 className="main-content-title">Blog</h1></Col>
                 <Col ><Link style={blogButton} to="postBlog"><i class="fas fa-plus-square"></i>&#160; Đăng blog</Link></Col>
             </Row>
             <Row className="my-4">
@@ -137,6 +138,7 @@ const index = () => {
                 </Col>
                 
             </Row>
+            </div>
 
         </div>
     )

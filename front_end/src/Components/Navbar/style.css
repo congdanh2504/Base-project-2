@@ -1,6 +1,7 @@
 .navbar-container{
     position: relative;
-    width: 100%;
+    width: 1430px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;

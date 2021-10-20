@@ -63,3 +63,9 @@ p,h1,h2,h3,h4,h5,h6{
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
+.main-content-title{
+}
+.content-container{
+  width: 1430px;
+  margin: auto;
+}
