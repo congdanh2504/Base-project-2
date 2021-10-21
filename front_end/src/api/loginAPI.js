@@ -19,7 +19,7 @@ export const login = (email, password, setError, history) => {
     })
 }
 
-export const register = (email, username, password, repassword, setEmailError, setUsernameError, setPasswordError, setRepasswordError, history) => {
+export const register = (email, username, password, rePassword, setEmailError, setUsernameError, setPasswordError, setRePasswordError, history) => {
     axios({
         method: 'post',
         url:  `${BASE_URL}register`,
@@ -29,21 +29,17 @@ export const register = (email, username, password, repassword, setEmailError, s
             email: email,
             name: username,
             password: password,
-            repassword: repassword,
+            repassword: rePassword,
             type: "Employer"
         }
     }).then(response => {
         history.push("/login")
     }).catch(error => {
         if (error.response.status === 409 || error.response.status === 400) {
-            try {
-                setEmailError(error.response.data[0].email)
-                setUsernameError(error.response.data[0].name)
-                setPasswordError(error.response.data[0].password)
-                setRepasswordError(error.response.data[0].repassword)
-            } catch ($e) {
-                setEmailError("Email is already use")
-            }
+            setEmailError(error.response.data[0].email)
+            setUsernameError(error.response.data[0].name)
+            setPasswordError(error.response.data[0].password)
+            setRePasswordError(error.response.data[0].repassword)
         }
     })
 }

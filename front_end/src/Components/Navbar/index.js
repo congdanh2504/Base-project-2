@@ -12,7 +12,7 @@ function DisplayUser({ user }) {
     if (user) {
         return (
             <div className="navbar-login">
-                <NavLink to='/' ><img src={user.imageAddress} alt="" /></NavLink>
+                <NavLink to='/' ><img src={user.imageAddress ? user.imageAddress : login} alt="" /></NavLink>
             </div>
         )
     } else {

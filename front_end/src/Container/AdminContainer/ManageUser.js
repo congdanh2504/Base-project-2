@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import { Row, Col } from 'react-bootstrap';
 
-
-
 const UserItem = ({ item }) => {
     return (
-        <Row className="user-item">
+        <div className="row user-item">
             <Col xl="1"><div className="object-cover user-item-image"><img src={item.avatar} alt="" /></div></Col>
             <Col xl="2"><span className="user-item-name">{item.name}</span></Col>
             <Col xl="3"><span className="user-item-address" title={item.address}>{item.address}</span></Col>
             <Col xl="2"><span className="user-item-phone">{item.phoneNum}</span></Col>
             <Col xl="2"><span className="user-item-date">{item.dateAdd}</span></Col>
             <Col xl="2"><button className="user-item-delete">Xóa người dùng</button></Col>
-        </Row>
+        </div>
     )
 }
 
