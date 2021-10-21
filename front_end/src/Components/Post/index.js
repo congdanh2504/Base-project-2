@@ -46,7 +46,7 @@ const PostForm = () => {
     }, [])
 
     return (
-        <div className="post-content-container">
+        <div className="content-container">
             <Form action=" " className="post-form" as={Row}>
                 <Row className="my-5">
                     <h1 className="main-content-title">Đăng bài</h1>
@@ -78,8 +78,6 @@ const PostForm = () => {
 
                         <Col className="map">
                             <iframe
-                                width="600"
-                                height="450"
                                 loading="lazy"
                                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBT-FcupKSzJG1IuC4ZtNyQ-Qg0rdoY47k&q=${defaultLocation}`}>
                             </iframe>

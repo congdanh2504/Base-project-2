@@ -19,6 +19,9 @@
     padding: 15px 10px;
     margin: 20px;
 }
+.list-search-container>*{
+    padding: .5rem;
+}
 .list-card-container{
     margin: 20px 0;
 }

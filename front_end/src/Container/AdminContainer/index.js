@@ -26,7 +26,7 @@ const Index = () => {
                     </Col>
                 </Col>
 
-                <Col className="right">
+                <Col  className="right">
                     <div className="searchbar-container">
                         <div className="searchbar" >
                             <AiIcons.AiOutlineSearch />
@@ -42,7 +42,7 @@ const Index = () => {
                         {SidebarData.map((item, index) => {
                             return (
                                 <li key={index} className="sidebar-item">
-                                    <Link to={`${url + item.path}`}>{item.icon} <span>{item.label}</span></Link>
+                                    <Link activeClassName="navbar-item-active" to={`${url + item.path}`}>{item.icon} <span>{item.label}</span></Link>
                                 </li>
                             )
                         })}
