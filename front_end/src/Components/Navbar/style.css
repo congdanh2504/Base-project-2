@@ -26,7 +26,6 @@
     width: 500px;
 }
 .navbar-login{
-    width: 70px;
     position: relative;
 }
 .navbar-login img{
@@ -89,7 +88,8 @@
     display: none;
     border-radius: 10px;
     padding: 10px;
-    left: -60px;
+    right: 5px;
+    width: 200px;
     position: absolute;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -99,11 +99,60 @@
     
 }
 .user-dropdown-item{
+    display: flex;
+    align-items: center;
     padding: 10px;
     cursor: pointer;
     border-radius: 10px;
     font-weight: bold;
 }
+.user-dropdown-item span{
+    padding-left: 20px;
+}
 .user-dropdown-item:hover{
     background-color: rgb(240, 240, 240);
+}
+.login-button{
+    box-sizing: border-box;
+    position: relative;
+    border: none;
+    width: 120px;
+    padding: 15px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    /* background: linear-gradient(90deg,#0061FF,#5f9cff); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    transition: .5s;
+    animation: login-button-fx .3s forwards;
+    overflow: hidden;
+    background-color: transparent;
+}
+.login-button:after {
+    content: '';
+    display: block;
+    z-index: -1;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: -2rem; right: 0; bottom: -2rem; left: -1rem;
+    background-image: linear-gradient(90deg,#0061FF,#75aaff);
+    animation: unrotate-gradient  .3s forwards   ;
+  }
+  
+  @keyframes rotate-gradient {
+    from{transform: rotate(0deg);}
+    to { transform: rotate(120deg) }
+  }
+  @keyframes unrotate-gradient {
+    from{transform: rotate(120deg);}
+    to { transform: rotate(0deg) }
+  }
+.login-button:hover.login-button:after{
+    animation: rotate-gradient  .3s forwards;
+}
+.navbar-profile-image img{
+    width:  50px;
+    height: 50px;
 }

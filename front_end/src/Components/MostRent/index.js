@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { getProvinces } from '../../api/api'
 import './style.css'
 import CustomSelect from '../CustomSelect'
 import Card from './Card'
+
 const MostRent = () => {
     const list = [
         {
@@ -53,11 +55,19 @@ const MostRent = () => {
             "price" : 10000000,
         },
     ]
+    const [provinceOptions, changeProvinceOptions] = useState([]);
+    useEffect(() => {
+        async function fetchProvinces() {
+            let response = await getProvinces()
+            changeProvinceOptions(response)
+        }
+        fetchProvinces()
+    }, [])
     return (
         <div className='mostRent-container'>
             <h1>Nhà trọ được thuê nhiều</h1>
             <div className="rent-dropdown">
-                <CustomSelect label='Thành phố' />
+                <CustomSelect label='Thành phố' opts={provinceOptions}/>
             </div>
 
             <div className="CardList-container">

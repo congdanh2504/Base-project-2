@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './style.css'
 import logo from '../../assets/images/logo-black.png'
-import login from '../../assets/images/login.png'
 import { NavLink } from 'react-router-dom'
 import Dropdown from './Dropdown'
 import { getUser } from '../../api/Common'
+import * as FiIcons from 'react-icons/fi'
+import * as BiIcons from 'react-icons/bi'
 
 const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhiều người' }]
 
@@ -14,10 +15,11 @@ function DisplayUser({ user }) {
     if (user) {
         return (
             <div className="navbar-login">
-                <NavLink to='/' onClick={changeUserMenu} ><img src={user.imageAddress ? user.imageAddress : login} alt="" /></NavLink>
+                <NavLink to='/' onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></NavLink>
                 <div className={userMenu?"user-dropdown active":"user-dropdown"}>
                     <ul className="user-dropdown-list">
-                        <li className="user-dropdown-item">Đăng xuất</li>
+                        <li className="user-dropdown-item" ><BiIcons.BiUserPin/> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
+                        <li className="user-dropdown-item"><FiIcons.FiLogOut/> <span>Đăng xuất</span> </li>
                     </ul>
                 </div>
 
@@ -26,7 +28,9 @@ function DisplayUser({ user }) {
     } else {
         return (
             <div className="navbar-login">
-                <NavLink to='/login' ><img src={login} alt="" /></NavLink>
+                <NavLink to='/login' >
+                    <button className="login-button">Đăng nhập</button>
+                </NavLink>
             </div>
         )
 
