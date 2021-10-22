@@ -6,6 +6,7 @@ import Dropdown from './Dropdown'
 import { getUser } from '../../api/Common'
 import * as FiIcons from 'react-icons/fi'
 import * as BiIcons from 'react-icons/bi'
+import * as AiIcons from 'react-icons/ai'
 
 const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhiều người' }]
 
@@ -15,13 +16,17 @@ function DisplayUser({ user }) {
     if (user) {
         return (
             <div className="navbar-login">
-                <NavLink to='/' onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></NavLink>
-                <div className={userMenu?"user-dropdown active":"user-dropdown"}>
-                    <ul className="user-dropdown-list">
-                        <li className="user-dropdown-item" ><BiIcons.BiUserPin/> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
-                        <li className="user-dropdown-item"><FiIcons.FiLogOut/> <span>Đăng xuất</span> </li>
-                    </ul>
+                <AiIcons.AiOutlineBell title="Notifications"/>
+                <div>
+                    <NavLink to='/' onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></NavLink>
+                    <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
+                        <ul className="user-dropdown-list">
+                            <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
+                            <li className="user-dropdown-item"><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
+                        </ul>
+                    </div>
                 </div>
+
 
             </div>
         )
@@ -64,6 +69,7 @@ function index() {
                     </ul>
                 </div>
                 <DisplayUser user={getUser()} />
+
 
             </div>
         </>
