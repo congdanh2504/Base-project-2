@@ -10,8 +10,23 @@ import ListContainer from './Container/ListContainer';
 import AdminContainer from './Container/AdminContainer';
 import MainContainer from './Container/MainContainer'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { getToken } from './api/Common';
+import { getUserAuth } from './api/loginAPI';
 
 function App() {
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    if (!getToken) {
+      return;
+    } else {
+      getUserAuth(setAuthLoading);
+    }
+  }, []);
+
+  if (authLoading && getToken() != null) return <div>Authentication</div>;
+
   return (
     <div className="App">
       <Router>

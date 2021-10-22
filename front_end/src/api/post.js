@@ -26,3 +26,21 @@ export const addRentItem = (rentItem, setMessage) => {
         setMessage("Thành công")
     })
 }
+
+export const addBlog = (blog, setMessage) => {
+    var formData = new FormData();
+    formData.append('image', blog.image)
+    formData.append('document', JSON.stringify({
+        title: blog.title,
+        description: blog.description,
+        content: blog.content,
+    }))
+    axios({
+        method: 'post',
+        url: `${BASE_URL}addBlog?token=${getToken()}`,
+        headers: {'Content-Type': 'multipart/form-data'},
+        data: formData
+    }).then(res => {
+        setMessage("Thành công")
+    })
+}

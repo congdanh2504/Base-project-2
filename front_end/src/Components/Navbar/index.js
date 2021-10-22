@@ -10,6 +10,7 @@ const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhi�
 
 function DisplayUser({ user }) {
     if (user) {
+        console.log(user.imageAddress)
         return (
             <div className="navbar-login">
                 <NavLink to='/' ><img src={user.imageAddress ? user.imageAddress : login} alt="" /></NavLink>

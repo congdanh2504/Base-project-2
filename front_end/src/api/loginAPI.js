@@ -64,7 +64,7 @@ export const loginWithGG = (idToken, setError, history) => {
     })
 }
 
-export const getUser = (setAuthLoading) => {
+export const getUserAuth = (setAuthLoading) => {
     axios({
       method: 'get',
       url: `${BASE_URL}user?token=${getToken()}`,
