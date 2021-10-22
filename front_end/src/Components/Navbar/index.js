@@ -9,11 +9,18 @@ import { getUser } from '../../api/Common'
 const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhiều người' }]
 
 function DisplayUser({ user }) {
+    const [userMenu, setUserMenu] = useState(false);
+    const changeUserMenu = () => setUserMenu(!userMenu);
     if (user) {
-        console.log(user.imageAddress)
         return (
             <div className="navbar-login">
-                <NavLink to='/' ><img src={user.imageAddress ? user.imageAddress : login} alt="" /></NavLink>
+                <NavLink to='/' onClick={changeUserMenu} ><img src={user.imageAddress ? user.imageAddress : login} alt="" /></NavLink>
+                <div className={userMenu?"user-dropdown active":"user-dropdown"}>
+                    <ul className="user-dropdown-list">
+                        <li className="user-dropdown-item">Đăng xuất</li>
+                    </ul>
+                </div>
+
             </div>
         )
     } else {
