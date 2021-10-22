@@ -13,6 +13,7 @@ import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { getToken } from './api/Common';
 import { getUserAuth } from './api/loginAPI';
+import Loading from './Components/Loading';
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -25,7 +26,7 @@ function App() {
     }
   }, []);
 
-  if (authLoading && getToken() != null) return <div>Authentication</div>;
+  if (authLoading && getToken() != null) return <Loading/>;
 
   return (
     <div className="App">

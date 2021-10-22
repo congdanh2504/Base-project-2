@@ -3,7 +3,8 @@ import './style.css'
 import logo from '../../assets/images/logo-black.png'
 import { NavLink } from 'react-router-dom'
 import Dropdown from './Dropdown'
-import { getUser } from '../../api/Common'
+import { useHistory } from 'react-router'
+import { getUser, removeUserSession } from '../../api/Common'
 import * as FiIcons from 'react-icons/fi'
 import * as BiIcons from 'react-icons/bi'
 import * as AiIcons from 'react-icons/ai'
@@ -13,6 +14,14 @@ const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhi�
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
     const changeUserMenu = () => setUserMenu(!userMenu);
+    const history = useHistory()
+
+    const logout = () => {
+        removeUserSession()
+        history.push('/login')
+        window.location.reload()     
+    }
+
     if (user) {
         return (
             <div className="navbar-login">
@@ -22,7 +31,7 @@ function DisplayUser({ user }) {
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
                             <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
-                            <li className="user-dropdown-item"><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
+                            <li className="user-dropdown-item" onClick={logout}><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
                         </ul>
                     </div>
                 </div>
