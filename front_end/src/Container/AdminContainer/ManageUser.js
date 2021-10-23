@@ -16,8 +16,7 @@ const UserItem = ({ item }) => {
             <Col xl="2" className="user-item-date"><span >{item.dateAdd}</span></Col>
             
             <Col xl="2" lg="2" md="3" sm="2" xs="4"><button className="user-item-delete">Xóa người dùng</button></Col>
-        </Row>
-
+        </Row>        
     )
 }
 

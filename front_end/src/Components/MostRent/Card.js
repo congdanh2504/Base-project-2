@@ -4,7 +4,7 @@ const Card = (props) => {
         <div className="card-container">
             <div className="card-title">
                 <div className="card-image">
-                    <img src={props.obj.image} />
+                    <img src={props.obj.imagesAddress.path1} />
                 </div>
                 <h2>{props.obj.title}</h2>
             </div>
@@ -14,7 +14,7 @@ const Card = (props) => {
                         Số người
                     </h5>
                     <p className="card-detail-desc">
-                        {props.obj.people}
+                        {props.obj.people} người
                     </p>
                 </div>
                 <div className="card-detail-col">
@@ -22,7 +22,7 @@ const Card = (props) => {
                         Diện tích
                     </h5>
                     <p className="card-detail-desc">
-                        {props.obj.area}
+                        {props.obj.area} (m<sup>2</sup>)
                     </p>
                 </div>
                 <div className="card-detail-col">
@@ -30,7 +30,7 @@ const Card = (props) => {
                         Địa chỉ
                     </h5>
                     <p className="card-detail-desc">
-                        {props.obj.address}
+                        {props.obj.address.province}
                     </p>
                 </div>
             </div>
@@ -38,7 +38,7 @@ const Card = (props) => {
                 <div className="card-price-label">
                     <h5 className="card-detail-label">Giá</h5>
                 </div>
-                <p className="price">{props.obj.price} VND/Tháng</p>
+                <p className="price">{props.obj.amount} VND/Tháng</p>
                 
             </div>
         </div>

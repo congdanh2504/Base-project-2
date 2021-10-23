@@ -8,51 +8,63 @@ const MostRent = () => {
     const list = [
         {
             'title' : "nha pro vjp ehehehe hehehe heheh asdasdasdasd asdasdasdas 1",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "asodj oiw ehj rew odsif asdasdas dasd asdsa dasd",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
         {
             'title' : "nha pro vjp 2 ",
-            'image' : "https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
         {
             'title' : "nha pro vjp 3",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
         {
             'title' : "nha pro vjp 4 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
         {
             'title' : "nha pro vjp 5 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
         {
             'title' : "nha pro vjp 6 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'imagesAddress' : {
+                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            },
             'people' : 2,
             'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
+            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
+            "amount" : 10000000,
         },
     ]
     const [provinceOptions, changeProvinceOptions] = useState([]);

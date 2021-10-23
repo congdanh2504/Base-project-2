@@ -1,60 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../Components/Navbar'
 import { Row, Col, Form } from 'react-bootstrap';
 import Select from '../../Components/CustomSelect'
 import Card from '../../Components/MostRent/Card';
 import './style.css'
-const index = () => {
-    const list = [
-        {
-            'title' : "nha pro vjp ehehehe hehehe heheh asdasdasdasd asdasdasdas 1",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "asodj oiw ehj rew odsif asdasdas dasd asdsa dasd",
-            "price" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 2 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 3",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 4 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 5 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 6 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            'people' : 2,
-            'area' : 100,
-            "address" : "uqwgekwejgqwsldbasdb",
-            "price" : 10000000,
-        },
-    ]
+import { getRentItems } from '../../api/rentItem';
+import Pagination from 'react-js-pagination';
+
+const Index = () => {
+    const [rentItems, setRentItems] = useState()
+
+    useEffect(() => {
+      getRentItems(setRentItems)
+    }, [])
+
     return (
         <>
             <Navbar />
@@ -88,11 +47,26 @@ const index = () => {
                 </Form>
                 <div className="list-card-container">
                     <div className="CardList-container">
-                        {list.map((obj) =>
+                        {rentItems && rentItems.data.map((obj) =>
                             <Card obj={obj} />
                         )}
                     </div>
+            { rentItems && <div className="row mt-3 justify-content-center">
+              <Pagination 
+                activePage={rentItems.current_page}
+                itemsCountPerPage={rentItems.per_page}
+                totalItemsCount={rentItems.total}
+                pageRangeDisplayed={5}
+                onChange={(num) => getRentItems(rentItems, num)}
+                itemClass="page-item"
+                linkClass="page-link"
+                firstPageText="First"
+                lastPageText="Last"
+              />
+              </div>
+              }
                 </div>
+            
             </div>
 
 
@@ -100,4 +74,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Index
