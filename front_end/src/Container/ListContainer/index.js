@@ -11,7 +11,7 @@ const Index = () => {
     const [rentItems, setRentItems] = useState()
 
     useEffect(() => {
-      getRentItems(setRentItems)
+        getRentItems(setRentItems)
     }, [])
 
     return (
@@ -51,22 +51,22 @@ const Index = () => {
                             <Card obj={obj} />
                         )}
                     </div>
-            { rentItems && <div className="row mt-3 justify-content-center">
-              <Pagination 
-                activePage={rentItems.current_page}
-                itemsCountPerPage={rentItems.per_page}
-                totalItemsCount={rentItems.total}
-                pageRangeDisplayed={5}
-                onChange={(num) => getRentItems(rentItems, num)}
-                itemClass="page-item"
-                linkClass="page-link"
-                firstPageText="First"
-                lastPageText="Last"
-              />
-              </div>
-              }
+                    {rentItems && <div className="row mt-3 justify-content-center">
+                        <Pagination
+                            activePage={rentItems.current_page}
+                            itemsCountPerPage={rentItems.per_page}
+                            totalItemsCount={rentItems.total}
+                            pageRangeDisplayed={5}
+                            onChange={(num) => getRentItems(rentItems, num)}
+                            itemClass="page-item"
+                            linkClass="page-link"
+                            firstPageText="First"
+                            lastPageText="Last"
+                        />
+                    </div>
+                    }
                 </div>
-            
+
             </div>
 
 
