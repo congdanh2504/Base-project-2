@@ -27,7 +27,7 @@ function DisplayUser({ user }) {
             <div className="navbar-login">
                 <AiIcons.AiOutlineBell title="Notifications"/>
                 <div>
-                    <NavLink to='/' onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></NavLink>
+                    <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></div>
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
                             <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>

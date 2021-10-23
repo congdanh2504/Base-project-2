@@ -34,10 +34,6 @@ function App() {
         <Switch>
           <Route path='/' exact >
           <MainContainer />
-            {/* <Navbar/>
-            <Search/>
-            <MostRent/>
-            <Blog/> */}
           </Route>
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}/>
