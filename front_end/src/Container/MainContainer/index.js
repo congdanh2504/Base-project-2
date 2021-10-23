@@ -5,6 +5,29 @@ import Navbar from '../../Components/Navbar'
 import banner from '../../assets/images/search-banner.jpg'
 import CustomSelect from '../../Components/CustomSelect'
 import { getProvinces } from '../../api/api'
+import Blog from '../../Components/Blog'
+const blogList = [
+    {
+        "title":"101 lý do abcd",
+        "image" :"https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
+        "content" : "Tempor fugiat cillum dolor Lorem eu ea commodo quis. Incididunt deserunt voluptate officia cupidatat Lorem magna id commodo sint. Deserunt qui irure nulla amet ut. Ex voluptate non ut do.",
+        "author" : "kgasdas",
+    },
+    {
+        "title":"101 lý do abcd",
+        "image" :"https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
+        "content" : "Tempor fugiat cillum dolor Lorem eu ea commodo quis. Incididunt deserunt voluptate officia cupidatat Lorem magna id commodo sint. Deserunt qui irure nulla amet ut. Ex voluptate non ut do.",
+        "author" : "kgasdas",
+    },
+    {
+        "title":"101 lý do abcd",
+        "image" :"https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
+        "content" : "Tempor fugiat cillum dolor Lorem eu ea commodo quis. Incididunt deserunt voluptate officia cupidatat Lorem magna id commodo sint. Deserunt qui irure nulla amet ut. Ex voluptate non ut do.",
+        "author" : "kgasdas",
+    },
+]
+
+
 const Index = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     useEffect(() => {
@@ -34,6 +57,9 @@ const Index = () => {
             </div>
 
             <MostRent />
+
+            <Blog />
+            
         </>
     )
 }

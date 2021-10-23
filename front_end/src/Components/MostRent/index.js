@@ -16,7 +16,7 @@ const MostRent = () => {
         },
         {
             'title' : "nha pro vjp 2 ",
-            'image' : "https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
+            'image' : "https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300",
             'people' : 2,
             'area' : 100,
             "address" : "uqwgekwejgqwsldbasdb",
