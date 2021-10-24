@@ -6,6 +6,7 @@ import Join from "./Components/Login/Join"
 import Post from "./Components/Post"
 import PostBlog from "./Components/PostBlog"
 import BlogContainer from './Container/BlogContainer';
+import BlogDetail from './Container/BlogContainer/BlogDetail';
 import ListContainer from './Container/ListContainer';
 import AdminContainer from './Container/AdminContainer';
 import MainContainer from './Container/MainContainer'
@@ -46,7 +47,7 @@ function App() {
           </Route>
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}/>
-          <Route path="/blog" component={BlogContainer}/>
+          <Route path="/blog" exact component={BlogContainer}/>
           <Route path="/postBlog" component={PostBlog}/>
           <Route path="/List" component={ListContainer}/>
           <Route path="/Admin" component={AdminContainer}/>
@@ -56,6 +57,9 @@ function App() {
           </Route>
           <Route path="/post/test" >
           <PostDetail item={item}/>
+          </Route>
+          <Route path="/blog/test" >
+          <BlogDetail />
           </Route>
         </Switch>
       </Router>
