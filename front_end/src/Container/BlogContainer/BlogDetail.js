@@ -22,8 +22,8 @@ const BlogDetail = () => {
     return (
         <>
             <Navbar />
-            <Row className="blog-detail-container">
-                {blog ? <><Col xl="8" className="blog-detail-content">
+            {blog?<Row className="blog-detail-container">
+                <Col xl="8" className="blog-detail-content">
                     <div className="blog-detail-info">
                         <div className="left">
                             <div className="blog-detail-author">
@@ -68,8 +68,9 @@ const BlogDetail = () => {
                             </li>
                         </ul>
                     </div>
-                </Col></>: <Loading/>}
-            </Row>
+                </Col>
+            </Row>:<Loading/>}
+            
         </>
     )
 }

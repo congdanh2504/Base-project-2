@@ -3,7 +3,6 @@ import { getProvinces } from '../../api/api'
 import './style.css'
 import CustomSelect from '../CustomSelect'
 import Card from './Card'
-
 const MostRent = () => {
     const list = [
         {
@@ -77,6 +76,7 @@ const MostRent = () => {
     }, [])
     return (
         <div className='mostRent-container'>
+            
             <h1>Nhà trọ được thuê nhiều</h1>
             <div className="rent-dropdown">
                 <CustomSelect label='Thành phố' opts={provinceOptions}/>

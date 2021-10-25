@@ -35,7 +35,7 @@ const Index = () => {
                 </div>
             </div>
 
-            <MostRent />
+            {/* <MostRent /> */}
 
             <Blog />
             

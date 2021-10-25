@@ -21,8 +21,8 @@ const Index = () => {
                 <Row className="mt-5">
                     <h1 className="main-content-title">Danh sách phòng trọ</h1>
                 </Row>
-                <Form as={Row} >
-                    <Col xl="10" className="mx-auto list-search-container" as={Row}>
+                <Form as={Row}>
+                    <Col xl="10" className="mx-auto list-search-container justify-content-center" as={Row}>
                         <Form.Group as={Col}>
                             <Form.Label>Thành phố</Form.Label>
                             <Select />
@@ -32,11 +32,11 @@ const Index = () => {
                             <Select />
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Số người</Form.Label>
+                            <Form.Label>Số người</Form.Label> <br/>
                             <Form.Control type='text'></Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Diện tích</Form.Label>
+                            <Form.Label>Diện tích</Form.Label> <br/>
                             <Form.Control type='text'></Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>

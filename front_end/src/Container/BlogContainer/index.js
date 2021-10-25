@@ -40,7 +40,7 @@ const Index = () => {
                 {getUser() &&  <Col ><Link style={blogButton} to="postBlog"><i class="fas fa-plus-square"></i>&#160; Đăng blog</Link></Col>}
                
             </Row>
-            <Row>
+            <Row className="justify-content-center">
             {blogs && blogs.data.map((blog) =>
                 <Card obj={blog} />
             )}
