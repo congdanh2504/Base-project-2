@@ -3,6 +3,7 @@ import { CKEditor } from 'ckeditor4-react';
 import { Alert, Form } from 'react-bootstrap';
 import { Blog } from '../../model/Blog';
 import { addBlog } from '../../api/post';
+import Navbar from '../../Components/Navbar'
 
 const Index = () => {
     const [title, setTitle] = useState(null);
@@ -34,6 +35,7 @@ const Index = () => {
 
     return (
         <div>
+            {/* <Navbar /> */}
             <Form.Group className="my-3">
                 <Form.Label>Tiêu đề</Form.Label>
                 <Form.Control type="text" className="post-input" onChange={changeTitle}/>

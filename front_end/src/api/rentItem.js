@@ -8,8 +8,18 @@ export const getRentItems = (setRentItems, pageNumber = 1) => {
         headers: {'Content-Type': 'application/json'},
       }).then(response => {
         setRentItems(response.data)
-        console.log(response.data)
       }).catch(error => {
 
     });
+}
+
+export const getById = (id, setRentItem) => {
+  axios({
+      method: 'get',
+      url: `${BASE_URL}rentItems/${id}`,
+      headers: {'Content-Type': 'application/json'},
+      }).then(response => {
+        setRentItem(response.data)   
+        
+  })
 }

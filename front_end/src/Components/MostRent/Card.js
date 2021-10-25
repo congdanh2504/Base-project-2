@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 const Card = (props) => {
     return(
         <div className="card-container">
@@ -6,7 +7,7 @@ const Card = (props) => {
                 <div className="card-image">
                     <img src={props.obj.imagesAddress.path1} />
                 </div>
-                <h2>{props.obj.title}</h2>
+                <Link to={`/post/${props.obj._id.$oid}`} ><h2>{props.obj.title}</h2></Link>
             </div>
             <div className="card-detail">
                 <div className="card-detail-col">

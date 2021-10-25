@@ -57,7 +57,7 @@ const Index = () => {
                             itemsCountPerPage={rentItems.per_page}
                             totalItemsCount={rentItems.total}
                             pageRangeDisplayed={5}
-                            onChange={(num) => getRentItems(rentItems, num)}
+                            onChange={(num) => getRentItems(setRentItems, num)}
                             itemClass="page-item"
                             linkClass="page-link"
                             firstPageText="First"

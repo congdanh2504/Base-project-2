@@ -1,18 +1,24 @@
 import React from 'react'
+import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Card = ({obj}) => {
     return (
-        <a href="#" className="blogCard-container">
-            <div className="blogCard-image">
-                <img src={obj.image} alt="" />
-            </div>
-            <div className="blogCard-content">
-                <h4 className="blogCard-title">{obj.title}</h4>
-                <p className="blogCard-desc">{obj.content}</p>
-                <p>bởi <span className="blogCard-author">{obj.author}</span></p>
-            </div>
-            
-        </a>
+        <Col xs="4" className="my-5">
+            <Link to={`/blog/${obj._id}`}>
+                <div>
+                    <div className="object-contain">
+                        <img src={obj.imageAddress}  alt="" />
+                    </div>
+                    <div className="blog-sub-content mt-3">
+                        <p>Bởi <Link to="/">{obj.user.name}</Link></p>
+                        <h1>{obj.title}</h1>
+                        <p className="text-overflow-4 mt-2">{obj.description}
+                            </p>
+                    </div>
+                </div>
+            </Link>
+        </Col>
     )
 }
 

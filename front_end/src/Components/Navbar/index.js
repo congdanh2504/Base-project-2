@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './style.css'
 import logo from '../../assets/images/logo-black.png'
+import defaultImage from '../../assets/images/login.png'
 import { NavLink } from 'react-router-dom'
 import Dropdown from './Dropdown'
 import { useHistory } from 'react-router'
@@ -26,7 +27,7 @@ function DisplayUser({ user }) {
             <div className="navbar-login">
                 <BiIcons.BiBell title="Notifications"/>
                 <div>
-                    <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress} alt="" /></div>
+                    <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div>
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
                             <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
