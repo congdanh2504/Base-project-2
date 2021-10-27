@@ -30,7 +30,7 @@ function DisplayUser({ user }) {
                     <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div>
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
-                            <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile">Trang cá nhân</NavLink></span> </li>
+                            <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><NavLink to="/profile/user">Trang cá nhân</NavLink></span> </li>
                             <li className="user-dropdown-item" onClick={logout}><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
                         </ul>
                     </div>
@@ -72,9 +72,9 @@ function index() {
                         <li >
                             <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Blog'>Blog</NavLink>
                         </li>
-                        <li >
+                        {getUser() && <li >
                             <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
-                        </li>
+                        </li>}
                     </ul>
                 </div>
                 <DisplayUser user={getUser()} />

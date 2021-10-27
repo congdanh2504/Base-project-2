@@ -65,9 +65,9 @@ const PostDetail = () => {
                             <img src={rentItem.user.imageAddress ? rentItem.user.imageAddress : defaultImage} alt="" />
                         </div>
                         <h2>{rentItem.user.name}</h2>
-                        <button className="post-detail-user-button button-phone"><AiIcons.AiFillPhone /> <span>0564321354</span></button>
-                        <button className="post-detail-user-button"><AiIcons.AiFillFacebook /><span>Liên lạc qua Facebook</span> </button>
-                        <button className="post-detail-user-button"><img src="https://phongtro123.com/images/icon-zalo.png" alt="" width="20px" /> <span>Liên lạc qua Zalo</span></button>
+                        <button className="post-detail-user-button button-phone"><AiIcons.AiFillPhone /> <span>{rentItem.user.phone}</span></button>
+                        <a href={rentItem.user.fb}><button className="post-detail-user-button"><AiIcons.AiFillFacebook /><span>Liên lạc qua Facebook</span> </button></a>
+                        <a href={rentItem.user.zalo}><button className="post-detail-user-button"><img src="https://phongtro123.com/images/icon-zalo.png" alt="" width="20px" /> <span>Liên lạc qua Zalo</span></button> </a>
                     </div>
                 </Col>
                 <Col xl="8">

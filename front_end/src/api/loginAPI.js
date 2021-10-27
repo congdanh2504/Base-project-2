@@ -88,3 +88,23 @@ export const getUserById = (id, setUser) => {
       })
 }
 
+export const updateProfile = (user, setMessage) => {
+    var formData = new FormData();
+    if (user.image) formData.append('image', user.image)
+    formData.append('document', JSON.stringify({
+        name: user.name,
+        phone: user.phone,
+        zalo: user.zalo,
+        fb: user.fb
+    }))
+    axios({
+        method: 'post',
+        url: `${BASE_URL}updateProfile?token=${getToken()}`,
+        headers: {'Content-Type': 'multipart/form-data'},
+        data: formData
+    }).then(res => {
+        setMessage("Thành công")
+    }).catch ( err => {
+        setMessage("Không thành công")
+    })
+}

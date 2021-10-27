@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './Components/Navbar'
+
 import Blog from "./Components/Blog"
 import Login from "./Components/Login"
 import Join from "./Components/Login/Join"
@@ -17,6 +17,8 @@ import { getUserAuth } from './api/loginAPI';
 import Loading from './Components/Loading';
 import PostDetail from './Components/Post/PostDetail';
 import Profile from './Container/ProfileContainer'
+import PrivateRoute from './Components/PrivateRoute';
+import UpdateRoute from './Components/UpdateRoute';
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -41,18 +43,13 @@ function App() {
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}/>
           <Route path="/blog" exact component={BlogContainer}/>
-          <Route path="/postBlog" component={PostBlog}/>
+          <PrivateRoute path="/postBlog" component={PostBlog}/>
           <Route path="/List" component={ListContainer}/>
           <Route path="/Admin" component={AdminContainer}/>
-          <Route path="/post" exact>
-            <Navbar />
-            <Post />
-          </Route>
-          <Route path="/post/:id" >
-          <PostDetail/>
-          </Route>
+          <Route path="/post/:id" component={PostDetail}/>
+          <UpdateRoute path="/Post" exact component={Post}/>
           <Route path="/blog/:id" component={BlogDetail}/>
-          <Route path="/profile/test" component={Profile}/>
+          <PrivateRoute path="/profile" component={Profile}/>
         </Switch>
       </Router>
       

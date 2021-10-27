@@ -24,6 +24,8 @@ export const addRentItem = (rentItem, setMessage) => {
         data: formData
     }).then(res => {
         setMessage("Thành công")
+    }).catch(err => {
+        setMessage("Không thành công")
     })
 }
 
