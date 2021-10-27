@@ -6,7 +6,6 @@ import banner from '../../assets/images/search-banner.jpg'
 import CustomSelect from '../../Components/CustomSelect'
 import { getProvinces } from '../../api/api'
 import Blog from '../../Components/Blog'
-
 const Index = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     useEffect(() => {
@@ -36,9 +35,9 @@ const Index = () => {
             </div>
 
             {/* <MostRent /> */}
-
-            <Blog />
             
+            <Blog />
+
         </>
     )
 }

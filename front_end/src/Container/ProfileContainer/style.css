@@ -69,7 +69,7 @@
     display: block;
     background-color: white;
     height: calc(100vh - 55px);
-    font-size: 1.2rem;
+    font-size: 1rem;
     position: fixed;
     position: relative;
     top: 0;
@@ -122,7 +122,7 @@
     z-index: 1;
 }
 .admin-page.on{
-    margin-left:5rem;
+    margin:50px 3rem;
 }
 @keyframes margin-left {
     
@@ -251,4 +251,60 @@
     .admin-table-container{
         width: 950px;
     }
+}
+.profile-items{
+    width: 800px;
+    margin: auto;
+}
+.profile-item{
+    margin: 10px 0;
+}
+.profile-item input{
+    width: 100%;
+    border-radius: 1px;
+    border: 1px solid hsl(0, 0%, 80%);
+    padding: 10px;
+    color: hsl(0, 0%, 10%);
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.col-form-label{
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: 1.5;
+}
+.avatar{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.save-button{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #0657cf;
+    cursor: pointer;
+    opacity: .9;
+    transition: .2s;
+}
+.save-button:hover{
+    opacity: 1;
+}
+.change-avatar-button{
+    margin: 10px 0;
+    border: 1px solid #b8b8b8;
+    padding: 10px;
+    background-color: #ececec;
+    border-radius: 8px;
+    cursor: pointer;
 }

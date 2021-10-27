@@ -16,6 +16,7 @@ import { getToken } from './api/Common';
 import { getUserAuth } from './api/loginAPI';
 import Loading from './Components/Loading';
 import PostDetail from './Components/Post/PostDetail';
+import Profile from './Container/ProfileContainer'
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -51,6 +52,7 @@ function App() {
           <PostDetail/>
           </Route>
           <Route path="/blog/:id" component={BlogDetail}/>
+          <Route path="/profile/test" component={Profile}/>
         </Switch>
       </Router>
       
