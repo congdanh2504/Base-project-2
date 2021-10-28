@@ -1,13 +1,33 @@
 import React, { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { getUser } from '../../api/Common';
+import { updateProfile } from '../../api/loginAPI';
+import { User } from '../../model/User';
 const ProfileUser = () => {
-    const [name, setName] = useState("asjdsakjdhs");
-    const [phone, setPhone] = useState("123456789");
-    const [email, setEmail] = useState("asd@asv.com");
-    const [zalo, setZalo] = useState(null);
-    const [fb, setFb] = useState(null);
-    console.log(name)
+    const [name, setName] = useState(getUser().name);
+    const [phone, setPhone] = useState(getUser().phone);
+    const [zalo, setZalo] = useState(getUser().zalo);
+    const [fb, setFb] = useState(getUser().fb);
+    const [imageAddress, setImageAddress] = useState(null);
+    const [overviewAvatar, setOverviewAvatar] = useState(getUser().imageAddress)
+    const [message, setMassage] = useState(null)
+
+    const changeAvatar = (param) => {
+        var file = param.target.files[0];
+        setImageAddress(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function (e) {
+          setOverviewAvatar(reader.result)
+        }.bind(this);
+    }
+
+    const submit = () => {
+        const user = new User(name, phone, zalo, fb, imageAddress)
+        updateProfile(user, setMassage)
+    }
+
     return (
         <div className="profile-container">
             <Row>
@@ -21,10 +41,6 @@ const ProfileUser = () => {
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Số điện thoại</Col>
                     <Col><input type="phone" value={phone} onChange={e => setPhone(e.target.value)} /></Col>
-                </Row>
-                <Row className="profile-item">
-                    <Col className="col-md-2 offset-md-2 col-form-label">Email</Col>
-                    <Col><input type="email" value={email} onChange={e => setEmail(e.target.value)} /></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Zalo</Col>
@@ -42,17 +58,27 @@ const ProfileUser = () => {
                     <Col className="col-md-2 offset-md-2 col-form-label ">Ảnh đại diện</Col>
                     <Col>
                         <div className="avatar">
-                            <img src="https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg" alt="" />
+                            <img src={overviewAvatar} alt="" />
                         </div>
-                        <button className="change-avatar-button">Đổi ảnh đại diện</button>
+                        <input
+                            type="file"
+                            class="form-control"
+                            accept="image/*"
+                            className="change-avatar-button"
+                            onChange={changeAvatar}
+                        />
                     </Col>
                 </Row>
 
                 <Row className="profile-item">
                     <Col className="col-md-2"></Col>
-                    <Col><button className="save-button">Lưu và thay đổi</button></Col>
-                    
+                    <Col><button className="save-button" onClick={submit}>Lưu và thay đổi</button></Col>
                 </Row>
+
+                {message &&  <Row className="profile-item">
+                    <Col className="col-md-2"></Col>
+                    {message}
+                </Row>}
             </Row>
         </div>
     )

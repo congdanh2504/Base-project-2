@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import { getDistricts, getProvinces, getWards } from '../../api/api'
 import { RentItem } from '../../model/RentItem';
 import { addRentItem } from '../../api/post';
+import Navbar from '../../Components/Navbar'
 
 const PostForm = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
@@ -201,6 +202,7 @@ const PostForm = () => {
 const index = () => {
     return (
         <div>
+            <Navbar/>
             <PostForm />
         </div>
     )
