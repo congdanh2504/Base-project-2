@@ -9,9 +9,9 @@ const ProfileUser = () => {
     const [fb, setFb] = useState(null);
     console.log(name)
     return (
-        <div>
+        <div className="profile-container">
             <Row>
-                <h1>Sửa thông tin cá nhân</h1>
+                <h1 className="profile-title">Sửa thông tin cá nhân</h1>
             </Row>
             <Row className="profile-items">
                 <Row className="profile-item">

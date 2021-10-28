@@ -10,6 +10,8 @@
     margin: 0;
     box-sizing: border-box;
     display: flex;
+    position: fixed;
+    z-index: 10;
 }
 .navbar-logo img{
     height: 100%;
@@ -67,18 +69,18 @@
 }
 .sidebar{
     display: block;
+    position: fixed;
     background-color: white;
     height: calc(100vh - 55px);
     font-size: 1rem;
     position: fixed;
-    position: relative;
-    top: 0;
+    top: 55px;
     left: -250px;
     transition: 500ms;
     width: 250px;
     box-sizing: border-box;
     border-radius: 0px 10px 10px 0px;
-    padding: 20px;
+    padding: 1rem;
     z-index: 5;
     border: 2px solid #e6e6e6;
 }
@@ -114,18 +116,18 @@
     color: white;
 }
 .admin-page{
-    margin-left: 0;
+    width: 1000px;
+    margin: auto;
     margin-top: 50px;
+
     transition: margin-left .2s ease-in-out;
     padding: 0;
     position: relative;
     z-index: 1;
 }
-.admin-page.on{
-    margin:50px 3rem;
-}
-@keyframes margin-left {
-    
+.profile-title{
+    margin-left: 1rem;
+    margin-top: 20px;
 }
 .admin-mainpage{
     display: flex;
@@ -193,11 +195,7 @@
         display: none;
     }
 }
-@media screen and (max-width:1100px) {
-    .sidebar{
-        position: fixed;
-        margin-top: 55px;
-    }
+@media screen and (max-width:1100px) {  
     .admin-page.on{
         margin-left:0;
     }
@@ -210,10 +208,6 @@
     }
 }
 @media screen and (max-width:768px) {
-    .sidebar{
-        position: fixed;
-        margin-top: 55px;
-    }
     .admin-table-container{
         margin:auto;
         margin-top: 50px;
@@ -226,10 +220,6 @@
     }
 }
 @media screen and (max-width:576px) {
-    .sidebar{
-        position: fixed;
-        margin-top: 55px;
-    }
     .admin-table-container{
         margin:auto;
         margin-top: 50px;
@@ -252,8 +242,13 @@
         width: 950px;
     }
 }
+.profile-container{
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+}
 .profile-items{
-    width: 800px;
+    width: 100%;
     margin: auto;
 }
 .profile-item{
@@ -307,4 +302,30 @@
     background-color: #ececec;
     border-radius: 8px;
     cursor: pointer;
+}
+.table-container{
+    width: 850px;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.table-blog tr td,.table-blog tr th{
+    border: 1px solid #d8d8d8;
+    text-align: center;
+    padding: 5px 5px;
+    overflow: hidden;
+}
+.profile-table-image{
+    width: 90px;
+    height: 70px;
+    overflow: hidden;
+}
+.profile-table-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-title{
+    margin-bottom: 2rem;
 }

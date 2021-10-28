@@ -64,6 +64,13 @@ p,h1,h2,h3,h4,h5,h6{
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
+.text-overflow-1{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .content-container{
   padding: 0 1.5rem;
   margin: auto;
