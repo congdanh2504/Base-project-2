@@ -6,7 +6,7 @@ import { getDistricts, getProvinces, getWards } from '../../api/api'
 import { RentItem } from '../../model/RentItem';
 import { addRentItem } from '../../api/post';
 import Navbar from '../../Components/Navbar'
-
+import PostCard from '../MostRent/Card'
 const PostForm = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     const [districtOptions, changeDistrictOptions] = useState([]);
@@ -76,7 +76,13 @@ const PostForm = () => {
     }
 
     const changeImage1 = (param) => {
-        setImage1(param.target.files[0])
+        // setImage1(param.target.files[0])
+        var file = param.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function (e) {
+            setImage1(reader.result)
+        }.bind(this);
     }
 
     const changeImage2 = (param) => {
@@ -85,6 +91,10 @@ const PostForm = () => {
 
     const changeImage3 = (param) => {
         setImage3(param.target.files[0])
+    }
+
+    const changeImg = (param) => {
+        
     }
 
     const submit = () => {
@@ -99,6 +109,26 @@ const PostForm = () => {
         }
         fetchProvinces()
     }, [])
+    
+    const testItem={
+        "_id" : {
+            "$oid" : "6179510e075c0000da004062"
+        },
+        "address" : {
+            "detailLocation" : "112 Nguyễn Minh Châu, Phường Hoà Quý, Quận Ngũ Hành Sơn, Thành phố Đà Nẵng",
+            "province" : province,
+        },
+        "amount" : amount,
+        "area" : area,
+        "description" : description,
+        "imagesAddress" : {
+            "path1" : image1,
+            "path2" : "https://drive.google.com/uc?export=view&id=17T53MleWXEeavHuidRD8p4JkrOX4e18X",
+            "path3" : "https://drive.google.com/uc?export=view&id=1bkJk-qQVCVnBe0Dt0ew_C28gP653C8NJ",
+        },
+        "people" : people,
+        "title" : title,
+    }
 
     return (
         <div className="content-container">
@@ -139,7 +169,7 @@ const PostForm = () => {
                         </Col>
                     </Row>
                 </Container>
-                <div className="post-desc col-xl-6 px-3"  >
+                <div className="post-desc col-xl-6">
                     <Row className="my-3">
                         <h2 className="px-4">Thông tin mô tả</h2>
                     </Row>
@@ -188,23 +218,28 @@ const PostForm = () => {
                     </Form.Group>
                     {message && <Alert variant="info"><Alert.Heading>{message}</Alert.Heading></Alert>}
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control type="submit" onClick={submit} className="post-input mb-2 col-xl-12" />
+                        <Form.Control type="submit" onClick={submit} value="Xác nhận và đăng" className="post-input save-button mb-2 col-xl-12" />
                     </Form.Group>
-
                 </div>
-
+                <Col xl="4" className="post-preview-container">
+                    <div className="post-preview">
+                        <PostCard obj={testItem}/>
+                    </div>
+                </Col>
             </Form>
         </div>
 
 
     )
 }
+
+
 const index = () => {
     return (
-        <div>
+        <>
             <Navbar/>
             <PostForm />
-        </div>
+        </>
     )
 }
 

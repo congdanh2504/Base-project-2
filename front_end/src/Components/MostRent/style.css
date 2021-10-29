@@ -44,6 +44,7 @@
     width: 100%;
     height: 235px;
     overflow: hidden;
+    background-color: #c9c9c9;
 }
 .card-image img{
     width: 100%;

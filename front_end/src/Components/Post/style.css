@@ -233,3 +233,11 @@
 .relevant-item-price>*{
     padding: 0 5px;
 }
+.post-preview-container{
+    margin-top: 50px;
+    margin-left: 100px;
+}
+.post-preview{
+    position: relative;
+    top: 100px;
+}

@@ -39,7 +39,7 @@ const Card = (props) => {
                 <div className="card-price-label">
                     <h5 className="card-detail-label">Giá</h5>
                 </div>
-                <p className="price">{props.obj.amount} VND/Tháng</p>
+                <p className="price text-overflow-1">{props.obj.amount} VND/Tháng</p>
                 
             </div>
         </div>

@@ -72,8 +72,12 @@ p,h1,h2,h3,h4,h5,h6{
   -webkit-box-orient: vertical;
 }
 .content-container{
-  padding: 0 1.5rem;
+  max-width: 1240px;
+  width: 100%;
+  padding: 0 20px;
+  padding-top: 70px;
   margin: auto;
+  box-sizing: border-box;
 }
 input,textarea{
   outline-color: #0d6efd;
