@@ -5,7 +5,7 @@ import Card from './Card'
 import "./style.css"
 import ContentLoader from 'react-content-loader'
 
-function Loader() {
+export function Loader() {
     return (
         <>
             <div className="blogCard-container">
@@ -50,7 +50,6 @@ const Index = () => {
     useEffect(() => {
         getThreeBlogs(setBlogs)
     }, [])
-    console.log(blogs)
     return (
         <div className="blog-container">
             <h1 className="blog-title">Blog</h1>
