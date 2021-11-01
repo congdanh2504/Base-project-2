@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getThreeBlogs } from '../../api/BlogAPI'
+import { getLimitBlogs } from '../../api/BlogAPI'
 import Card from './Card'
 import "./style.css"
 import ContentLoader from 'react-content-loader'
@@ -48,7 +48,7 @@ const Index = () => {
     const [blogs, setBlogs] = useState(null)
 
     useEffect(() => {
-        getThreeBlogs(setBlogs)
+        getLimitBlogs(setBlogs, 3)
     }, [])
     return (
         <div className="blog-container">

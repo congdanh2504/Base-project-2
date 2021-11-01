@@ -13,10 +13,10 @@ export const getBlogs = (setBlogs, pageNumber = 1) => {
     });
 }
 
-export const getThreeBlogs = (setBlogs) => {
+export const getLimitBlogs = (setBlogs, limit) => {
   axios({
       method: 'get',
-      url: `${BASE_URL}blogsLimit/3`,
+      url: `${BASE_URL}blogs/limit/${limit}`,
       headers: {'Content-Type': 'application/json'},
     }).then(response => {
       setBlogs(response.data)
