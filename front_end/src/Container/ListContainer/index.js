@@ -6,12 +6,20 @@ import Card from '../../Components/MostRent/Card';
 import './style.css'
 import { getRentItems } from '../../api/rentItem';
 import Pagination from 'react-js-pagination';
+import Footer from '../../Components/Footer'
+import { getProvinces } from '../../api/api';
 
 const Index = () => {
     const [rentItems, setRentItems] = useState()
+    const [provinces, setProvinces] = useState()
 
     useEffect(() => {
         getRentItems(setRentItems)
+        async function fetchProvinces() {
+            let response = await getProvinces()
+            setProvinces(response)
+        }
+        fetchProvinces()
     }, [])
 
     return (
@@ -25,24 +33,20 @@ const Index = () => {
                     <Col xl="10" className="mx-auto list-search-container justify-content-center" as={Row}>
                         <Form.Group as={Col}>
                             <Form.Label>Thành phố</Form.Label>
-                            <Select />
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Quận</Form.Label>
-                            <Select />
+                            <Select opts={provinces}/>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Số người</Form.Label> <br/>
-                            <Form.Control type='text'></Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Diện tích</Form.Label> <br/>
-                            <Form.Control type='text'></Form.Control>
+                            <Form.Control type='number'></Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label>Dao động giá</Form.Label>
-                            <Select />
+                            <Form.Control type='number'></Form.Control>
                         </Form.Group>
+                        <Form.Group as={Col}>
+                            <button className='search-button'><i class="far fa-paper-plane"></i></button>
+                        </Form.Group>
+                        
                     </Col>
                 </Form>
                 <div className="list-card-container">
@@ -69,6 +73,7 @@ const Index = () => {
 
             </div>
 
+            <Footer/>
 
         </>
     )

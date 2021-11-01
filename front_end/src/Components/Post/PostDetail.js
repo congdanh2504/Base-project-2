@@ -13,6 +13,7 @@ import { useParams } from 'react-router';
 import { getById } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
+import Footer from '../../Components/Footer'
 
 const PostDetail = () => {
     const id = useParams('id');
@@ -171,7 +172,7 @@ const PostDetail = () => {
                 </Col>
             </>: <Loading/>}
             </Row>
-
+            <Footer/>
         </>
     )
 }

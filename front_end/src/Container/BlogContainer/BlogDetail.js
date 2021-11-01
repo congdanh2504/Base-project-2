@@ -7,6 +7,7 @@ import { useParams } from 'react-router'
 import * as AiIcons from 'react-icons/ai'
 import { getById } from '../../api/BlogAPI'
 import Loading from '../../Components/Loading'
+import Footer from '../../Components/Footer'
 import Moment from 'react-moment'
 
 const BlogDetail = () => {
@@ -70,7 +71,7 @@ const BlogDetail = () => {
                     </div>
                 </Col>
             </Row>:<Loading/>}
-            
+            <Footer/>
         </>
     )
 }

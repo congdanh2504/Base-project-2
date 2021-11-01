@@ -8,6 +8,7 @@ import Card from '../../Components/Blog/Card';
 import Pagination from 'react-js-pagination';
 import { getUser } from '../../api/Common';
 import { Loader } from '../../Components/Blog/index'
+import Footer from '../../Components/Footer'
 const blogButton = {
     width: "120px",
     height: "40px",
@@ -60,7 +61,7 @@ const Index = () => {
                 }
 
             </div>
-
+            <Footer/>
         </>
     )
 }
