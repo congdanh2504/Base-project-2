@@ -4,7 +4,7 @@ import { BASE_URL } from "./Common";
 export const getBlogs = (setBlogs, pageNumber = 1) => {
     axios({
         method: 'get',
-        url: `${BASE_URL}blogs?page=${pageNumber}`,
+        url: `${BASE_URL}blog?page=${pageNumber}`,
         headers: {'Content-Type': 'application/json'},
       }).then(response => {
         setBlogs(response.data)
@@ -16,7 +16,7 @@ export const getBlogs = (setBlogs, pageNumber = 1) => {
 export const getLimitBlogs = (setBlogs, limit) => {
   axios({
       method: 'get',
-      url: `${BASE_URL}blogs/limit/${limit}`,
+      url: `${BASE_URL}blog/limit/${limit}`,
       headers: {'Content-Type': 'application/json'},
     }).then(response => {
       setBlogs(response.data)
@@ -28,10 +28,9 @@ export const getLimitBlogs = (setBlogs, limit) => {
 export const getById = (id, setBlog) => {
     axios({
         method: 'get',
-        url: `${BASE_URL}blogs/${id}`,
+        url: `${BASE_URL}blog/${id}`,
         headers: {'Content-Type': 'application/json'},
         }).then(response => {
-        setBlog(response.data)   
-        console.log(response.data)  
+        setBlog(response.data)     
     })
 }

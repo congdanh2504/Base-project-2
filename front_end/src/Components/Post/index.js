@@ -49,6 +49,7 @@ const PostForm = () => {
     const [image1, setImage1] = useState(null)
     const [image2, setImage2] = useState(null)
     const [image3, setImage3] = useState(null)
+    const [imageOverview, setImageOverview] = useState(null)
     const [message, setMessage] = useState(null)
 
     const changeTitle = (param) => {
@@ -76,12 +77,12 @@ const PostForm = () => {
     }
 
     const changeImage1 = (param) => {
-        // setImage1(param.target.files[0])
+        setImage1(param.target.files[0])
         var file = param.target.files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = function (e) {
-            setImage1(reader.result)
+            setImageOverview(reader.result)
         }.bind(this);
     }
 
@@ -91,10 +92,6 @@ const PostForm = () => {
 
     const changeImage3 = (param) => {
         setImage3(param.target.files[0])
-    }
-
-    const changeImg = (param) => {
-        
     }
 
     const submit = () => {
@@ -122,7 +119,7 @@ const PostForm = () => {
         "area" : area,
         "description" : description,
         "imagesAddress" : {
-            "path1" : image1,
+            "path1" : imageOverview,
             "path2" : "https://drive.google.com/uc?export=view&id=17T53MleWXEeavHuidRD8p4JkrOX4e18X",
             "path3" : "https://drive.google.com/uc?export=view&id=1bkJk-qQVCVnBe0Dt0ew_C28gP653C8NJ",
         },

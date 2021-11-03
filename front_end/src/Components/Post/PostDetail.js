@@ -14,6 +14,7 @@ import { getById } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
 import Footer from '../../Components/Footer'
+import { NavLink } from 'react-router-dom';
 
 const PostDetail = () => {
     const id = useParams('id');
@@ -100,7 +101,7 @@ const PostDetail = () => {
                             src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBT-FcupKSzJG1IuC4ZtNyQ-Qg0rdoY47k&q=${rentItem.address.detailLocation}`}>
                         </iframe>
                     </div>
-
+                   
                 </Col>
                 <Col xl="4" className="relevant">
                     <div className="relevant-container">
@@ -154,7 +155,7 @@ const PostDetail = () => {
                                     </p>
                                 </div>
                             </li>
-                            <li className="relevant-item">
+                            {/* <li className="relevant-item">
                                 <div className="relevant-item-image">
                                     <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
                                 </div>
@@ -165,11 +166,16 @@ const PostDetail = () => {
                                         <span>1.000.000 VND/Tháng</span>
                                     </p>
                                 </div>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 
                 </Col>
+                <div className="navbar-login">
+                    {/* <NavLink to='/login' > */}
+                        <button className="login-button">Đặt cọc</button>
+                    {/* </NavLink> */}
+                </div>
             </>: <Loading/>}
             </Row>
             <Footer/>

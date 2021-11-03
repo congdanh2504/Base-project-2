@@ -37,9 +37,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path='/' exact >
-          <MainContainer />
-          </Route>
+          <Route path='/' exact component={MainContainer} />
           <Route path="/login" component={Login}/>
           <Route path="/join" component={Join}/>
           <Route path="/blog" exact component={BlogContainer}/>

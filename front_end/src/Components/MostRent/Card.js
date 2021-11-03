@@ -7,7 +7,7 @@ const Card = (props) => {
                 <div className="card-image">
                     <img src={props.obj.imagesAddress.path1} />
                 </div>
-                <Link to={`/post/${props.obj._id.$oid}`} ><h2>{props.obj.title}</h2></Link>
+                <Link to={`/post/${props.obj._id.$oid ? props.obj._id.$oid : props.obj._id}`} ><h2>{props.obj.title}</h2></Link>
             </div>
             <div className="card-detail">
                 <div className="card-detail-col">

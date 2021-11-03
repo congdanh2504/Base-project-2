@@ -34,9 +34,7 @@ const Index = () => {
                     <img src={banner} alt="" />
                 </div>
             </div>
-
-            {/* <MostRent /> */}
-            
+            <MostRent />
             <Blog />
             <Footer />
         </>

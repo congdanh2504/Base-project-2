@@ -3,90 +3,26 @@ import { getProvinces } from '../../api/api'
 import './style.css'
 import CustomSelect from '../CustomSelect'
 import Card from './Card'
+import { Loader } from '../Blog'
+import { setLimitRentItems } from '../../api/rentItem'
+import { Link } from 'react-router-dom'
 const MostRent = () => {
-    const list = [
-        {
-            'title' : "nha pro vjp ehehehe hehehe heheh asdasdasdasd asdasdasdas 1",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 2 ",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 3",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 4 ",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 5 ",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-        {
-            'title' : "nha pro vjp 6 ",
-            'imagesAddress' : {
-                'path1' :"https://pix10.agoda.net/hotelImages/9065853/-1/142d78192fda46d5b58e14c9d3f2fe51.jpg?s=1024x768",
-            },
-            'people' : 2,
-            'area' : 100,
-            "address" : { "province":"asodj oiw ehj rew odsif asdasdas dasd asdsa dasd"},
-            "amount" : 10000000,
-        },
-    ]
-    const [provinceOptions, changeProvinceOptions] = useState([]);
-    useEffect(() => {
-        async function fetchProvinces() {
-            let response = await getProvinces()
-            changeProvinceOptions(response)
-        }
-        fetchProvinces()
-    }, [])
-    return (
-        <div className='mostRent-container'>
-            
-            <h1>Nhà trọ được thuê nhiều</h1>
-            <div className="rent-dropdown">
-                <CustomSelect label='Thành phố' opts={provinceOptions}/>
-            </div>
+    const [rentItems, setRentItems] = useState(null)
 
+    useEffect(() => {
+        setLimitRentItems(setRentItems, 3);
+    }, [])
+
+    return (
+        <div className='mostRent-container'>          
+            <h1>Trọ, căn hộ có sẵn</h1>
             <div className="CardList-container">
-                {list.map((obj) =>
-                    <Card obj={obj} />
-                )}
+                {rentItems ? rentItems.map((rentItem, index) => {
+                    return <Card obj={rentItem}/>
+                }) : <Loader/>}
+                
             </div>
+            <Link className="loadMore" to="/List">Xem thêm</Link>
         </div>
     )
 }

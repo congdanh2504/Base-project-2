@@ -3,7 +3,6 @@ import { BASE_URL, getToken } from "./Common";
 
 export const addRentItem = (rentItem, setMessage) => {
     var formData = new FormData();
-    console.log(rentItem.images)
     formData.append('image1', rentItem.image1)
     formData.append('image2', rentItem.image2)
     formData.append('image3', rentItem.image3)
@@ -19,7 +18,7 @@ export const addRentItem = (rentItem, setMessage) => {
     }))
     axios({
         method: 'post',
-        url: `${BASE_URL}addRentItem?token=${getToken()}`,
+        url: `${BASE_URL}rentItem?token=${getToken()}`,
         headers: {'Content-Type': 'multipart/form-data'},
         data: formData
     }).then(res => {
@@ -39,7 +38,7 @@ export const addBlog = (blog, setMessage) => {
     }))
     axios({
         method: 'post',
-        url: `${BASE_URL}addBlog?token=${getToken()}`,
+        url: `${BASE_URL}blog?token=${getToken()}`,
         headers: {'Content-Type': 'multipart/form-data'},
         data: formData
     }).then(res => {
