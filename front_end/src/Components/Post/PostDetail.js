@@ -33,9 +33,8 @@ const PostDetail = () => {
 
     return (
         <>
-            <Navbar />
-            <Row className="post-detail">
-            {rentItem ? <>
+            <Navbar />      
+            {rentItem ? <Row className="post-detail">
                 <Col xl="8">
                     <div className="post-detail-header">
                         <h2 className="post-detail-title">{rentItem.title}</h2>
@@ -137,8 +136,8 @@ const PostDetail = () => {
                 <div className="navbar-login">
                     <button className="login-button">Đặt cọc</button>
                 </div>
-            </>: <Loading/>}
-            </Row>
+            </Row>: <Loading/>}
+            
             <Footer/>
         </>
     )

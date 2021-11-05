@@ -54,14 +54,11 @@ const Index = () => {
         <div className="blog-container">
             <h1 className="blog-title">Blog</h1>
             <div className="blogList-container">
-
-
                 {(blogs) ? blogs.map((obj) =>
                     <Card obj={obj} />
                 ) :
                     <Loader />
                 }
-
             </div>
             <Link className="loadMore" to="/blog">Xem thêm</Link>
         </div>

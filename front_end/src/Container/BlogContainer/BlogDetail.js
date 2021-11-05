@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import defaultImage from '../../assets/images/login.png'
 import { useParams } from 'react-router'
 import * as AiIcons from 'react-icons/ai'
-import { getById } from '../../api/BlogAPI'
+import { getById, getLimitBlogs } from '../../api/BlogAPI'
 import Loading from '../../Components/Loading'
 import Footer from '../../Components/Footer'
 import Moment from 'react-moment'
@@ -13,10 +13,13 @@ import Moment from 'react-moment'
 const BlogDetail = () => {
     const [blog, setBlog] = useState(null)
     const id = useParams('id')
+    const [other, setOther] = useState(null)
+    const [idChange, setChange] = useState(id)
 
     useEffect(() => {
         getById(id.id, setBlog)
-    }, [])
+        getLimitBlogs(setOther, 3)
+    }, [idChange])
 
     const [heartState, setHeartState] = useState(false);
     const changeHeartState = () => setHeartState(!heartState);
@@ -52,21 +55,18 @@ const BlogDetail = () => {
                     <div className="blog-detail-side-1">
                         <h3>Có thể bạn quan tâm</h3>
                         <ul className="side-1-list">
-                            <li className="side-1-item">
-                                <Link to="/">&gt; lkasdkjsahdkjasdhasdsad adasd as dasd as dasdas ds</Link>
+                            {other && other.map((_blog, index) => {
+                                return <li className="relevant-item">
+                                <div className="relevant-item-image">
+                                    <img src={_blog.imageAddress} alt="" />
+                                </div>
+                                <div className="relevant-item-content">
+                                <Link onClick={() => {
+                                    setChange(_blog._id)
+                                }} to={`/blog/${_blog._id}`}  ><h5 className="relevant-item-title">{_blog.title}</h5></Link> 
+                                </div>
                             </li>
-                            <li className="side-1-item">
-                                <Link to="/">&gt; lkasdkjsahdkjasdh</Link>
-                            </li>
-                            <li className="side-1-item">
-                                <Link to="/">&gt; lkasdkjsahdkjasdh</Link>
-                            </li>
-                            <li className="side-1-item">
-                                <Link to="/">&gt; lkasdkjsahdkjasdh</Link>
-                            </li>
-                            <li className="side-1-item">
-                                <Link to="/">&gt; lkasdkjsahdkjasdh</Link>
-                            </li>
+                            })}
                         </ul>
                     </div>
                 </Col>

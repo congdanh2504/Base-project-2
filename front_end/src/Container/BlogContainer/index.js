@@ -46,7 +46,7 @@ const Index = () => {
                         {blogs && blogs.data.map((blog) =>
                             <Card obj={blog} />
                         )}
-                        {blogs && <Pagination
+                        <Pagination
                             activePage={blogs.current_page}
                             itemsCountPerPage={blogs.per_page}
                             totalItemsCount={blogs.total}
@@ -56,7 +56,7 @@ const Index = () => {
                             linkClass="page-link"
                             firstPageText="First"
                             lastPageText="Last"
-                        />}
+                        />
                     </Row> : <Row className="justify-content-center"><Loader /><Loader /></Row>
                 }
 

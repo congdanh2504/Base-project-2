@@ -8,6 +8,7 @@ import { getRentItems } from '../../api/rentItem';
 import Pagination from 'react-js-pagination';
 import Footer from '../../Components/Footer'
 import { getProvinces } from '../../api/api';
+import { Loader } from '../../Components/Blog';
 
 const Index = () => {
     const [rentItems, setRentItems] = useState()
@@ -50,12 +51,11 @@ const Index = () => {
                     </Col>
                 </Form>
                 <div className="list-card-container">
-                    <div className="CardList-container">
-                        {rentItems && rentItems.data.map((obj) =>
-                            <Card obj={obj} />
+                    {(rentItems) ?
+                    <Row className="justify-content-center">
+                        {rentItems && rentItems.data.map((blog) =>
+                            <Card obj={blog} />
                         )}
-                    </div>
-                    {rentItems && <div className="row mt-3 justify-content-center">
                         <Pagination
                             activePage={rentItems.current_page}
                             itemsCountPerPage={rentItems.per_page}
@@ -67,8 +67,8 @@ const Index = () => {
                             firstPageText="First"
                             lastPageText="Last"
                         />
-                    </div>
-                    }
+                    </Row> : <Row className="justify-content-center"><Loader /><Loader /></Row>
+                }
                 </div>
 
             </div>
