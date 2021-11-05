@@ -1,5 +1,7 @@
 .mostRent-container{
     margin-top: 70px;
+    display: flex;
+    flex-direction: column;
 }
 .mostRent-container>*{
     margin-top: 20px;
@@ -12,9 +14,21 @@
     justify-content: center;
 }
 .CardList-container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
+    /* max-width: 900px;
+    width: 100%; */
+    /* padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%; */
+
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20
+px
+;
 }
 
 .card-container{
@@ -24,6 +38,7 @@
     padding: 10px;
     box-shadow: 1px 3px 3px 2px rgba(0, 0, 0, 0.25);
     margin-bottom: 30px;
+    margin-right: 40px;
 }
 .card-title{
     border-bottom: 2px solid #E5E5E5;
@@ -79,4 +94,18 @@
 }
 .price{
     margin-bottom: 15px;
+}
+.loadMore{
+    background-color: #1DA1F2;
+    border: none;
+    color: white;
+    border-radius: 13px;
+    align-self: center;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    padding: 10px 20px;
+    margin-top: 30px;
+}
+.loadMore:active{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }

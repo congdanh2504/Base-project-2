@@ -136,7 +136,7 @@ input,textarea{
   margin: auto;
   padding: 30px 0;
   color: white;
-  font-size: 1.3rem;
+  /* font-size: 1.3rem; */
 }
 .footer-container a{
   color: white;
