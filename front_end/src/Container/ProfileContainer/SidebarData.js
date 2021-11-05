@@ -17,5 +17,10 @@ export const SidebarData = [
         label: 'Quản lý blog',
         path: '/blog',
         icon: <FaIcons.FaBloggerB/>,
+    },
+    {
+        label: 'Hợp đồng',
+        path: '/contract',
+        icon: <FaIcons.FaPaypal/>,
     }
 ]

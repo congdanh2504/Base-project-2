@@ -9,18 +9,34 @@ import * as GiIcons from 'react-icons/gi'
 import * as BiIcons from 'react-icons/bi'
 import * as BsIcons from 'react-icons/bs'
 import { Row, Col } from 'react-bootstrap'
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { getById, getOther } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
 import Footer from '../../Components/Footer'
 import { Link } from 'react-router-dom';
+import { getUser } from '../../api/Common';
+import Modal from 'react-modal';
+import momo from '../../assets/images/momo.png'
+import paypal from '../../assets/images/paypal.png'
+import viettelpay from '../../assets/images/viettelpay.png'
 
 const PostDetail = () => {
     const id = useParams('id');
     const [idChange, setChange] = useState(id)
     const [rentItem, setRentItem] = useState(null)
     const [other, setOther] = useState(null)
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const customStyles = {
+        content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+        },
+    };
 
     if (rentItem) {
         getOther(setOther, rentItem.address.province)
@@ -133,9 +149,23 @@ const PostDetail = () => {
                     </div>
 
                 </Col>
+                {getUser() && 
                 <div className="navbar-login">
-                    <button className="login-button">Đặt cọc</button>
-                </div>
+                    <button onClick={() => {setIsOpen(true)}} className="login-button">Đặt cọc</button>
+                </div>}
+                <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setIsOpen(false)}
+                style={customStyles}
+            >
+                <h1>Đặt cọc</h1>
+                <h4>Giá: {rentItem.amount} VNĐ (cọc trước 1 tháng)</h4>
+                <h4>Chọn phương thức thanh toán: </h4>
+                <img src={momo} style={{ width: 100 }} /> <br/>
+                <img src={paypal} style={{ width: 100 }} /> <br/>
+                <img src={viettelpay} style={{ width: 100 }} /> <br/>
+                <button onClick={() => {}} className="login-button">Xác nhận</button>
+            </Modal>
             </Row>: <Loading/>}
             
             <Footer/>
