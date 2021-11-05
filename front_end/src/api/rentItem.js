@@ -13,14 +13,13 @@ export const getRentItems = (setRentItems, pageNumber = 1) => {
     });
 }
 
-export const getById = (id, setRentItem) => {
+export const getById = (id, setRentItem)  => {
   axios({
       method: 'get',
       url: `${BASE_URL}rentItem/${id}`,
       headers: {'Content-Type': 'application/json'},
       }).then(response => {
         setRentItem(response.data)   
-        
   })
 }
 
@@ -31,8 +30,15 @@ export const setLimitRentItems = (setRentItems, limit) => {
       headers: {'Content-Type': 'application/json'},
     }).then(response => {
       setRentItems(response.data)
-      console.log(response.data)
-    }).catch(error => {
+    })
+}
 
-  });
+export const getOther = (setOther, province) => {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}rentItem/province/${province}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {
+    setOther(response.data)
+  })
 }

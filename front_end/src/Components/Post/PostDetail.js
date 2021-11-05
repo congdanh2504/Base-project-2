@@ -9,20 +9,27 @@ import * as GiIcons from 'react-icons/gi'
 import * as BiIcons from 'react-icons/bi'
 import * as BsIcons from 'react-icons/bs'
 import { Row, Col } from 'react-bootstrap'
-import { useParams } from 'react-router';
-import { getById } from '../../api/rentItem';
+import { useHistory, useParams } from 'react-router';
+import { getById, getOther } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
 import Footer from '../../Components/Footer'
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PostDetail = () => {
     const id = useParams('id');
+    const [idChange, setChange] = useState(id)
     const [rentItem, setRentItem] = useState(null)
+    const [other, setOther] = useState(null)
+
+    if (rentItem) {
+        getOther(setOther, rentItem.address.province)
+    }
 
     useEffect(() => {
-        getById(id.id, setRentItem)
-    }, [])
+        getById(id.id, setRentItem)  
+    }, [idChange])
+    
 
     return (
         <>
@@ -107,74 +114,28 @@ const PostDetail = () => {
                     <div className="relevant-container">
                         <h3 className="relevant-title">Cùng thành phố</h3>
                         <ul className="relevant-list">
-                            <li className="relevant-item">
+                            {other && other.map((_rentItem, index) => {
+                                return <li className="relevant-item">
                                 <div className="relevant-item-image">
-                                    <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
+                                    <img src={_rentItem.imagesAddress.path1} alt="" />
                                 </div>
                                 <div className="relevant-item-content">
-                                    <h5 className="relevant-item-title">sakjdhsajkd kajdk jah asdsdasd akdhksjh kajdh kajdh</h5>
+                                <Link onClick={() => {
+                                    setChange(_rentItem._id)
+                                }} to={`/post/${_rentItem._id}`}  ><h5 className="relevant-item-title">{_rentItem.title}</h5></Link> 
                                     <p className="relevant-item-price">
                                         <GiIcons.GiPriceTag />
-                                        <span>1.000.000 VND/Tháng</span>
+                                        <span>{_rentItem.amount} VND/Tháng</span>
                                     </p>
                                 </div>
                             </li>
-                            <li className="relevant-item">
-                                <div className="relevant-item-image">
-                                    <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
-                                </div>
-                                <div className="relevant-item-content">
-                                    <h5 className="relevant-item-title">sakjdhsajkd kajdk jah asdsdasd akdhksjh kajdh kajdh</h5>
-                                    <p className="relevant-item-price">
-                                        <GiIcons.GiPriceTag />
-                                        <span>1.000.000 VND/Tháng</span>
-                                    </p>
-                                </div>
-                            </li>
-                            <li className="relevant-item">
-                                <div className="relevant-item-image">
-                                    <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
-                                </div>
-                                <div className="relevant-item-content">
-                                    <h5 className="relevant-item-title">sakjdhsajkd kajdk jah asdsdasd akdhksjh kajdh kajdh</h5>
-                                    <p className="relevant-item-price">
-                                        <GiIcons.GiPriceTag />
-                                        <span>1.000.000 VND/Tháng</span>
-                                    </p>
-                                </div>
-                            </li>
-                            <li className="relevant-item">
-                                <div className="relevant-item-image">
-                                    <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
-                                </div>
-                                <div className="relevant-item-content">
-                                    <h5 className="relevant-item-title">sakjdhsajkd kajdk jah asdsdasd akdhksjh kajdh kajdh</h5>
-                                    <p className="relevant-item-price">
-                                        <GiIcons.GiPriceTag />
-                                        <span>1.000.000 VND/Tháng</span>
-                                    </p>
-                                </div>
-                            </li>
-                            {/* <li className="relevant-item">
-                                <div className="relevant-item-image">
-                                    <img src="https://www.w3schools.com/w3images/lights.jpg" alt="" />
-                                </div>
-                                <div className="relevant-item-content">
-                                    <h5 className="relevant-item-title">sakjdhsajkd kajdk jah asdsdasd akdhksjh kajdh kajdh kasghdjhsg ajsdgajhgs jhag ajkh gsdjk </h5>
-                                    <p className="relevant-item-price">
-                                        <GiIcons.GiPriceTag />
-                                        <span>1.000.000 VND/Tháng</span>
-                                    </p>
-                                </div>
-                            </li> */}
+                            })}
                         </ul>
                     </div>
 
                 </Col>
                 <div className="navbar-login">
-                    {/* <NavLink to='/login' > */}
-                        <button className="login-button">Đặt cọc</button>
-                    {/* </NavLink> */}
+                    <button className="login-button">Đặt cọc</button>
                 </div>
             </>: <Loading/>}
             </Row>
