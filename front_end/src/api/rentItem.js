@@ -13,13 +13,16 @@ export const getRentItems = (setRentItems, pageNumber = 1) => {
     });
 }
 
-export const getById = (id, setRentItem)  => {
-  axios({
+export const getById = (id, setRentItem, setOther=null)  => {
+   axios({
       method: 'get',
       url: `${BASE_URL}rentItem/${id}`,
       headers: {'Content-Type': 'application/json'},
       }).then(response => {
         setRentItem(response.data)   
+        if (setOther) {
+          getOther(setOther, response.data.address.province)
+        }
   })
 }
 
@@ -34,6 +37,7 @@ export const setLimitRentItems = (setRentItems, limit) => {
 }
 
 export const getOther = (setOther, province) => {
+  console.log("request")
   axios({
     method: 'get',
     url: `${BASE_URL}rentItem/province/${province}`,

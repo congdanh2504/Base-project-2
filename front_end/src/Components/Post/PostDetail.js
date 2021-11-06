@@ -20,6 +20,8 @@ import Modal from 'react-modal';
 import momo from '../../assets/images/momo.png'
 import paypal from '../../assets/images/paypal.png'
 import viettelpay from '../../assets/images/viettelpay.png'
+import { addContract } from '../../api/ContractAPI';
+import { Contract } from '../../model/Contract';
 
 const PostDetail = () => {
     const id = useParams('id');
@@ -38,14 +40,15 @@ const PostDetail = () => {
         },
     };
 
-    if (rentItem) {
-        getOther(setOther, rentItem.address.province)
-    }
-
     useEffect(() => {
-        getById(id.id, setRentItem)  
+        getById(id.id, setRentItem, setOther)         
     }, [idChange])
     
+    const submit = () => {
+        const contract = new Contract(rentItem.user._id, rentItem.amount, id.id)
+        addContract(contract)
+        setIsOpen(false)
+    }
 
     return (
         <>
@@ -164,7 +167,7 @@ const PostDetail = () => {
                 <img src={momo} style={{ width: 100 }} /> <br/>
                 <img src={paypal} style={{ width: 100 }} /> <br/>
                 <img src={viettelpay} style={{ width: 100 }} /> <br/>
-                <button onClick={() => {}} className="login-button">Xác nhận</button>
+                <button onClick={submit} className="login-button">Xác nhận</button>
             </Modal>
             </Row>: <Loading/>}
             
