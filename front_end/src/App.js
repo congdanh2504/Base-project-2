@@ -19,6 +19,7 @@ import PostDetail from './Components/Post/PostDetail';
 import Profile from './Container/ProfileContainer'
 import PrivateRoute from './Components/PrivateRoute';
 import UpdateRoute from './Components/UpdateRoute';
+import AdminRoute from './Components/AdminRoute';
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -43,7 +44,7 @@ function App() {
           <Route path="/blog" exact component={BlogContainer}/>
           <PrivateRoute path="/postBlog" component={PostBlog}/>
           <Route path="/List" component={ListContainer}/>
-          <Route path="/Admin" component={AdminContainer}/>
+          <AdminRoute path="/admin" component={AdminContainer}/>
           <Route path="/post/:id" component={PostDetail}/>
           <UpdateRoute path="/Post" exact component={Post}/>
           <Route path="/blog/:id" component={BlogDetail}/>
