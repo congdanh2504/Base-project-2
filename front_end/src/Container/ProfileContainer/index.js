@@ -10,6 +10,7 @@ import "./style.css"
 import ProfileUser from './ProfileUser';
 import ProfileBlog from './ProfileBlog';
 import ProfilePost from './ProfilePost';
+import ProfileContract from './ProfileContract';
 const Index = () => {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
@@ -53,6 +54,7 @@ const Index = () => {
                         <Route path={`${url}/user`} component={ProfileUser} />
                         <Route path={`${url}/blog`} component={ProfileBlog} />
                         <Route path={`${url}/post`} component={ProfilePost} />
+                        <Route path={`${url}/contract`} component={ProfileContract} />
                     </Switch>
 
                 </Col>

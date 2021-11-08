@@ -14,3 +14,14 @@ export const addContract = async (contract) => {
         }
     })
 }
+
+export const getUserContracts = (setContracts, pageNumber = 1) => {
+    axios({
+      method: 'get',
+      url: `${BASE_URL}user/contract?token=${getToken()}&page=${pageNumber}`,
+      headers: {'Content-Type': 'application/json'},
+    }).then(response => {
+        setContracts(response.data)
+        console.log(response.data)
+    })
+  }

@@ -48,6 +48,7 @@ const BlogDetail = () => {
                         </div>
                     </div>
                     <article class="blog-article">
+                        <h2>{blog.title}</h2>
                         <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
                     </article>
                 </Col>

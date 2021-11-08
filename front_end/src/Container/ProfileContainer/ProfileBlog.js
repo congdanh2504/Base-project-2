@@ -1,7 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-const ProfilePost = () => {
+import { getUserBlogs } from '../../api/BlogAPI'
+import Moment from 'react-moment'
+import Pagination from 'react-js-pagination'
+const ProfileBlog = () => {
+    const [blogs, setBlogs] = useState(null)
+
+    useEffect(() => {
+        getUserBlogs(setBlogs)
+    },[])
+
     return (
         <div className="profile-container">
             <Row>
@@ -10,57 +19,39 @@ const ProfilePost = () => {
             <div className="table-container">
                 <table className="table-blog">
                     <tr>
-                        <th>Id</th>
                         <th>Tiêu đề</th>
                         <th>Ảnh nền</th>
                         <th>Ngày đăng bài</th>
                         <th>Link</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td>123</td>
-                        <td colSpan><span className="text-overflow-1">10 cách để abcd cho nó thật fkcd</span></td>
-                        <td className="profile-table-image"><img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="" /></td>
-                        <td>20-10-2020</td>
-                        <td><Link to="/">Dẫn đến bài viết</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>123</td>
-                        <td colSpan><span className="text-overflow-1">10 cách để abcd cho nó thật fkcd</span></td>
-                        <td className="profile-table-image"><img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="" /></td>
-                        <td>20-10-2020</td>
-                        <td><Link to="/">Dẫn đến bài viết</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>123</td>
-                        <td colSpan><span className="text-overflow-1">10 cách để abcd cho nó thật fkcd</span></td>
-                        <td className="profile-table-image"><img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="" /></td>
-                        <td>20-10-2020</td>
-                        <td><Link to="/">Dẫn đến bài viết</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>123</td>
-                        <td colSpan><span className="text-overflow-1">10 cách để abcd cho nó thật fkcd</span></td>
-                        <td className="profile-table-image"><img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="" /></td>
-                        <td>20-10-2020</td>
-                        <td><Link to="/">Dẫn đến bài viết</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>123</td>
-                        <td colSpan><span className="text-overflow-1">10 cách để abcd cho nó thật fkcd</span></td>
-                        <td className="profile-table-image"><img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="" /></td>
-                        <td>20-10-2020</td>
-                        <td><Link to="/">Dẫn đến bài viết</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
+                    {blogs && blogs.data[0].map((blog, index) => {
+                        return <tr>
+                            <td>{blog.title}</td>
+                            <td className="profile-table-image"><img src={blog.imageAddress} alt="" /></td>
+                            <td><Moment format="YYYY/MM/DD">
+                            {blog.created_at}
+                            </Moment></td>
+                            <td><Link to={`/blog/${blog._id}`}>Dẫn đến bài viết</Link></td>
+                            <td><button className="user-item-delete">Xóa</button></td>
+                        </tr>
+                    })}
+                    
                 </table>
+                {blogs && <Pagination
+                        activePage={blogs.current_page}
+                        itemsCountPerPage={blogs.per_page}
+                        totalItemsCount={blogs.total}
+                        pageRangeDisplayed={5}
+                        onChange={(num) => getUserBlogs(setBlogs, num)}
+                        itemClass="page-item"
+                        linkClass="page-link"
+                        firstPageText="First"
+                        lastPageText="Last"
+                    />}
             </div>
         </div>
     )
 }
 
-export default ProfilePost
+export default ProfileBlog

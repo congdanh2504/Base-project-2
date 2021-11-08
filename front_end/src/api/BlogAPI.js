@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "./Common";
+import { BASE_URL, getToken } from "./Common";
 
 export const getBlogs = (setBlogs, pageNumber = 1) => {
     axios({
@@ -34,3 +34,14 @@ export const getById = (id, setBlog) => {
         setBlog(response.data)     
     })
 }
+
+export const getUserBlogs = (setBlogs, pageNumber = 1) => {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}user/blog?token=${getToken()}&page=${pageNumber}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {
+      setBlogs(response.data)
+  })
+}
+

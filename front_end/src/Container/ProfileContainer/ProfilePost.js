@@ -1,7 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
+import Pagination from 'react-js-pagination'
 import { Link } from 'react-router-dom'
+import { getUserRentItems } from '../../api/rentItem'
+import Moment from 'react-moment'
 const ProfilePost = () => {
+    const [rentItems, setRentItems] = useState(null)
+
+    useEffect(() => {
+        getUserRentItems(setRentItems)
+    }, [])
+
     return (
         <div className="profile-container">
             <Row>
@@ -10,60 +19,37 @@ const ProfilePost = () => {
             <div className="table-container">
                 <table className="table-blog">
                     <tr>
-                        <th>Id</th>
                         <th>Tiêu đề</th>
                         <th>Ảnh nền</th>
-                        <th>Giá</th>
+                        <th>Giá (VNĐ/tháng)</th>
                         <th>Ngày đăng bài</th>
                         <th>Link</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td>45654</td>
-                        <td><span className="text-overflow-1">Phòng trọ vjp pro không che hjhj asdaskdb akjsda skjdh kasjdh askdjh kasjskdjh kajdhaskjdh</span></td>
-                        <td className="profile-table-image"><img src="https://www.immune-image.eu/wp-content/uploads/2020/01/publications-immune-image.jpg" alt="" /></td>
-                        <td>2000000</td>
-                        <td>12-12-2020</td>
-                        <td><Link to="/">Dẫn đến bài đăng</Link></td>
+                    {rentItems && rentItems.data[0].map((rentItem, index) => {
+                        return <tr>
+                        <td>{rentItem.title}</td>
+                        <td className="profile-table-image"><img src={rentItem.imagesAddress.path1} alt="" /></td>
+                        <td>{rentItem.amount}</td>
+                        <td><Moment format="YYYY/MM/DD">
+                        {rentItem.created_at}
+                        </Moment></td>
+                        <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài đăng</Link></td>
                         <td><button className="user-item-delete">Xóa</button></td>
                     </tr>
-                    <tr>
-                        <td>45654</td>
-                        <td><span className="text-overflow-1">Phòng trọ vjp pro không che hjhj asdaskdb akjsda skjdh kasjdh askdjh kasjskdjh kajdhaskjdh</span></td>
-                        <td className="profile-table-image"><img src="https://www.immune-image.eu/wp-content/uploads/2020/01/publications-immune-image.jpg" alt="" /></td>
-                        <td>2000000</td>
-                        <td>12-12-2020</td>
-                        <td><Link to="/">Dẫn đến bài đăng</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>45654</td>
-                        <td><span className="text-overflow-1">Phòng trọ vjp pro không che hjhj asdaskdb akjsda skjdh kasjdh askdjh kasjskdjh kajdhaskjdh</span></td>
-                        <td className="profile-table-image"><img src="https://www.immune-image.eu/wp-content/uploads/2020/01/publications-immune-image.jpg" alt="" /></td>
-                        <td>2000000</td>
-                        <td>12-12-2020</td>
-                        <td><Link to="/">Dẫn đến bài đăng</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>45654</td>
-                        <td><span className="text-overflow-1">Phòng trọ vjp pro không che hjhj asdaskdb akjsda skjdh kasjdh askdjh kasjskdjh kajdhaskjdh</span></td>
-                        <td className="profile-table-image"><img src="https://www.immune-image.eu/wp-content/uploads/2020/01/publications-immune-image.jpg" alt="" /></td>
-                        <td>2000000</td>
-                        <td>12-12-2020</td>
-                        <td><Link to="/">Dẫn đến bài đăng</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td>45654</td>
-                        <td><span className="text-overflow-1">Phòng trọ vjp pro không che hjhj asdaskdb akjsda skjdh kasjdh askdjh kasjskdjh kajdhaskjdh</span></td>
-                        <td className="profile-table-image"><img src="https://www.immune-image.eu/wp-content/uploads/2020/01/publications-immune-image.jpg" alt="" /></td>
-                        <td>200000</td>
-                        <td>12-12-2020</td>
-                        <td><Link to="/">Dẫn đến bài đăng</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
-                    </tr>
+                    })}
                 </table>
+                {rentItems && <Pagination
+                    activePage={rentItems.current_page}
+                    itemsCountPerPage={rentItems.per_page}
+                    totalItemsCount={rentItems.total}
+                    pageRangeDisplayed={5}
+                    onChange={(num) => getUserRentItems(setRentItems, num)}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    firstPageText="First"
+                    lastPageText="Last"
+                />}
             </div>
         </div>
     )

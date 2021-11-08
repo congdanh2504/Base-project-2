@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "./Common";
+import { BASE_URL, getToken } from "./Common";
 
 export const getRentItems = (setRentItems, pageNumber = 1) => {
     axios({
@@ -44,5 +44,16 @@ export const getOther = (setOther, province) => {
     headers: {'Content-Type': 'application/json'},
   }).then(response => {
     setOther(response.data)
+  })
+}
+
+export const getUserRentItems = (setRentItems, pageNumber = 1) => {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}user/rentItem?token=${getToken()}&page=${pageNumber}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {
+    setRentItems(response.data)
+    console.log(response.data)
   })
 }
