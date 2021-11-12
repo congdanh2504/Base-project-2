@@ -241,35 +241,6 @@
     position: relative;
     top: 100px;
 }
-.login-button{
-    box-sizing: border-box;
-    position: relative;
-    border: none;
-    width: 120px;
-    padding: 15px 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    height: 40px;
-    color: white;
-    cursor: pointer;
-    /* background: linear-gradient(90deg,#0061FF,#5f9cff); */
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    transition: .5s;
-    animation: login-button-fx .3s forwards;
-    overflow: hidden;
-    background-color: transparent;
-}
-.login-button:after {
-    content: '';
-    display: block;
-    z-index: -1;
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    top: -2rem; right: 0; bottom: -2rem; left: -1rem;
-    background-image: linear-gradient(90deg,#0061FF,#75aaff);
-    animation: unrotate-gradient  .3s forwards   ;
-  }
   
   @keyframes rotate-gradient {
     from{transform: rotate(0deg);}
