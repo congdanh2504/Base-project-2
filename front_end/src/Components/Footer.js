@@ -1,6 +1,6 @@
 import React from 'react'
 import {Row,Col} from 'react-bootstrap'
-import Logo from '../assets/images/logo-black.png'
+import Logo from '../assets/images/logo-white.png'
 import {Link} from 'react-router-dom'
 import * as BsIcons from 'react-icons/bs'
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
                     <div className="footer-background"></div>
                     <div className="footer-container">
                         <Row>
-                            <Col xl="3" className="footer-logo"><img src={Logo} alt="" /></Col>
+                            <Col className="footer-logo"><img src={Logo} alt="" /></Col>
                         </Row>
                         <Row className="footer-contents">
                             <Col xl="4">

@@ -1,5 +1,5 @@
 .admin-page-container{
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
 }
 .navbar{
     width:100%;
@@ -28,7 +28,7 @@
 }
 #admin-nav-logo{
     height: 50px;
-    padding: 10px;
+    /* padding: 10px; */
 }
 .searchbar-container{
     padding-left: 20px;
@@ -79,10 +79,25 @@
     transition: 500ms;
     width: 250px;
     box-sizing: border-box;
-    border-radius: 0px 10px 10px 0px;
+    /* border-radius: 0px 10px 10px 0px; */
     padding: 1rem;
     z-index: 5;
     border: 2px solid #e6e6e6;
+}
+.sidebar-background{
+    position: absolute;
+    content: "";
+    top: -2px;
+    left: 247px;
+    width: 100vw;
+    height: calc(100vh - 55px);
+    background-color: rgba(0, 0, 0, .2);
+    z-index: 2;
+    opacity: 0;
+    transition: 200ms;
+}
+.sidebar.active .sidebar-background{
+    opacity: 1;
 }
 .sidebar.active{
     
@@ -116,9 +131,10 @@
     color: white;
 }
 .admin-page{
-    width: 1000px;
+    max-width: 800px;
+    width: 100%;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 70px;
 
     transition: margin-left .2s ease-in-out;
     padding: 0;

@@ -37,7 +37,7 @@ const Index = () => {
             </Row>
             <Row className="admin-mainpage">
                 <Col xl="1" className={sidebar ? "sidebar active" : "sidebar"}>
-
+                    <div className="sidebar-background"></div>
                     <ul className="sidebar-items">
                         {SidebarData.map((item, index) => {
                             return (
