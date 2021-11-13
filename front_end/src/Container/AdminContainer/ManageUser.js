@@ -5,13 +5,14 @@ import { Row, Col } from 'react-bootstrap';
 
 const UserItem = ({ item }) => {
     return (
+        
         <Row className="user-item">
-            <Col xl="1"><div className="object-cover user-item-image"><img src={item.avatar} alt="" /></div></Col>
-            <Col xl="2"><span className="user-item-name">{item.name}</span></Col>
-            <Col xl="3"><span className="user-item-address">{item.address}</span></Col>
-            <Col xl="2"><span className="user-item-phone">{item.phoneNum}</span></Col>
-            <Col xl="2"><span className="user-item-date">{item.dateAdd}</span></Col>
-            <Col xl="2"><button className="user-item-delete">Xóa người dùng</button></Col>
+            <Col md="1"><div className="object-cover user-item-image"><img src={item.avatar} alt="" /></div></Col>
+            <Col md="2"><span className="user-item-name">{item.name}</span></Col>
+            <Col md="3"><span className="user-item-address">{item.address}</span></Col>
+            <Col md="2"><span className="user-item-phone">{item.phoneNum}</span></Col>
+            <Col md="2"><span className="user-item-date">{item.dateAdd}</span></Col>
+            <Col md="2"><button className="user-item-delete">Xóa người dùng</button></Col>
         </Row>
     )
 }
@@ -90,12 +91,12 @@ const ManageUser = () => {
 
             <Row className="admin-table-container">
                 <Row className="admin-table-header">
-                    <Col xl="1"><div></div></Col>
-                    <Col xl="2"><h4>Tên người dùng</h4></Col>
-                    <Col xl="3"><h4>Địa chỉ</h4></Col>
-                    <Col xl="2"><h4>Số điện thoại</h4></Col>
-                    <Col xl="2"><h4>Ngày tham gia</h4></Col>
-                    <Col xl="2"></Col>
+                    <Col md="1"><div></div></Col>
+                    <Col md="2"><h4>Tên người dùng</h4></Col>
+                    <Col md="3"><h4>Địa chỉ</h4></Col>
+                    <Col md="2"><h4>Số điện thoại</h4></Col>
+                    <Col md="2"><h4>Ngày tham gia</h4></Col>
+                    <Col md="2"></Col>
                 </Row>
                 <Row className="table-user-items">
                 {userItems.map((item) => <UserItem item={item} />)}
