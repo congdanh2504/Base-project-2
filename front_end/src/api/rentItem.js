@@ -8,6 +8,7 @@ export const getRentItems = (setRentItems, pageNumber = 1) => {
         headers: {'Content-Type': 'application/json'},
       }).then(response => {
         setRentItems(response.data)
+        console.log(response.data)
       }).catch(error => {
 
     });

@@ -1,88 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap';
+import Pagination from 'react-js-pagination';
+import { getUsers } from '../../api/AdminAPI';
+import defaultImage from '../../assets/images/login.png'
 
-
-
-const UserItem = ({ item }) => {
+const UserItem = ({ user }) => {
     return (
         
         <Row className="user-item">
-            <Col md="1"><div className="object-cover user-item-image"><img src={item.avatar} alt="" /></div></Col>
-            <Col md="2"><span className="user-item-name">{item.name}</span></Col>
-            <Col md="3"><span className="user-item-address">{item.address}</span></Col>
-            <Col md="2"><span className="user-item-phone">{item.phoneNum}</span></Col>
-            <Col md="2"><span className="user-item-date">{item.dateAdd}</span></Col>
-            <Col md="2"><button className="user-item-delete">Xóa người dùng</button></Col>
+            <Col md="1"><div className="object-cover user-item-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div></Col>
+            <Col md="2"><span className="user-item-name">{user._id}</span></Col>
+            <Col md="3"><span className="user-item-address">{user.name}</span></Col>
+            <Col md="2"><span className="user-item-phone">{user.email}</span></Col>
+            <Col md="2"><span className="user-item-date">{user.created_at}</span></Col>
+            <Col md="2"><button className="user-item-delete">Xóa</button></Col>
         </Row>
     )
 }
 
 const ManageUser = () => {
-    const [userItems, setUserItems] = useState([
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-        {
-            name: "astd",
-            avatar: "https://s3-ap-southeast-1.amazonaws.com/images.spiderum.com/sp-images/e9fef2d083cf11ea8f996dbfbe6e50b1.jpg",
-            dateAdd: "20-09-2020",
-            phoneNum: "321654897",
-            address: "132 asda asd , ádj"
-        },
-    ]);
+    const [users, setUsers] = useState(null)
+
+    useEffect(() => {
+        getUsers(setUsers)
+    }, [])
+
     return (
         <>
             <Row>
@@ -92,14 +34,27 @@ const ManageUser = () => {
             <Row className="admin-table-container">
                 <Row className="admin-table-header">
                     <Col md="1"><div></div></Col>
-                    <Col md="2"><h4>Tên người dùng</h4></Col>
-                    <Col md="3"><h4>Địa chỉ</h4></Col>
-                    <Col md="2"><h4>Số điện thoại</h4></Col>
+                    <Col md="2"><h4>ID</h4></Col>
+                    <Col md="3"><h4>Tên</h4></Col>
+                    <Col md="2"><h4>Email</h4></Col>
                     <Col md="2"><h4>Ngày tham gia</h4></Col>
                     <Col md="2"></Col>
                 </Row>
                 <Row className="table-user-items">
-                {userItems.map((item) => <UserItem item={item} />)}
+                {users && users.data[0].map((user, index) => {
+                    return <UserItem user={user} />
+                })}
+                {users && <Pagination
+                    activePage={users.current_page}
+                    itemsCountPerPage={users.per_page}
+                    totalItemsCount={users.total}
+                    pageRangeDisplayed={5}
+                    onChange={(num) => getUsers(setUsers, num)}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    firstPageText="First"
+                    lastPageText="Last"
+                />}
                 </Row>
             </Row>
 

@@ -1,81 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap';
+import Pagination from 'react-js-pagination';
+import { getBlogs } from '../../api/BlogAPI';
 
 
 
-const BlogItem = ({ item }) => {
+const BlogItem = ({ blog }) => {
     return (
         <Row className="user-item">
-            <Col xl="1"><div className="object-cover blog-item-image"><img src={item.image} alt="" /></div></Col>
-            <Col xl="1"><span className="user-item-name">{item.id}</span></Col>
-            <Col xl="3"><span className="user-item-address" title={item.title}>{item.title}</span></Col>
-            <Col xl="2"><span className="user-item-phone">{item.author}</span></Col>
-            <Col xl="2"><span className="user-item-date">{item.dateAdd}</span></Col>
+            <Col xl="1"><div className="object-cover blog-item-image"><img src={blog.imageAddress} alt="" /></div></Col>
+            <Col xl="1"><span className="user-item-name">{blog._id}</span></Col>
+            <Col xl="3"><span className="user-item-address" >{blog.title}</span></Col>
+            <Col xl="2"><span className="user-item-phone">{blog.user.name}</span></Col>
+            <Col xl="2"><span className="user-item-date">{blog.created_at}</span></Col>
             <Col xl="2"><button className="user-item-delete">Xóa blog</button></Col>
         </Row>
     )
 }
 
 const ManageBlog = () => {
-    const [blogItems, setBlogItems] = useState([
-        {
-            id: "B01",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B02",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B03",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B04",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B05",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B06",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B07",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        {
-            id: "B08",
-            title: "blog asjklhaskdjsd ligsda ksjdgh",
-            image: "https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x900.jpg",
-            dateAdd: "20-09-2020",
-            author: "sadjgas",
-        },
-        
-    ]);
+    const [blogs, setBlogs] = useState(null)
+
+    useEffect(() => {
+        getBlogs(setBlogs)
+    }, [])
+
     return (
         <>
             <Row>
@@ -92,7 +41,21 @@ const ManageBlog = () => {
                     <Col xl="2"></Col>
                 </Row>
                 <Row className="table-user-items">
-                {blogItems.map((item) => <BlogItem item={item} />)}
+                {blogs && blogs.data.map((blog, index) => {
+                    return <BlogItem blog={blog} />
+                })}
+
+                {blogs && <Pagination
+                    activePage={blogs.current_page}
+                    itemsCountPerPage={blogs.per_page}
+                    totalItemsCount={blogs.total}
+                    pageRangeDisplayed={5}
+                    onChange={(num) => getBlogs(setBlogs, num)}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    firstPageText="First"
+                    lastPageText="Last"
+                />}
                 </Row>
             </Row>
 

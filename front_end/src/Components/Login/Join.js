@@ -40,7 +40,7 @@ const Join = () => {
   }
 
   const handleGG = (param) => {
-    loginWithGG(param.tokenId, setError)
+    loginWithGG(param.tokenId, setError, history)
   }
 
   return (
@@ -101,12 +101,12 @@ const Join = () => {
               <span className="login-quote">Đã có tài khoản? <Link to="/login" className="login-link">Đăng nhập</Link></span>
             </Row>
             <Row>
-              <GoogleLogin
-                clientId="246456551142-222jord9ruqrqlafkbnm7212euatdihl.apps.googleusercontent.com"
-                buttonText="Đăng nhập với Google"
-                onSuccess={handleGG}
-                className="btn btn-google btn-block justify-content-center"
-                cookiePolicy={'single_host_origin'} />
+            <GoogleLogin
+              clientId="246456551142-222jord9ruqrqlafkbnm7212euatdihl.apps.googleusercontent.com"
+              buttonText="Đăng nhập với Google"
+              onSuccess={handleGG}
+              className="btn btn-google btn-block justify-content-center"
+              cookiePolicy={'single_host_origin'} />
             </Row>
             <Row><h4 className="legend"><span>hoặc</span></h4></Row>
             <Row>
@@ -129,6 +129,7 @@ const Join = () => {
                   <Form.Label>Mật khẩu</Form.Label>
                   <br />
                   <Form.Control type="password" className="login-input" placeholder="********************" name="rePassword-field" onChange={changePassword} required />
+                  {passwordError && <div class="alert alert-danger">{passwordError}</div>}
                 </Form.Group>
 
                 <Form.Group className="form-group" >
@@ -141,7 +142,7 @@ const Join = () => {
                 <Form.Control type="checkbox" value="term" name="term" required></Form.Control>
                 <span className="login-quote">Tôi đồng ý với <Link to="/" className="login-link">điều khoản sử dụng</Link></span>
                 <Form.Group className="form-group" >
-                  <Form.Control type="submit" value="Đăng nhập" onClick={submit} className="login-input sign-button" />
+                  <Form.Control value="Đăng ký" onClick={submit} className="login-input sign-button" />
                 </Form.Group>
                 <div class="alert">
                   {error}

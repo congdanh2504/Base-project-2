@@ -20,6 +20,7 @@ import Profile from './Container/ProfileContainer'
 import PrivateRoute from './Components/PrivateRoute';
 import UpdateRoute from './Components/UpdateRoute';
 import AdminRoute from './Components/AdminRoute';
+import PublicRoute from './Components/PublicRoute';
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -39,8 +40,8 @@ function App() {
       <Router>
         <Switch>
           <Route path='/' exact component={MainContainer} />
-          <Route path="/login" component={Login}/>
-          <Route path="/join" component={Join}/>
+          <PublicRoute path="/login" component={Login}/>
+          <PublicRoute path="/join" component={Join}/>
           <Route path="/blog" exact component={BlogContainer}/>
           <PrivateRoute path="/postBlog" component={PostBlog}/>
           <Route path="/List" component={ListContainer}/>

@@ -58,9 +58,7 @@ export const loginWithGG = (idToken, setError, history) => {
         setTokenSession(response.data['token'])
         history.push('/')
     }).catch(error => {
-        if (error.response.status === 401 || error.response.status === 400) {
-            setError(error.response.data.message)
-        }
+        setError(error.data.message)  
     })
 }
 
