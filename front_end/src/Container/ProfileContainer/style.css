@@ -95,9 +95,11 @@
     z-index: 2;
     opacity: 0;
     transition: 200ms;
+    display: none;
 }
 .sidebar.active .sidebar-background{
     opacity: 1;
+    display: block;
 }
 .sidebar.active{
     
