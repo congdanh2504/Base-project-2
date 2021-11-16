@@ -1,22 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap';
 import Pagination from 'react-js-pagination';
-import { getBlogs } from '../../api/BlogAPI';
-
-
-
-const BlogItem = ({ blog }) => {
-    return (
-        <Row className="user-item">
-            <Col xl="1"><div className="object-cover blog-item-image"><img src={blog.imageAddress} alt="" /></div></Col>
-            <Col xl="1"><span className="user-item-name">{blog._id}</span></Col>
-            <Col xl="3"><span className="user-item-address" >{blog.title}</span></Col>
-            <Col xl="2"><span className="user-item-phone">{blog.user.name}</span></Col>
-            <Col xl="2"><span className="user-item-date">{blog.created_at}</span></Col>
-            <Col xl="2"><button className="user-item-delete">Xóa blog</button></Col>
-        </Row>
-    )
-}
+import { deleteBlog, getBlogs } from '../../api/BlogAPI';
 
 const ManageBlog = () => {
     const [blogs, setBlogs] = useState(null)
@@ -42,7 +27,17 @@ const ManageBlog = () => {
                 </Row>
                 <Row className="table-user-items">
                 {blogs && blogs.data.map((blog, index) => {
-                    return <BlogItem blog={blog} />
+                    return <Row className="user-item">
+                        <Col xl="1"><div className="object-cover blog-item-image"><img src={blog.imageAddress} alt="" /></div></Col>
+                        <Col xl="1"><span className="user-item-name">{blog._id}</span></Col>
+                        <Col xl="3"><span className="user-item-address" >{blog.title}</span></Col>
+                        <Col xl="2"><span className="user-item-phone">{blog.user.name}</span></Col>
+                        <Col xl="2"><span className="user-item-date">{blog.created_at}</span></Col>
+                        <Col xl="2"><button onClick={async () =>  {
+                            await deleteBlog(blog._id)
+                            getBlogs(setBlogs)
+                        }} className="user-item-delete">Xóa</button></Col>
+                    </Row>
                 })}
 
                 {blogs && <Pagination

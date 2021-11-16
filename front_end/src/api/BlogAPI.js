@@ -45,3 +45,14 @@ export const getUserBlogs = (setBlogs, pageNumber = 1) => {
   })
 }
 
+export const deleteBlog = async (id) => {
+  await axios({
+    method: 'delete',
+    url: `${BASE_URL}blog?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: id
+    }
+  })
+}
+

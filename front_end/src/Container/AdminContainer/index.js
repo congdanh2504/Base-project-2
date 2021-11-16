@@ -10,6 +10,7 @@ import ManageUser from './ManageUser';
 import ManageBlog from './ManageBlog';
 import ManagePost from './ManagePost';
 import "./style.css"
+import ManageContract from './ManageContract';
 const Index = () => {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
@@ -54,6 +55,7 @@ const Index = () => {
                         <Route path={`${url}/manageUser`} component={ManageUser} />
                         <Route path={`${url}/manageBlog`} component={ManageBlog} />
                         <Route path={`${url}/managePost`} component={ManagePost} />
+                        <Route path={`${url}/manageContract`} component={ManageContract} />
                     </Switch>
 
                 </Col>

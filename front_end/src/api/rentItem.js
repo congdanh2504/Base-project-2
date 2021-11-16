@@ -58,3 +58,14 @@ export const getUserRentItems = (setRentItems, pageNumber = 1) => {
     console.log(response.data)
   })
 }
+
+export const deleteRentItem = async (id) => {
+  await axios({
+    method: 'delete',
+    url: `${BASE_URL}rentItem?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: id
+    }
+  })
+}

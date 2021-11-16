@@ -3,22 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {Row,Col} from 'react-bootstrap';
 import Pagination from 'react-js-pagination';
 import Moment from 'react-moment';
-import { getRentItems } from '../../api/rentItem';
-
-const RentItem = ({ rentItem }) => {
-    return (
-        <Row className="user-item">
-            <Col xl="1"><div className="object-cover blog-item-image"><img src={rentItem.imagesAddress.path1} alt="" /></div></Col>
-            <Col xl="2"><span className="user-item-name">{rentItem._id.$oid}</span></Col>
-            <Col xl="3"><span className="user-item-address" >{rentItem.title}</span></Col>
-            <Col xl="2"><span className="user-item-phone">{rentItem.type}</span></Col>
-            <Col xl="2"><span className="user-item-date"><Moment format="YYYY/MM/DD">
-            {moment(parseInt(rentItem.created_at.$date.$numberLong))}
-            </Moment></span></Col>
-            <Col xl="2"><button className="user-item-delete">Xóa</button></Col>
-        </Row>
-    )
-}
+import { deleteRentItem, getRentItems } from '../../api/rentItem';
 
 const ManagePost = () => {
     const [rentItems, setRentItems] = useState(null)
@@ -44,7 +29,19 @@ const ManagePost = () => {
             <Row className="table-user-items">
 
             {rentItems && rentItems.data.map((rentItem, index) => {
-                return <RentItem rentItem={rentItem} />
+                return <Row className="user-item">
+                <Col xl="1"><div className="object-cover blog-item-image"><img src={rentItem.imagesAddress.path1} alt="" /></div></Col>
+                <Col xl="2"><span className="user-item-name">{rentItem._id.$oid}</span></Col>
+                <Col xl="3"><span className="user-item-address" >{rentItem.title}</span></Col>
+                <Col xl="2"><span className="user-item-phone">{rentItem.type}</span></Col>
+                <Col xl="2"><span className="user-item-date"><Moment format="YYYY/MM/DD">
+                {moment(parseInt(rentItem.created_at.$date.$numberLong))}
+                </Moment></span></Col>
+                <Col xl="2"><td><button onClick={async () => {
+                    await deleteRentItem(rentItem._id.$oid)
+                    getRentItems(setRentItems);
+                }} className="user-item-delete">Xóa</button></td></Col>
+            </Row>
             })}
 
             {rentItems && <Pagination

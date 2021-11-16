@@ -10,3 +10,13 @@ export const getUsers = (setUsers, page = 1) =>  {
         setUsers(response.data)
     })
 }
+
+export const getContracts = (setContracts, page = 1) =>  {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}admin/contract?token=${getToken()}&page=${page}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {        
+    setContracts(response.data)
+  })
+}
