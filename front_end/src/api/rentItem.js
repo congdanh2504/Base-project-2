@@ -69,3 +69,13 @@ export const deleteRentItem = async (id) => {
     }
   })
 }
+
+export const searchRentItem = (setRentItems, province, type, amount) => {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}search?province=${province}&type=${type}&amount=${amount}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {
+    setRentItems(response.data)
+  })
+}

@@ -65,9 +65,6 @@ function index() {
                         <li >
                             <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/' exact>Trang Chủ</NavLink>
                         </li>
-                        <li className="navbar-item">
-                            <Dropdown title='Thuê Trọ' items={dropdownItems} />
-                        </li>
                         <li >
                             <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/List' exact>Danh Sách</NavLink>
                         </li>
