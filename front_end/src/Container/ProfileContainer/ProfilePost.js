@@ -25,6 +25,7 @@ const ProfilePost = () => {
                         <th>Ngày đăng bài</th>
                         <th>Link</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     {rentItems && rentItems.data[0].map((rentItem, index) => {
                         return <tr>
@@ -39,6 +40,7 @@ const ProfilePost = () => {
                             await deleteRentItem(rentItem._id)
                             getUserRentItems(setRentItems)
                         }} className="user-item-delete">Xóa</button></td>
+                         <td><button className="user-item-edit">Sửa</button></td>
                     </tr>
                     })}
                 </table>
