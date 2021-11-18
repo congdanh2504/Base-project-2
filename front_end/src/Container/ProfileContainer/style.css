@@ -187,6 +187,16 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.user-item-edit{
+    border: none;
+    background-color: #40ff79;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 .user-item span{
     overflow: hidden;
     text-overflow: ellipsis;
