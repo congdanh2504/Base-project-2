@@ -17,6 +17,8 @@ const ProfileBlog = () => {
           bottom: 'auto',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
+          position: 'absolute',
+          zIndex: '5',
         },
     };
 
@@ -25,7 +27,19 @@ const ProfileBlog = () => {
     },[])
 
     return (
+        <>
+
         <div className="profile-container">
+        <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setIsOpen(false)}
+                style={customStyles}
+            >
+                <h1>Đặt cọc</h1>
+                <h4>Giá: VNĐ (cọc trước 1 tháng)</h4>
+                <h4>Chọn phương thức thanh toán: </h4>
+                <button  className="login-button">Xác nhận</button>
+            </Modal>
             <Row>
                 <h1 className="profile-title">Quản lý blog</h1>
             </Row>
@@ -54,7 +68,6 @@ const ProfileBlog = () => {
                             <td><button onClick={() => setIsOpen(true)} className="user-item-edit">Sửa</button></td>                      
                         </tr>
                     })}
-                    
                 </table>
                 {blogs && <Pagination
                     activePage={blogs.current_page}
@@ -69,17 +82,10 @@ const ProfileBlog = () => {
                 />}
                 
             </div>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setIsOpen(false)}
-                style={customStyles}
-            >
-                <h1>Đặt cọc</h1>
-                <h4>Giá: VNĐ (cọc trước 1 tháng)</h4>
-                <h4>Chọn phương thức thanh toán: </h4>
-                <button  className="login-button">Xác nhận</button>
-            </Modal>
+
         </div>
+
+        </>
     )
 }
 
