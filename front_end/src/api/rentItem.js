@@ -79,3 +79,22 @@ export const searchRentItem = (setRentItems, province, type, amount) => {
     setRentItems(response.data)
   })
 }
+
+export const editRentItem = async (id, rentItem) => {
+  await axios({
+    method: 'patch',
+    url: `${BASE_URL}rentItem?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: id,
+      description: rentItem.description,
+      title: rentItem.title,
+      type: rentItem.type,
+      people : rentItem.people,
+      area : rentItem.area,
+      province : rentItem.province,
+      detailLocation : rentItem.detailLocation,
+      amount : rentItem.amount
+    }
+  })
+}

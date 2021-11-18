@@ -56,3 +56,17 @@ export const deleteBlog = async (id) => {
   })
 }
 
+export const editBlog = async (id, blog) => {
+  await axios({
+    method: 'patch',
+    url: `${BASE_URL}blog?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: id,
+      content: blog.content,
+      description: blog.description,
+      title: blog.title
+    }
+  })
+}
+

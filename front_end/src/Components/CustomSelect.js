@@ -25,12 +25,12 @@ option: (provided, state) => ({
   })
 }
 
-export default function CustomSelect({label,opts,onChange}) {
+export default function CustomSelect({label,opts,onChange,defaultValue}) {
   return (
     <div style={defaultStyles}>
       <Select
         styles={customStyles}
-        defaultValue=""
+        defaultValue={defaultValue}
         placeholder={label}
         options={opts}
         onChange={onChange}
