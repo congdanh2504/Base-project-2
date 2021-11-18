@@ -11,7 +11,7 @@ import ManageBlog from './ManageBlog';
 import ManagePost from './ManagePost';
 import "./style.css"
 const Index = () => {
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
     let { path, url } = useRouteMatch();
     return (
