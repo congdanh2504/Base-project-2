@@ -94,7 +94,7 @@ const Login = () => {
 
                                 <span className="login-quote">Quên mật khẩu? <Link to="/" className="login-link">Lấy lại mật khẩu</Link></span>
                                 <Form.Group className="form-group" >
-                                    <Form.Control type="submit" value="Đăng nhập" onClick={submit} className="login-input sign-button" />
+                                    <Form.Control value="Đăng nhập" onClick={submit} className="login-input sign-button" />
                                 </Form.Group>
                                 <div class="alert">
                                     {error}

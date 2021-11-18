@@ -4,18 +4,47 @@ import { Row, Col, Form } from 'react-bootstrap';
 import Select from '../../Components/CustomSelect'
 import Card from '../../Components/MostRent/Card';
 import './style.css'
-import { getRentItems } from '../../api/rentItem';
+import { getRentItems, searchRentItem } from '../../api/rentItem';
 import Pagination from 'react-js-pagination';
 import Footer from '../../Components/Footer'
 import { getProvinces } from '../../api/api';
 import { Loader } from '../../Components/Blog';
 
 const Index = () => {
+    const typeOptions = [{"value": 1, "label": "Trọ"},{"value": 2, "label": "Căn hộ"}, {"value": 3, "label": "Nhà"},{"value": 4, "label": "Villa"}];
+    const params = new URLSearchParams(window.location.search)
+    const province = params.get('province')
+    const type = params.get('type')
+    const amount = params.get('amount')
     const [rentItems, setRentItems] = useState()
     const [provinces, setProvinces] = useState()
+    const [provinceSe, setProvince] = useState(null)
+    const [typeSe, setType] = useState(null)
+    const [amountSe, setAmount] = useState(null)
+
+    const changeProvince = (param) => {
+        setProvince(param.label)
+    }
+
+    const changeType = (param) => {
+        setType(param.label)
+    }
+
+    const changeAmount = (param) => {
+        setAmount(param.target.value)
+    }
+    
+    const submit = () => {
+        if (provinceSe && typeSe && amountSe)
+        searchRentItem(setRentItems, provinceSe, typeSe, amountSe)
+    }
 
     useEffect(() => {
-        getRentItems(setRentItems)
+        if (province && type && amount) {
+            searchRentItem(setRentItems, province, type, amount)
+        } else {
+            getRentItems(setRentItems)
+        }    
         async function fetchProvinces() {
             let response = await getProvinces()
             setProvinces(response)
@@ -34,18 +63,18 @@ const Index = () => {
                     <Col xl="10" className="mx-auto list-search-container justify-content-center" as={Row}>
                         <Form.Group as={Col}>
                             <Form.Label>Thành phố</Form.Label>
-                            <Select opts={provinces}/>
+                            <Select opts={provinces} onChange={changeProvince}/>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Số người</Form.Label> <br/>
-                            <Form.Control type='number'></Form.Control>
+                            <Form.Label>Loại</Form.Label> <br/>
+                            <Select opts={typeOptions} onChange={changeType}/>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Dao động giá</Form.Label>
-                            <Form.Control type='number'></Form.Control>
+                            <Form.Label>Giá (up to)</Form.Label>
+                            <Form.Control type='number' onChange={changeAmount}></Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <button className='search-button'><i class="far fa-paper-plane"></i></button>
+                            <button onClick={submit} className='search-button'><i class="far fa-paper-plane"></i></button>
                         </Form.Group>
                         
                     </Col>

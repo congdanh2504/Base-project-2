@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { getUserBlogs } from '../../api/BlogAPI'
+import { deleteBlog, getUserBlogs } from '../../api/BlogAPI'
 import Moment from 'react-moment'
 import Pagination from 'react-js-pagination'
 const ProfileBlog = () => {
@@ -33,7 +33,10 @@ const ProfileBlog = () => {
                             {blog.created_at}
                             </Moment></td>
                             <td><Link to={`/blog/${blog._id}`}>Dẫn đến bài viết</Link></td>
-                            <td><button className="user-item-delete">Xóa</button></td>
+                            <td><button onClick={async () =>  {
+                                await deleteBlog(blog._id)
+                                getUserBlogs(setBlogs)
+                            }} className="user-item-delete">Xóa</button></td>
                         </tr>
                     })}
                     

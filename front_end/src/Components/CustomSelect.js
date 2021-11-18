@@ -25,17 +25,7 @@ option: (provided, state) => ({
   })
 }
 
-// const options = [
-//   { value: 'chocolate', label: 'Chocolate' },
-//   { value: 'strawberry', label: 'Strawberry' },
-//   { value: 'vanilla', label: 'Vanilla' },
-// ];
-
-
-
 export default function CustomSelect({label,opts,onChange}) {
-//   const [selectedOption, setSelectedOption] = useState(null);
-
   return (
     <div style={defaultStyles}>
       <Select

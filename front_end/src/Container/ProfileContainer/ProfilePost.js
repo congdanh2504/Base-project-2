@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Pagination from 'react-js-pagination'
 import { Link } from 'react-router-dom'
-import { getUserRentItems } from '../../api/rentItem'
+import { deleteRentItem, getUserRentItems } from '../../api/rentItem'
 import Moment from 'react-moment'
 const ProfilePost = () => {
     const [rentItems, setRentItems] = useState(null)
@@ -35,7 +35,10 @@ const ProfilePost = () => {
                         {rentItem.created_at}
                         </Moment></td>
                         <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài đăng</Link></td>
-                        <td><button className="user-item-delete">Xóa</button></td>
+                        <td><button onClick={async () => {
+                            await deleteRentItem(rentItem._id)
+                            getUserRentItems(setRentItems)
+                        }} className="user-item-delete">Xóa</button></td>
                     </tr>
                     })}
                 </table>
