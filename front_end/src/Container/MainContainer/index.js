@@ -45,8 +45,8 @@ const Index = () => {
                     <div className="search-dropdown-area">
                         <CustomSelect label='Thành phố' onChange={changeProvince} opts={provinceOptions} />
                         <CustomSelect label='Loại hình' onChange={changeType} opts={typeOptions}/>
-                        <Form.Group as={Col}>
-                            <Form.Control type='number' onChange={changeAmount} placeholder="Giá (up to)"></Form.Control>
+                        <Form.Group as={Col} className="search-input">
+                            <Form.Control type='number'  onChange={changeAmount} placeholder="Giá (up to)"></Form.Control>
                         </Form.Group>
                         <Link to={`/List?province=${province}&type=${type}&amount=${amount}`} >  
                         <button className='search-button'><i class="far fa-paper-plane"></i></button>

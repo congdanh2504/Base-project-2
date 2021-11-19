@@ -74,7 +74,7 @@ const Index = () => {
                             <Form.Control type='number' onChange={changeAmount}></Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <button onClick={submit} className='search-button'><i class="far fa-paper-plane"></i></button>
+                            <button onClick={submit} className='list-search-button'><i class="far fa-paper-plane"></i></button>
                         </Form.Group>
                         
                     </Col>

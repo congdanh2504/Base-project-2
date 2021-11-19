@@ -39,6 +39,7 @@
     border: 2px solid #a5a5a5;
     box-shadow: rgba(0, 0, 0, 0.15) 1px 1.95px 3px;
     cursor: pointer;
+    height: 492px;
 }
 .blogCard-image{
     width: 100%;
