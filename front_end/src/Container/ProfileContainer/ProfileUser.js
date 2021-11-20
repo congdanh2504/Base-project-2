@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getUser } from '../../api/Common';
 import { updateProfile } from '../../api/loginAPI';
 import { User } from '../../model/User';
+
 const ProfileUser = () => {
     const [name, setName] = useState(getUser().name);
     const [phone, setPhone] = useState(getUser().phone);

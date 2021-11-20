@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { BASE_URL, getToken } from './Common'
 
-export const addContract = async (contract) => {
+export const addContract = async (contract, toast) => {
     console.log(contract.rentItemId)
     axios({
         method: 'post',
@@ -12,6 +12,10 @@ export const addContract = async (contract) => {
             deposit : contract.deposit,
             rentItemId : contract.rentItemId
         }
+    }).then(res => {
+        toast.success("Thành công")
+    }).catch(err => {
+        toast.error("Không thành công")
     })
 }
 
@@ -22,6 +26,5 @@ export const getUserContracts = (setContracts, pageNumber = 1) => {
       headers: {'Content-Type': 'application/json'},
     }).then(response => {
         setContracts(response.data)
-        console.log(response.data)
     })
   }

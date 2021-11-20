@@ -7,6 +7,9 @@ import { RentItem } from '../../model/RentItem';
 import { addRentItem } from '../../api/post';
 import Navbar from '../../Components/Navbar'
 import PostCard from '../MostRent/Card'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const PostForm = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     const [districtOptions, changeDistrictOptions] = useState([]);
@@ -50,7 +53,6 @@ const PostForm = () => {
     const [image2, setImage2] = useState(null)
     const [image3, setImage3] = useState(null)
     const [imageOverview, setImageOverview] = useState(null)
-    const [message, setMessage] = useState(null)
 
     const changeTitle = (param) => {
         setTitle(param.target.value)
@@ -96,7 +98,7 @@ const PostForm = () => {
 
     const submit = () => {
         const rentItem = new RentItem(title, description, type, people, area, province, defaultLocation, amount, image1, image2, image3)
-        addRentItem(rentItem, setMessage)
+        addRentItem(rentItem, toast)
     }
 
     useEffect(() => {
@@ -129,6 +131,7 @@ const PostForm = () => {
 
     return (
         <div className="content-container">
+            <ToastContainer/>
             <Form action=" " className="post-form" as={Row}>
                 <Row className="my-5">
                     <h1 className="main-content-title">Đăng bài</h1>
@@ -213,7 +216,6 @@ const PostForm = () => {
                         <Form.Control type="file" className="post-input mb-2 col-xl-6" onChange={changeImage3}  />
                         {/* <Form.Text>Dùng nút <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd> để chọn nhiều ảnh</Form.Text> */}
                     </Form.Group>
-                    {message && <Alert variant="info"><Alert.Heading>{message}</Alert.Heading></Alert>}
                     <Form.Group as={Row} className="my-3">
                         <Form.Control type="submit" onClick={submit} value="Xác nhận và đăng" className="post-input save-button mb-2 col-xl-12" />
                     </Form.Group>

@@ -20,3 +20,18 @@ export const getContracts = (setContracts, page = 1) =>  {
     setContracts(response.data)
   })
 }
+
+export const deleteUser = async (id, toast) => {
+  await axios({
+    method: 'delete',
+    url: `${BASE_URL}admin/user?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: id
+    }
+  }).then(res => {        
+    toast.success("Thành công")
+  }).catch(err => {
+    toast.error("Không thành công")
+  })
+}

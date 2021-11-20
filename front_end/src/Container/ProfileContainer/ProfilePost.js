@@ -8,6 +8,8 @@ import Modal from 'react-modal';
 import { getProvinces } from '../../api/api'
 import CustomSelect from '../../Components/CustomSelect'
 import { RentItem } from '../../model/RentItem'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProfilePost = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
@@ -88,7 +90,7 @@ const ProfilePost = () => {
 
     const submit =  async () => {
         const rentItem = new RentItem(title, description, type, people, area, province, detailLocation, amount, null, null, null)
-        await editRentItem(id, rentItem)
+        await editRentItem(id, rentItem, toast)
         await getUserRentItems(setRentItems)
         setIsOpenEdit(false)
     }
@@ -147,7 +149,7 @@ const ProfilePost = () => {
             >
                 <h1>Bạn có chắc chắn muốn xóa?</h1>
                 <button onClick={async () =>  {
-                    await deleteRentItem(idDelete)
+                    await deleteRentItem(idDelete, toast)
                     await getUserRentItems(setRentItems)
                     setIsOpenDelete(false)
                 }} className="login-button">Xác nhận</button>

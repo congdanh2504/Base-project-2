@@ -22,6 +22,8 @@ import paypal from '../../assets/images/paypal.png'
 import viettelpay from '../../assets/images/viettelpay.png'
 import { addContract } from '../../api/ContractAPI';
 import { Contract } from '../../model/Contract';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PostDetail = () => {
     const id = useParams('id');
@@ -46,13 +48,14 @@ const PostDetail = () => {
     
     const submit = () => {
         const contract = new Contract(rentItem.user._id, rentItem.amount, id.id)
-        addContract(contract)
+        addContract(contract, toast)
         setIsOpen(false)
     }
 
     return (
         <>
             <Navbar />      
+            <ToastContainer/>
             {rentItem ? <Row className="post-detail">
                 <Col xl="8">
                     <div className="post-detail-header">
@@ -154,21 +157,21 @@ const PostDetail = () => {
                 </Col>
                 {getUser() && 
                 <div className="navbar-login">
-                    <button onClick={() => {setIsOpen(true)}} className="login-button">Đặt cọc</button>
+                    <button onClick={() => {setIsOpen(true)}} style={{ height: '30px' }} className="login-button">Đặt cọc</button>
                 </div>}
                 <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setIsOpen(false)}
-                style={customStyles}
-            >
-                <h1>Đặt cọc</h1>
-                <h4>Giá: {rentItem.amount} VNĐ (cọc trước 1 tháng)</h4>
-                <h4>Chọn phương thức thanh toán: </h4>
-                <img src={momo} style={{ width: 100 }} /> <br/>
-                <img src={paypal} style={{ width: 100 }} /> <br/>
-                <img src={viettelpay} style={{ width: 100 }} /> <br/>
-                <button onClick={submit} className="login-button">Xác nhận</button>
-            </Modal>
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setIsOpen(false)}
+                    style={customStyles}
+                >
+                    <h1>Đặt cọc</h1>
+                    <h4>Giá: {rentItem.amount} VNĐ (cọc trước 1 tháng)</h4>
+                    <h4>Chọn phương thức thanh toán: </h4>
+                    <img src={momo} style={{ width: 100 }} /> <br/>
+                    <img src={paypal} style={{ width: 100 }} /> <br/>
+                    <img src={viettelpay} style={{ width: 100 }} /> <br/>
+                    <button onClick={submit} className="login-button">Xác nhận</button>
+                </Modal>
             </Row>: <Loading/>}
             
             <Footer/>

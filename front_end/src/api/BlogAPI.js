@@ -45,7 +45,7 @@ export const getUserBlogs = (setBlogs, pageNumber = 1) => {
   })
 }
 
-export const deleteBlog = async (id) => {
+export const deleteBlog = async (id, toast) => {
   await axios({
     method: 'delete',
     url: `${BASE_URL}blog?token=${getToken()}`,
@@ -53,10 +53,14 @@ export const deleteBlog = async (id) => {
     data: {
       id: id
     }
+  }).then(res => {
+    toast.success("Thành công")
+  }).catch(err => {
+    toast.error("Không thành công")
   })
 }
 
-export const editBlog = async (id, blog) => {
+export const editBlog = async (id, blog, toast) => {
   await axios({
     method: 'patch',
     url: `${BASE_URL}blog?token=${getToken()}`,
@@ -67,6 +71,10 @@ export const editBlog = async (id, blog) => {
       description: blog.description,
       title: blog.title
     }
+  }).then(res => {
+    toast.success("Thành công")
+  }).catch(err => {
+    toast.error("Không thành công")
   })
 }
 

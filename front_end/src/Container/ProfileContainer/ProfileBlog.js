@@ -7,6 +7,8 @@ import Pagination from 'react-js-pagination'
 import Modal from 'react-modal';
 import { CKEditor } from 'ckeditor4-react'
 import { Blog } from '../../model/Blog'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileBlog = () => {
     const [blogs, setBlogs] = useState(null)
@@ -60,7 +62,7 @@ const ProfileBlog = () => {
 
     const submit = async () => {
         const blog = new Blog(title, description, null, content)
-        await editBlog(id, blog)
+        await editBlog(id, blog, toast)
         await getUserBlogs(setBlogs)
         setIsOpenEdit(false)
     }
@@ -73,6 +75,7 @@ const ProfileBlog = () => {
         <>
 
         <div className="profile-container">
+            <ToastContainer/>
             <Modal
                 isOpen={modalIsOpenEdit}
                 onRequestClose={() => setIsOpenEdit(false)}
@@ -98,7 +101,7 @@ const ProfileBlog = () => {
             >
                 <h1>Bạn có chắc chắn muốn xóa?</h1>
                 <button onClick={async () =>  {
-                    await deleteBlog(idDelete)
+                    await deleteBlog(idDelete, toast)
                     await getUserBlogs(setBlogs)
                     setIsOpenDelete(false)
                 }} className="login-button">Xác nhận</button>

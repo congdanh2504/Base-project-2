@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL, getToken } from "./Common";
 
-export const addRentItem = (rentItem, setMessage) => {
+export const addRentItem = (rentItem, toast) => {
     var formData = new FormData();
     formData.append('image1', rentItem.image1)
     formData.append('image2', rentItem.image2)
@@ -22,13 +22,13 @@ export const addRentItem = (rentItem, setMessage) => {
         headers: {'Content-Type': 'multipart/form-data'},
         data: formData
     }).then(res => {
-        setMessage("Thành công")
+        toast.success("Thành công")
     }).catch(err => {
-        setMessage("Không thành công")
+        toast.error("Không thành công")
     })
 }
 
-export const addBlog = (blog, setMessage) => {
+export const addBlog = (blog, toast) => {
     var formData = new FormData();
     formData.append('image', blog.image)
     formData.append('document', JSON.stringify({
@@ -42,6 +42,8 @@ export const addBlog = (blog, setMessage) => {
         headers: {'Content-Type': 'multipart/form-data'},
         data: formData
     }).then(res => {
-        setMessage("Thành công")
+        toast.success("Thành công")
+    }).catch(err => {
+        toast.error("Không thành công")
     })
 }

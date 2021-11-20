@@ -59,7 +59,7 @@ export const getUserRentItems = (setRentItems, pageNumber = 1) => {
   })
 }
 
-export const deleteRentItem = async (id) => {
+export const deleteRentItem = async (id, toast) => {
   await axios({
     method: 'delete',
     url: `${BASE_URL}rentItem?token=${getToken()}`,
@@ -67,6 +67,10 @@ export const deleteRentItem = async (id) => {
     data: {
       id: id
     }
+  }).then(res => {
+    toast.success("Thành công")
+  }).catch(err => {
+    toast.error("Không thành công")
   })
 }
 
@@ -80,7 +84,7 @@ export const searchRentItem = (setRentItems, province, type, amount) => {
   })
 }
 
-export const editRentItem = async (id, rentItem) => {
+export const editRentItem = async (id, rentItem, toast) => {
   await axios({
     method: 'patch',
     url: `${BASE_URL}rentItem?token=${getToken()}`,
@@ -96,5 +100,9 @@ export const editRentItem = async (id, rentItem) => {
       detailLocation : rentItem.detailLocation,
       amount : rentItem.amount
     }
+  }).then(res => {
+    toast.success("Thành công")
+  }).catch(err => {
+    toast.error("Không thành công")
   })
 }
