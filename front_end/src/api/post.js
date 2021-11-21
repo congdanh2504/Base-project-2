@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL, getToken } from "./Common";
 
-export const addRentItem = (rentItem, toast) => {
+export const addRentItem = async (rentItem, toast) => {
     var formData = new FormData();
     formData.append('image1', rentItem.image1)
     formData.append('image2', rentItem.image2)
@@ -16,7 +16,7 @@ export const addRentItem = (rentItem, toast) => {
         province: rentItem.province,
         detailLocation: rentItem.detailLocation
     }))
-    axios({
+    await axios({
         method: 'post',
         url: `${BASE_URL}rentItem?token=${getToken()}`,
         headers: {'Content-Type': 'multipart/form-data'},
@@ -28,7 +28,7 @@ export const addRentItem = (rentItem, toast) => {
     })
 }
 
-export const addBlog = (blog, toast) => {
+export const addBlog = async (blog, toast) => {
     var formData = new FormData();
     formData.append('image', blog.image)
     formData.append('document', JSON.stringify({
@@ -36,7 +36,7 @@ export const addBlog = (blog, toast) => {
         description: blog.description,
         content: blog.content,
     }))
-    axios({
+    await axios({
         method: 'post',
         url: `${BASE_URL}blog?token=${getToken()}`,
         headers: {'Content-Type': 'multipart/form-data'},

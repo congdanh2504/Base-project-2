@@ -106,6 +106,7 @@ const ProfilePost = () => {
 
     return (
         <div className="profile-container">
+            <ToastContainer/>
             <Modal
                 isOpen={modalIsOpenEdit}
                 onRequestClose={() => setIsOpenEdit(false)}

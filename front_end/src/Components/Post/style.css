@@ -320,5 +320,8 @@
     color: #0061FF;
     border: 1px solid #0061FF;
     background-color: white;
+}
 
+button:disabled {
+    opacity: 0.5;
 }

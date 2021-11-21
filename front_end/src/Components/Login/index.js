@@ -8,6 +8,7 @@ import { login, loginWithGG } from '../../api/loginAPI'
 import GoogleLogin from "react-google-login";
 
 const Login = () => {
+    const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
@@ -21,35 +22,17 @@ const Login = () => {
         setPassword(param.target.value)
     }
 
-    const submit = () => {
-        login(email, password, setError, history)
+    const submit = async () => {
+        setLoading(true)
+        await login(email, password, setError, history)
+        setLoading(false)
     }
 
-    const handleGG = (param) => {
-        loginWithGG(param.tokenId, setError, history)
+    const handleGG = (param) => {      
+        loginWithGG(param.tokenId, setError, history)      
     }
 
     return (
-        // <div className="login-container">
-        //     <Link to="/" className="logo-image">
-        //         <img src={Logo} alt="" />
-        //     </Link>
-        //     <div className="loginForm-container">
-        //         <h4>Đăng nhập</h4>
-        //         <label htmlFor="login-field">Email</label>
-        //         <input type="email" name="login-field" onChange={changeEmail}/>
-        //         <label htmlFor="password-field">Mật khẩu</label>
-        //         <input type="password" name="password-field" onChange={changePassword} />
-        //         <button onClick={submit} className="sign-button">Đăng nhập</button>      
-        //         <Link to="/login">Bạn quên mật khẩu? Kệ mẹ bạn</Link>
-
-        // { error && }
-        //     </div>
-        //     <p className="login-callout">
-        //         Bạn là người mới? <Link to="/join">Tạo tài khoản ngay</Link>.
-        //     </p>
-
-        // </div>
         <>
             <Row className="login-container">
                 <Col xl='6' className="left">
@@ -94,7 +77,7 @@ const Login = () => {
 
                                 <span className="login-quote">Quên mật khẩu? <Link to="/" className="login-link">Lấy lại mật khẩu</Link></span>
                                 <Form.Group className="form-group" >
-                                    <Form.Control value="Đăng nhập" onClick={submit} className="login-input sign-button" />
+                                    <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng nhập</button>
                                 </Form.Group>
                                 <div class="alert">
                                     {error}

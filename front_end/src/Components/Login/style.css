@@ -63,7 +63,6 @@
     font-weight: 600;
 }
 .legend{
-
     width: 100%; 
     text-align: center; 
     border-bottom: 1px solid #707070; 
@@ -93,4 +92,7 @@
 }
 .sign-button:hover{
     background-color: #244094;
+}
+.form-control:disabled {
+    opacity: 0.5;
 }

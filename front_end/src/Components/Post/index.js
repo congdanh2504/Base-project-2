@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PostForm = () => {
+    const [loading, setLoading] = useState(false)
     const [provinceOptions, changeProvinceOptions] = useState([]);
     const [districtOptions, changeDistrictOptions] = useState([]);
     const [wardOptions, changeWardOptions] = useState([]);
@@ -96,9 +97,11 @@ const PostForm = () => {
         setImage3(param.target.files[0])
     }
 
-    const submit = () => {
+    const submit = async () => {
         const rentItem = new RentItem(title, description, type, people, area, province, defaultLocation, amount, image1, image2, image3)
-        addRentItem(rentItem, toast)
+        setLoading(true)
+        await addRentItem(rentItem, toast)
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -217,7 +220,7 @@ const PostForm = () => {
                         {/* <Form.Text>Dùng nút <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd> để chọn nhiều ảnh</Form.Text> */}
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control type="submit" onClick={submit} value="Xác nhận và đăng" className="post-input save-button mb-2 col-xl-12" />
+                        <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" > {loading && <span className="fa fa-refresh fa-spin"></span>} Xác nhận và đăng</button>
                     </Form.Group>
                 </div>
                 <Col xl="4" className="post-preview-container">

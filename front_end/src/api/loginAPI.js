@@ -1,8 +1,8 @@
 import axios from "axios";
 import { BASE_URL, getToken, removeUserSession, setTokenSession, setUserSession } from "./Common";
 
-export const login = (email, password, setError, history) => {
-    axios({
+export const login = async (email, password, setError, history) => {
+    await axios({
         method: 'post',
         url: `${BASE_URL}login`,
         headers: {'Content-Type': 'application/json'},
@@ -19,8 +19,8 @@ export const login = (email, password, setError, history) => {
     })
 }
 
-export const register = (email, username, password, rePassword, setEmailError, setUsernameError, setPasswordError, setRePasswordError, history) => {
-    axios({
+export const register = async (email, username, password, rePassword, setEmailError, setUsernameError, setPasswordError, setRePasswordError, history) => {
+    await axios({
         method: 'post',
         url:  `${BASE_URL}register`,
         headers: {'Content-Type': 'application/json'},
@@ -35,7 +35,10 @@ export const register = (email, username, password, rePassword, setEmailError, s
     }).then(response => {
         history.push("/login")
     }).catch(error => {
-        if (error.response.status === 409 || error.response.status === 400) {
+        console.log(error.response)
+        if (error.response.status === 409) {
+            setEmailError(error.response.data.message)
+        } else if (error.response.status === 400) {
             setEmailError(error.response.data[0].email)
             setUsernameError(error.response.data[0].name)
             setPasswordError(error.response.data[0].password)

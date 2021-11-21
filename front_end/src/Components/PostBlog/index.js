@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Index = () => {
+    const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState(null);
     const [description, setDescription] = useState(null)
     const [image, setImage] = useState(null)
@@ -37,10 +38,13 @@ const Index = () => {
         setContent(param.editor.getData())
     }
 
-    const submit = () => {
+    const submit = async () => {
         const blog = new Blog(title, description, image, content)
-        addBlog(blog, toast)
+        setLoading(true)
+        await addBlog(blog, toast)
+        setLoading(false)
     }
+
     const object = {
         __id : " ",
         "user" : {
@@ -78,7 +82,7 @@ const Index = () => {
                             <CKEditor onChange={changeContent} />
                         </Form.Group>
                         <Form.Group className="my-3">
-                            <Form.Control type="submit" onClick={submit} className="post-input save-button mb-2 col-xl-12" />
+                            <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" > {loading && <span className="fa fa-refresh fa-spin"></span>} Xác nhận và đăng</button>
                         </Form.Group>
                     </Col>
                     <Col >

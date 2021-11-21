@@ -5,6 +5,8 @@ import { deleteBlog, getBlogs } from '../../api/BlogAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 
 const ManageBlog = () => {
     const [blogs, setBlogs] = useState(null)
@@ -33,44 +35,32 @@ const ManageBlog = () => {
                 <h2>Quản lý Blog</h2>
             </Row>
             <ToastContainer/>
-            <Row className="admin-table-container">
-                <Row className="admin-table-header">
-                    <Col xl="1"><div></div></Col>
-                    <Col xl="1"><h4>Id</h4></Col>
-                    <Col xl="3"><h4>Tiêu đề</h4></Col>
-                    <Col xl="2"><h4>Tác giả</h4></Col>
-                    <Col xl="2"><h4>Ngày tạo</h4></Col>
-                    <Col xl="2"></Col>
-                </Row>
-                <Row className="table-user-items">
-                {blogs && blogs.data.map((blog, index) => {
-                    return <Row className="user-item">
-                        <Col xl="1"><div className="object-cover blog-item-image"><img src={blog.imageAddress} alt="" /></div></Col>
-                        <Col xl="1"><span className="user-item-name">{blog._id}</span></Col>
-                        <Col xl="3"><span className="user-item-address" >{blog.title}</span></Col>
-                        <Col xl="2"><span className="user-item-phone">{blog.user.name}</span></Col>
-                        <Col xl="2"><span className="user-item-date">{blog.created_at}</span></Col>
-                        <Col xl="2"><button onClick={() =>  {
-                            setIdDelete(blog._id)
-                            setIsOpenDelete(true)
-                        }} className="user-item-delete">Xóa</button></Col>
-                    </Row>
-                })}
-
-                <Modal
-                    isOpen={modalIsOpenDelete}
-                    onRequestClose={() => setIsOpenDelete(false)}
-                    style={customStylesDelete}
-                >
-                    <h1>Bạn có chắc chắn muốn xóa?</h1>
-                    <button onClick={async () =>  {
-                        await deleteBlog(idDelete, toast)
-                        await getBlogs(setBlogs)
-                        setIsOpenDelete(false)
-                    }} className="login-button">Xác nhận</button>
-                    <button onClick={() => setIsOpenDelete(false)} className="login-button">Hủy</button>
-                </Modal>
-
+            <div className="table-container">
+                <table className="table-blog">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tiêu đề</th>
+                        <th>Ảnh nền</th>
+                        <th>Ngày đăng bài</th>
+                        <th>Link</th>
+                        <th></th>
+                    </tr>
+                    {blogs && blogs.data.map((blog, index) => {
+                        return <tr>
+                            <td>{blog._id}</td>
+                            <td>{blog.title}</td>
+                            <td className="profile-table-image"><img src={blog.imageAddress} alt="" /></td>
+                            <td><Moment format="YYYY/MM/DD">
+                            {blog.created_at}
+                            </Moment></td>
+                            <td><Link to={`/blog/${blog._id}`}>Dẫn đến bài viết</Link></td>
+                            <td><button onClick={() => {
+                                setIdDelete(blog._id)
+                                setIsOpenDelete(true)
+                            }} className="user-item-delete">Xóa</button></td>  
+                        </tr>
+                    })}
+                </table>
                 {blogs && <Pagination
                     activePage={blogs.current_page}
                     itemsCountPerPage={blogs.per_page}
@@ -82,9 +72,23 @@ const ManageBlog = () => {
                     firstPageText="First"
                     lastPageText="Last"
                 />}
-                </Row>
-            </Row>
-
+                
+            </div>
+            <Modal
+                isOpen={modalIsOpenDelete}
+                onRequestClose={() => setIsOpenDelete(false)}
+                style={customStylesDelete}
+            >
+                <h1>Bạn có chắc chắn muốn xóa?</h1>
+                <div className="model-button-field">
+                <button onClick={async () =>  {
+                    await deleteBlog(idDelete, toast)
+                    await getBlogs(setBlogs)
+                    setIsOpenDelete(false)
+                }} className="login-button">Xác nhận</button>
+                <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
+                </div>
+            </Modal>
         </>
     )
 }

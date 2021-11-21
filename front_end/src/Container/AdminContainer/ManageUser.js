@@ -6,6 +6,7 @@ import defaultImage from '../../assets/images/login.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
+import Moment from 'react-moment';
 
 const ManageUser = () => {
     const [idDelete, setIdDelete] = useState(null)
@@ -35,43 +36,32 @@ const ManageUser = () => {
                 <h2>Quản lý người dùng</h2>
             </Row>
             <ToastContainer/>
-            <Row className="admin-table-container">
-                <Row className="admin-table-header">
-                    <Col md="1"><div></div></Col>
-                    <Col md="2"><h4>ID</h4></Col>
-                    <Col md="3"><h4>Tên</h4></Col>
-                    <Col md="2"><h4>Email</h4></Col>
-                    <Col md="2"><h4>Ngày tham gia</h4></Col>
-                    <Col md="2"></Col>
-                </Row>
-                <Row className="table-user-items">
-                {users && users.data[0].map((user, index) => {
-                    return <Row className="user-item">
-                        <Col md="1"><div className="object-cover user-item-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div></Col>
-                        <Col md="2"><span className="user-item-name">{user._id}</span></Col>
-                        <Col md="3"><span className="user-item-address">{user.name}</span></Col>
-                        <Col md="2"><span className="user-item-phone">{user.email}</span></Col>
-                        <Col md="2"><span className="user-item-date">{user.created_at}</span></Col>
-                        <Col md="2"><button onClick={() => {
-                            setIdDelete(user._id)
-                            setIsOpenDelete(true)
-                        }} className="user-item-delete">Xóa</button></Col>
-                    </Row>
-                })}
-
-                <Modal
-                    isOpen={modalIsOpenDelete}
-                    onRequestClose={() => setIsOpenDelete(false)}
-                    style={customStylesDelete}
-                >
-                    <h1>Bạn có chắc chắn muốn xóa?</h1>
-                    <button onClick={async () =>  {
-                        await deleteUser(idDelete, toast)
-                        await getUsers(setUsers)
-                        setIsOpenDelete(false)
-                    }} className="login-button">Xác nhận</button>
-                    <button onClick={() => setIsOpenDelete(false)} className="login-button">Hủy</button>
-                </Modal>
+            <div className="table-container">
+                <table className="table-blog">
+                    <tr>
+                        <th></th> 
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Ngày tham gia</th>
+                        <th></th>
+                    </tr>
+                    {users && users.data[0].map((user, index) => {
+                        return <tr>
+                            <td><div className="object-cover user-item-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div></td>
+                            <td>{user._id}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td><Moment format="YYYY/MM/DD">
+                            {user.created_at}
+                            </Moment></td>
+                            <td><button onClick={() => {
+                                setIdDelete(user._id)
+                                setIsOpenDelete(true)
+                            }} className="user-item-delete">Xóa</button></td>  
+                        </tr>
+                    })}
+                </table>
                 {users && <Pagination
                     activePage={users.current_page}
                     itemsCountPerPage={users.per_page}
@@ -83,9 +73,23 @@ const ManageUser = () => {
                     firstPageText="First"
                     lastPageText="Last"
                 />}
-                </Row>
-            </Row>
-
+                
+            </div>
+            <Modal
+                isOpen={modalIsOpenDelete}
+                onRequestClose={() => setIsOpenDelete(false)}
+                style={customStylesDelete}
+            >
+                <h1>Bạn có chắc chắn muốn xóa?</h1>
+                <div className="model-button-field">
+                    <button onClick={async () =>  {
+                        await deleteUser(idDelete, toast)
+                        await getUsers(setUsers)
+                        setIsOpenDelete(false)
+                    }} className="login-button">Xác nhận</button>
+                    <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
+                </div>
+            </Modal>
         </>
     )
 }

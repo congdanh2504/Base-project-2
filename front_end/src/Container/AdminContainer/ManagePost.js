@@ -7,6 +7,7 @@ import { deleteRentItem, getRentItems } from '../../api/rentItem';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 const ManagePost = () => {
     const [rentItems, setRentItems] = useState(null)
@@ -34,65 +35,62 @@ const ManagePost = () => {
                 <h2>Quản lý bài viết</h2>
             </Row>
             <ToastContainer />
-            <Row className="admin-table-container">
-                <Row className="admin-table-header">
-                    <Col xl="1"><div></div></Col>
-                    <Col xl="2"><h4>Id</h4></Col>
-                    <Col xl="3"><h4>Tiêu đề</h4></Col>
-                    <Col xl="3"><h4>Loại</h4></Col>
-                    <Col xl="2"><h4>Ngày tạo</h4></Col>
-                    <Col xl="2"></Col>
-                </Row>
-                <Row className="table-user-items">
-
+            <div className="table-container">
+                <table className="table-blog">
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Tiêu đề</th>
+                        <th>Loại</th>
+                        <th>Ngày đăng bài</th>
+                        <th>Link</th>
+                        <th></th>
+                    </tr>
                     {rentItems && rentItems.data.map((rentItem, index) => {
-                        return <Row className="user-item">
-                            <Col xl="1"><div className="object-cover blog-item-image"><img src={rentItem.imagesAddress.path1} alt="" /></div></Col>
-                            <Col xl="2"><span className="user-item-name">{rentItem._id.$oid}</span></Col>
-                            <Col xl="3"><span className="user-item-address" >{rentItem.title}</span></Col>
-                            <Col xl="2"><span className="user-item-phone">{rentItem.type}</span></Col>
-                            <Col xl="2"><span className="user-item-date"><Moment format="YYYY/MM/DD">
-                                {moment(parseInt(rentItem.created_at.$date.$numberLong))}
-                            </Moment></span></Col>
-                            <Col xl="2"><td><button onClick={() => {
+                        return <tr>
+                            <td><div className="object-cover blog-item-image"><img src={rentItem.imagesAddress.path1} alt="" /></div></td>
+                            <td>{rentItem._id.$oid}</td>
+                            <td>{rentItem.title}</td>
+                            <td>{rentItem.type}</td>
+                            <td><Moment format="YYYY/MM/DD">
+                            {rentItem.created_at}
+                            </Moment></td>
+                            <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài viết</Link></td>
+                            <td><button onClick={() => {
                                 setIdDelete(rentItem._id.$oid)
                                 setIsOpenDelete(true)
-                            }} className="user-item-delete">Xóa</button></td></Col>
-                        </Row>
+                            }} className="user-item-delete">Xóa</button></td>  
+                        </tr>
                     })}
-{/* 
-                    <Modal
-                        isOpen={modalIsOpenDelete}
-                        onRequestClose={() => setIsOpenDelete(false)}
-                        style={customStylesDelete}
-                    >
-                        <h1>Bạn có chắc chắn muốn xóa?</h1>
-                        <div className="model-button-field">
-                            <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
-                            <button onClick={async () => {
-                                await deleteRentItem(idDelete, toast)
-                                await getRentItems(setRentItems);
-                                setIsOpenDelete(false)
-                            }} className="login-button">Xác nhận</button>
-                        </div>
-
-
-                    </Modal> */}
-
-                    {rentItems && <Pagination
-                        activePage={rentItems.current_page}
-                        itemsCountPerPage={rentItems.per_page}
-                        totalItemsCount={rentItems.total}
-                        pageRangeDisplayed={5}
-                        onChange={(num) => getRentItems(setRentItems, num)}
-                        itemClass="page-item"
-                        linkClass="page-link"
-                        firstPageText="First"
-                        lastPageText="Last"
-                    />}
-                </Row>
-            </Row>
-
+                </table>
+                {rentItems && <Pagination
+                    activePage={rentItems.current_page}
+                    itemsCountPerPage={rentItems.per_page}
+                    totalItemsCount={rentItems.total}
+                    pageRangeDisplayed={5}
+                    onChange={(num) => getRentItems(setRentItems, num)}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    firstPageText="First"
+                    lastPageText="Last"
+                />}
+                
+            </div>
+            <Modal
+                isOpen={modalIsOpenDelete}
+                onRequestClose={() => setIsOpenDelete(false)}
+                style={customStylesDelete}
+            >
+                <h1>Bạn có chắc chắn muốn xóa?</h1>
+                <div className="model-button-field">
+                    <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
+                    <button onClick={async () => {
+                        await deleteRentItem(idDelete, toast)
+                        await getRentItems(setRentItems);
+                        setIsOpenDelete(false)
+                    }} className="login-button">Xác nhận</button>
+                </div>
+            </Modal>
         </>
     )
 }

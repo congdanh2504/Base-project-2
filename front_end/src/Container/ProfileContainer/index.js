@@ -11,6 +11,7 @@ import ProfileUser from './ProfileUser';
 import ProfileBlog from './ProfileBlog';
 import ProfilePost from './ProfilePost';
 import ProfileContract from './ProfileContract';
+
 const Index = () => {
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
@@ -38,6 +39,7 @@ const Index = () => {
             </Row>
             <Row className="admin-mainpage">
                 <Col xl="1" className={sidebar ? "sidebar active" : "sidebar"}>
+                    <div className="sidebar-background"></div>
                     <ul className="sidebar-items">
                         {SidebarData.map((item, index) => {
                             return (

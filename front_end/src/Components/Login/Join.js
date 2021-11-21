@@ -8,6 +8,7 @@ import GoogleLogin from "react-google-login";
 import { loginWithGG, register } from '../../api/loginAPI';
 
 const Join = () => {
+  const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -35,8 +36,10 @@ const Join = () => {
     setRePassword(param.target.value)
   }
 
-  const submit = () => {
-    register(email, username, password, rePassword, setEmailError, setUserNameError, setPasswordError, setRePasswordError, history)
+  const submit = async () => {
+    setLoading(true)
+    await register(email, username, password, rePassword, setEmailError, setUserNameError, setPasswordError, setRePasswordError, history)
+    setLoading(false)
   }
 
   const handleGG = (param) => {
@@ -44,43 +47,6 @@ const Join = () => {
   }
 
   return (
-    // <div className="login-container">
-    //     <Link to="/" className="logo-image">
-    //         <img src={Logo} alt="" />
-    //     </Link>
-
-    //     <h4>Đăng ký</h4>
-    //     <div className="loginForm-container">
-    //     <label htmlFor="login-field">E-mail</label>
-    //     <input type="email" name="login-field" onChange={changeEmail} required/>
-
-    //     <label htmlFor="login-field">Tên tài khoản</label>
-    //     <input type="text" onChange={changeUsername} required/>
-
-    //     <label htmlFor="password-field">Mật khẩu</label>
-    //     <input type="password" name="rePassword-field" id="" onChange={changePassword} required/>
-    //     {passwordError && <div class="alert alert-danger">{passwordError}</div>}
-    //     <label htmlFor="rePassword-field">Xác nhận mật khẩu</label>
-    //     <input type="password" name="password-field" id="" onChange={changeRePassword} required/>
-
-    //     <div>
-    //     <input type="checkbox" name="term" id="" required/>
-    //     <label htmlFor="term">Tôi chấp nhận mọi điều khoản dịch vụ</label>
-    //     </div>
-    //     <input type="submit" value="Đăng ký" onClick={submit} className="sign-button"/>
-    //     <GoogleLogin 
-    //             clientId="246456551142-222jord9ruqrqlafkbnm7212euatdihl.apps.googleusercontent.com"
-    //             buttonText="Login"
-    //             onSuccess={handleGG}
-    //             className="btn btn-google btn-block justify-content-center"
-    //             cookiePolicy={'single_host_origin'}/>
-    //     </div>    
-
-    //     <p className="login-callout">
-    //         Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>.
-    //     </p>
-
-    // </div>
     <>
       <Row className="login-container">
         <Col xl='6' className="left">
@@ -142,7 +108,7 @@ const Join = () => {
                 <Form.Control type="checkbox" value="term" name="term" required></Form.Control>
                 <span className="login-quote">Tôi đồng ý với <Link to="/" className="login-link">điều khoản sử dụng</Link></span>
                 <Form.Group className="form-group" >
-                  <Form.Control value="Đăng ký" onClick={submit} className="login-input sign-button" />
+                <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng ký</button>
                 </Form.Group>
                 <div class="alert">
                   {error}
