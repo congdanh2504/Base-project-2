@@ -86,7 +86,7 @@ export const getUserById = (id, setUser) => {
       })
 }
 
-export const updateProfile = (user, setMessage) => {
+export const updateProfile = (user, toast) => {
     var formData = new FormData();
     if (user.image) formData.append('image', user.image)
     formData.append('document', JSON.stringify({
@@ -101,8 +101,8 @@ export const updateProfile = (user, setMessage) => {
         headers: {'Content-Type': 'multipart/form-data'},
         data: formData
     }).then(res => {
-        setMessage("Thành công")
+        toast.success("Thành công")
     }).catch ( err => {
-        setMessage("Không thành công")
+        toast.error("Không thành công")
     })
 }

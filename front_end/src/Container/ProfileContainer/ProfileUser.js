@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { getUser } from '../../api/Common';
 import { updateProfile } from '../../api/loginAPI';
 import { User } from '../../model/User';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileUser = () => {
     const [name, setName] = useState(getUser().name);
@@ -12,7 +14,6 @@ const ProfileUser = () => {
     const [fb, setFb] = useState(getUser().fb);
     const [imageAddress, setImageAddress] = useState(null);
     const [overviewAvatar, setOverviewAvatar] = useState(getUser().imageAddress)
-    const [message, setMassage] = useState(null)
 
     const changeAvatar = (param) => {
         var file = param.target.files[0];
@@ -26,11 +27,12 @@ const ProfileUser = () => {
 
     const submit = () => {
         const user = new User(name, phone, zalo, fb, imageAddress)
-        updateProfile(user, setMassage)
+        updateProfile(user, toast)
     }
 
     return (
         <div className="profile-container">
+            <ToastContainer/>
             <Row>
                 <h1 className="profile-title">Sửa thông tin cá nhân</h1>
             </Row>
@@ -75,11 +77,6 @@ const ProfileUser = () => {
                     <Col className="col-md-2"></Col>
                     <Col><button className="save-button" onClick={submit}>Lưu và thay đổi</button></Col>
                 </Row>
-
-                {message &&  <Row className="profile-item">
-                    <Col className="col-md-2"></Col>
-                    {message}
-                </Row>}
             </Row>
         </div>
     )
