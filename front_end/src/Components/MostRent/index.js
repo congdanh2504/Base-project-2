@@ -10,7 +10,7 @@ const MostRent = () => {
     const [rentItems, setRentItems] = useState(null)
 
     useEffect(() => {
-        setLimitRentItems(setRentItems, 3);
+        setLimitRentItems(setRentItems, 6);
     }, [])
 
     return (

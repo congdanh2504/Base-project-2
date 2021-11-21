@@ -19,20 +19,20 @@ function DisplayUser({ user }) {
     const logout = () => {
         removeUserSession()
         history.push('/')
-        window.location.reload()     
+        window.location.reload()
     }
 
     if (user) {
         return (
             <div className="navbar-login">
-                <BiIcons.BiBell title="Notifications"/>
+                <BiIcons.BiBell title="Notifications" />
                 <div>
                     <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div>
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
-                            
+
                             {user.type == "admin" ? <li className="user-dropdown-item" ><BiIcons.BiGroup /> <span><Link to="/admin">Adminstration</Link></span> </li> :
-                            <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><Link to="/profile/user">Trang cá nhân</Link></span> </li>}
+                                <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><Link to="/profile/user">Trang cá nhân</Link></span> </li>}
                             <li className="user-dropdown-item" onClick={logout}><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
                         </ul>
                     </div>
@@ -57,26 +57,33 @@ function index() {
     return (
         <>
             <div className="navbar-container">
-                <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
 
+                <div className="navbar-content">
+                    <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
 
-                <div className="navbar-menu">
-                    <ul className="navbar-list">
-                        <li >
-                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/' exact>Trang Chủ</NavLink>
-                        </li>
-                        <li >
-                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/List' exact>Danh Sách</NavLink>
-                        </li>
-                        <li >
-                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Blog'>Blog</NavLink>
-                        </li>
-                        {getUser() && <li >
-                            <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
-                        </li>}
-                    </ul>
+                    <div className="navbar-menu">
+                        <ul className="navbar-list">
+                            <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/' exact>Trang Chủ</NavLink>
+                            </li>
+                            <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/List' exact>Danh Sách</NavLink>
+                            </li>
+                            <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Blog'>Blog</NavLink>
+                            </li>
+                            <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/guide'>Hướng dẫn</NavLink>
+                            </li>
+                            {getUser() && <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
+                            </li>}
+                        </ul>
+                        <DisplayUser user={getUser()} />
+                    </div>
                 </div>
-                <DisplayUser user={getUser()} />
+
+
 
 
             </div>

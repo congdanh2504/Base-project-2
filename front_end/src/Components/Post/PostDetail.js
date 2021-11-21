@@ -41,7 +41,9 @@ const PostDetail = () => {
           transform: 'translate(-50%, -50%)',
         },
     };
-
+    const [payment,setPayment] = useState(null)
+    const changePayment = method => setPayment(method);
+    
     useEffect(() => {
         getById(id.id, setRentItem, setOther)         
     }, [idChange])
@@ -167,10 +169,17 @@ const PostDetail = () => {
                     <h1>Đặt cọc</h1>
                     <h4>Giá: {rentItem.amount} VNĐ (cọc trước 1 tháng)</h4>
                     <h4>Chọn phương thức thanh toán: </h4>
-                    <img src={momo} style={{ width: 100 }} /> <br/>
-                    <img src={paypal} style={{ width: 100 }} /> <br/>
-                    <img src={viettelpay} style={{ width: 100 }} /> <br/>
+                    <ul className="payment-list">
+                        <li className={(payment=='momo')?"payment-item chosen":"payment-item"} ><img src={momo} onClick={()=>changePayment('momo')}/> </li>
+                        <li className={(payment=='paypal')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('paypal')}><img src={paypal} /> </li>
+                        <li className={(payment=='viettelpay')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('viettelpay')}><img src={viettelpay}/> </li>
+                    </ul>
+                    
+                    <div className="model-button-field">
+                    <button onClick={() => setIsOpen(false)} className="alter-button">Hủy</button>
                     <button onClick={submit} className="login-button">Xác nhận</button>
+                    </div>
+                    
                 </Modal>
             </Row>: <Loading/>}
             

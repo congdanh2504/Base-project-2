@@ -243,6 +243,9 @@
     position: relative;
     top: 100px;
 }
+.post-preview h2{
+    text-align: center;
+}
   
   @keyframes rotate-gradient {
     from{transform: rotate(0deg);}
@@ -279,4 +282,43 @@
 }
 .navbar-login svg:hover{
     opacity: 1;
+}
+.payment-list{
+    display: flex;
+    max-width: 400px;
+    width: 100%;
+    margin: 30px;
+}
+.payment-item{
+    width: 100px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+.payment-item img{
+    width: 100%;
+    object-fit: contain;
+}
+.payment-item.chosen img{
+    outline: 3px solid #105693;
+    border-radius: 2px;
+}
+.model-button-field{
+    max-width: 350px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.alter-button{
+    box-sizing: border-box;
+    position: relative;
+    width: 120px;
+    padding: 15px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #0061FF;
+    border: 1px solid #0061FF;
+    background-color: white;
+
 }

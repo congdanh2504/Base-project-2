@@ -21,7 +21,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import UpdateRoute from './Components/UpdateRoute';
 import AdminRoute from './Components/AdminRoute';
 import PublicRoute from './Components/PublicRoute';
-
+import GuideContainer from './Container/GuideContainer';
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -49,6 +49,7 @@ function App() {
           <Route path="/post/:id" component={PostDetail}/>
           <UpdateRoute path="/Post" exact component={Post}/>
           <Route path="/blog/:id" component={BlogDetail}/>
+          <Route path="/guide" component={GuideContainer}/>
           <PrivateRoute path="/profile" component={Profile}/>
         </Switch>
       </Router>
