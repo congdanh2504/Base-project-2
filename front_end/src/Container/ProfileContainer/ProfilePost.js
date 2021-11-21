@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ProfilePost = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
-    const typeOpt = [{"value": 1, "label": "Trọ"},{"value": 2, "label": "Căn hộ"}, {"value": 3, "label": "Nhà"},{"value": 4, "label": "Villa"}];
+    const typeOpt = [{ "value": 1, "label": "Trọ" }, { "value": 2, "label": "Căn hộ" }, { "value": 3, "label": "Nhà" }, { "value": 4, "label": "Villa" }];
     const [rentItems, setRentItems] = useState(null)
     const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
     const [modalIsOpenDelete, setIsOpenDelete] = useState(false);
@@ -40,7 +40,7 @@ const ProfilePost = () => {
             position: 'absolute',
             zIndex: '10',
             overflowY: 'scroll'
-        },    
+        },
     };
 
     const customStylesDelete = {
@@ -53,7 +53,7 @@ const ProfilePost = () => {
             transform: 'translate(-50%, -50%)',
             position: 'absolute',
             zIndex: '10',
-        },    
+        },
     };
 
     const changeTitle = (param) => {
@@ -88,7 +88,7 @@ const ProfilePost = () => {
         setProvince(param.label)
     }
 
-    const submit =  async () => {
+    const submit = async () => {
         const rentItem = new RentItem(title, description, type, people, area, province, detailLocation, amount, null, null, null)
         await editRentItem(id, rentItem, toast)
         await getUserRentItems(setRentItems)
@@ -112,35 +112,35 @@ const ProfilePost = () => {
                 style={customStylesEdit}
             >
                 <div className="post-desc col-xl-12">
-                <h1>Sửa bài đăng</h1>  
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control onChange={changeTitle} defaultValue={title} placeholder="Tiêu đề" type="text" className="post-input"/>
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control onChange={changeDescription} defaultValue={description} placeholder="Mô tả" type="text" className="post-input"/>
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control onChange={changeDetailLocation} defaultValue={detailLocation} placeholder="Địa chỉ chi tiết" type="text" className="post-input"/>
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <CustomSelect defaultValue={province} label="Tỉnh/Thành phố" onChange={changeProvince} opts={provinceOptions} />
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <CustomSelect defaultValue={type} placeholder="Loại hình" opts={typeOpt} onChange={changeType}/>
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control defaultValue={people} placeholder="Số người ở" type="number" className="post-input mb-2 col-xl-6" onChange={changePeople} />
-                </Form.Group>
+                    <h1>Sửa bài đăng</h1>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control onChange={changeTitle} defaultValue={title} placeholder="Tiêu đề" type="text" className="post-input" />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control onChange={changeDescription} defaultValue={description} placeholder="Mô tả" type="text" className="post-input" />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control onChange={changeDetailLocation} defaultValue={detailLocation} placeholder="Địa chỉ chi tiết" type="text" className="post-input" />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <CustomSelect defaultValue={province} label="Tỉnh/Thành phố" onChange={changeProvince} opts={provinceOptions} />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <CustomSelect defaultValue={type} placeholder="Loại hình" opts={typeOpt} onChange={changeType} />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control defaultValue={people} placeholder="Số người ở" type="number" className="post-input mb-2 col-xl-6" onChange={changePeople} />
+                    </Form.Group>
 
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control defaultValue={amount} placeholder="Giá cho thuê(VND/Tháng)" type="text" className="post-input mb-2 col-xl-6" onChange={changeAmount} placeholder="VD: 10000000" />
-                </Form.Group>
-                <Form.Group as={Row} className="my-3">
-                    <Form.Control defaultValue={area} placeholder="Diện tích m2" type="text" className="post-input mb-2 col-xl-6" onChange={changeArea} placeholder="VD: 50" />
-                </Form.Group>
-                <button onClick={submit} className="login-button">Xác nhận</button>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control defaultValue={amount} placeholder="Giá cho thuê(VND/Tháng)" type="text" className="post-input mb-2 col-xl-6" onChange={changeAmount} placeholder="VD: 10000000" />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control defaultValue={area} placeholder="Diện tích m2" type="text" className="post-input mb-2 col-xl-6" onChange={changeArea} placeholder="VD: 50" />
+                    </Form.Group>
+                    <button onClick={submit} className="login-button">Xác nhận</button>
                 </div>
-                
+
             </Modal>
             <Modal
                 isOpen={modalIsOpenDelete}
@@ -148,12 +148,16 @@ const ProfilePost = () => {
                 style={customStylesDelete}
             >
                 <h1>Bạn có chắc chắn muốn xóa?</h1>
-                <button onClick={async () =>  {
-                    await deleteRentItem(idDelete, toast)
-                    await getUserRentItems(setRentItems)
-                    setIsOpenDelete(false)
-                }} className="login-button">Xác nhận</button>
-                <button onClick={() => setIsOpenDelete(false)} className="login-button">Hủy</button>
+                <div className="model-button-field">
+                    <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
+                    <button onClick={async () => {
+                        await deleteRentItem(idDelete, toast)
+                        await getUserRentItems(setRentItems)
+                        setIsOpenDelete(false)
+                    }} className="login-button">Xác nhận</button>
+                    
+                </div>
+
             </Modal>
             <Row>
                 <h1 className="profile-title">Quản lý tin đăng</h1>
@@ -171,31 +175,31 @@ const ProfilePost = () => {
                     </tr>
                     {rentItems && rentItems.data[0].map((rentItem, index) => {
                         return <tr>
-                        <td>{rentItem.title}</td>
-                        <td className="profile-table-image"><img src={rentItem.imagesAddress.path1} alt="" /></td>
-                        <td>{rentItem.amount}</td>
-                        <td><Moment format="YYYY/MM/DD">
-                        {rentItem.created_at}
-                        </Moment></td>
-                        <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài đăng</Link></td>
-                        <td><button onClick={() => {
-                            setIdDelete(rentItem._id)
-                            
-                            setIsOpenDelete(true)
-                        }} className="user-item-delete">Xóa</button></td>
-                        <td><button onClick={() => {
-                            setId(rentItem._id)
-                            setType(rentItem.type)
-                            setTitle(rentItem.title)
-                            setDescription(rentItem.description)
-                            setDetailLocation(rentItem.address.detailLocation)
-                            setProvince(rentItem.address.province)
-                            setPeople(rentItem.people)
-                            setAmount(rentItem.amount)
-                            setArea(rentItem.area)
-                            setIsOpenEdit(true)
-                        }} className="user-item-edit">Sửa</button></td>
-                    </tr>
+                            <td>{rentItem.title}</td>
+                            <td className="profile-table-image"><img src={rentItem.imagesAddress.path1} alt="" /></td>
+                            <td>{rentItem.amount}</td>
+                            <td><Moment format="YYYY/MM/DD">
+                                {rentItem.created_at}
+                            </Moment></td>
+                            <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài đăng</Link></td>
+                            <td><button onClick={() => {
+                                setIdDelete(rentItem._id)
+
+                                setIsOpenDelete(true)
+                            }} className="user-item-delete">Xóa</button></td>
+                            <td><button onClick={() => {
+                                setId(rentItem._id)
+                                setType(rentItem.type)
+                                setTitle(rentItem.title)
+                                setDescription(rentItem.description)
+                                setDetailLocation(rentItem.address.detailLocation)
+                                setProvince(rentItem.address.province)
+                                setPeople(rentItem.people)
+                                setAmount(rentItem.amount)
+                                setArea(rentItem.area)
+                                setIsOpenEdit(true)
+                            }} className="user-item-edit">Sửa</button></td>
+                        </tr>
                     })}
                 </table>
                 {rentItems && <Pagination

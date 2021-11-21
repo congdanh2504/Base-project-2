@@ -100,12 +100,16 @@ const ProfileBlog = () => {
                 style={customStylesDelete}
             >
                 <h1>Bạn có chắc chắn muốn xóa?</h1>
+                <div className="model-button-field">
+                <button onClick={() => setIsOpenDelete(false)} className="alter-button">Hủy</button>
                 <button onClick={async () =>  {
                     await deleteBlog(idDelete, toast)
                     await getUserBlogs(setBlogs)
                     setIsOpenDelete(false)
                 }} className="login-button">Xác nhận</button>
-                <button onClick={() => setIsOpenDelete(false)} className="login-button">Hủy</button>
+                </div>
+                
+                
             </Modal>
             <Row>
                 <h1 className="profile-title">Quản lý blog</h1>

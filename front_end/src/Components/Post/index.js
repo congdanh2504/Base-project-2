@@ -171,7 +171,7 @@ const PostForm = () => {
                 </Container>
                 <div className="post-desc col-xl-6">
                     <Row className="my-3">
-                        <h2 className="px-4">Thông tin mô tả</h2>
+                        <h2 >Thông tin mô tả</h2>
                     </Row>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Tiêu đề</Form.Label>
@@ -222,6 +222,7 @@ const PostForm = () => {
                 </div>
                 <Col xl="4" className="post-preview-container">
                     <div className="post-preview">
+                        <h2 >Xem trước</h2>
                         <PostCard obj={testItem}/>
                     </div>
                 </Col>
