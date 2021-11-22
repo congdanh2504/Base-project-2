@@ -28,8 +28,10 @@ const Login = () => {
         setLoading(false)
     }
 
-    const handleGG = (param) => {      
-        loginWithGG(param.tokenId, setError, history)      
+    const handleGG = async (param) => {      
+        setLoading(true)
+        await loginWithGG(param.tokenId, setError, history)      
+        setLoading(false)
     }
 
     return (

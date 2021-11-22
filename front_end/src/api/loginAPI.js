@@ -47,8 +47,8 @@ export const register = async (email, username, password, rePassword, setEmailEr
     })
 }
 
-export const loginWithGG = (idToken, setError, history) => {
-    axios({
+export const loginWithGG = async (idToken, setError, history) => {
+    await axios({
         method: 'post',
         url: `${BASE_URL}loginWithGG`,
         headers: {'Content-Type': 'application/json'},

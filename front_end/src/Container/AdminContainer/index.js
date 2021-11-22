@@ -11,6 +11,7 @@ import ManageBlog from './ManageBlog';
 import ManagePost from './ManagePost';
 import "./style.css"
 import ManageContract from './ManageContract';
+import ManageHome from './ManageHome';
 
 const Index = () => {
     const [sidebar, setSidebar] = useState(true);
@@ -53,6 +54,7 @@ const Index = () => {
 
                 <Col className={sidebar ? "admin-page on" : "admin-page"}>
                     <Switch>
+                        <Route path={`${url}/Home`} component={ManageHome} />
                         <Route path={`${url}/manageUser`} component={ManageUser} />
                         <Route path={`${url}/manageBlog`} component={ManageBlog} />
                         <Route path={`${url}/managePost`} component={ManagePost} />

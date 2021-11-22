@@ -10,7 +10,11 @@ const Card = ({obj}) => {
                         <img src={obj.imageAddress}  alt="" />
                     </div>
                     <div className="blog-sub-content mt-3">
-                        <p>Bởi <Link to="/">{obj.user.name}</Link></p>
+                        
+                        <p>Bởi <Link to="/">{obj.user.name}</Link></p>    
+                        <span><i className="far fa-eye">
+                        {" " + obj.views}
+                        </i></span>   
                         <h2>{obj.title}</h2>
                         <p className="text-overflow-4 mt-2">{obj.description}
                             </p>
