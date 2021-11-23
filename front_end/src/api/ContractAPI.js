@@ -2,15 +2,15 @@ import axios from 'axios'
 import { BASE_URL, getToken } from './Common'
 
 export const addContract = async (contract, toast) => {
-    console.log(contract.rentItemId)
     axios({
         method: 'post',
         url: `${BASE_URL}contract?token=${getToken()}`,
         headers: {'Content-Type': 'application/json'},
         data: {
             userId2 : contract.userId2,
-            deposit : contract.deposit,
-            rentItemId : contract.rentItemId
+            rent : contract.rent,
+            rentItemId : contract.rentItemId,
+            period: contract.period
         }
     }).then(res => {
         toast.success("Thành công")

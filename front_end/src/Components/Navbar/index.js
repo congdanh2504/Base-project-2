@@ -75,6 +75,9 @@ function index() {
                             <li >
                                 <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/guide'>Hướng dẫn</NavLink>
                             </li>
+                            <li >
+                                <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/terms'>Điều khoản</NavLink>
+                            </li>
                             {getUser() && <li >
                                 <NavLink className="navbar-item" activeClassName="navbar-item-active" to='/Post' exact>Đăng Tin</NavLink>
                             </li>}

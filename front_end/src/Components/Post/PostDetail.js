@@ -8,7 +8,7 @@ import * as AiIcons from 'react-icons/ai'
 import * as GiIcons from 'react-icons/gi'
 import * as BiIcons from 'react-icons/bi'
 import * as BsIcons from 'react-icons/bs'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { useParams } from 'react-router';
 import { getById, getOther } from '../../api/rentItem';
 import Loading from '../Loading';
@@ -28,9 +28,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const PostDetail = () => {
     const id = useParams('id');
     const [idChange, setChange] = useState(id)
+    const [check, setCheck] = useState(false)
     const [rentItem, setRentItem] = useState(null)
     const [other, setOther] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [rentalPeriod, setRentalPeriod] = useState(1)
     const customStyles = {
         content: {
           top: '50%',
@@ -49,7 +51,7 @@ const PostDetail = () => {
     }, [idChange])
     
     const submit = () => {
-        const contract = new Contract(rentItem.user._id, rentItem.amount, id.id)
+        const contract = new Contract(rentItem.user._id, rentItem.amount*rentalPeriod, id.id, rentalPeriod)
         addContract(contract, toast)
         setIsOpen(false)
     }
@@ -166,18 +168,24 @@ const PostDetail = () => {
                     onRequestClose={() => setIsOpen(false)}
                     style={customStyles}
                 >
-                    <h1>Đặt cọc</h1>
-                    <h4>Giá: {rentItem.amount} VNĐ (cọc trước 1 tháng)</h4>
+                    <h1>Thuê</h1>
+                    <Form.Group as={Col} className="search-input">
+                        <Form.Control onChange={(e) => {
+                            setRentalPeriod(parseInt(e.target.value))
+                        }} type='number' placeholder="Số tháng"></Form.Control>
+                    </Form.Group>
+                    <h4>Giá: {rentItem.amount*rentalPeriod} VNĐ</h4>
                     <h4>Chọn phương thức thanh toán: </h4>
                     <ul className="payment-list">
                         <li className={(payment=='momo')?"payment-item chosen":"payment-item"} ><img src={momo} onClick={()=>changePayment('momo')}/> </li>
                         <li className={(payment=='paypal')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('paypal')}><img src={paypal} /> </li>
                         <li className={(payment=='viettelpay')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('viettelpay')}><img src={viettelpay}/> </li>
                     </ul>
-                    
+                    <Form.Control onChange={(e) => setCheck(!check)} type="checkbox" value="term" name="term" required></Form.Control>
+                    <span className="login-quote">Tôi đồng ý với các<Link to="/terms" className="login-link">điều khoản sử dụng</Link></span>
                     <div className="model-button-field">
                     <button onClick={() => setIsOpen(false)} className="alter-button">Hủy</button>
-                    <button onClick={submit} className="login-button">Xác nhận</button>
+                    <button disabled={!check} onClick={submit} className="login-button">Xác nhận</button>
                     </div>
                     
                 </Modal>
