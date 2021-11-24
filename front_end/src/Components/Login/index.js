@@ -9,22 +9,17 @@ import GoogleLogin from "react-google-login";
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [user, setUser] = useState({email: "", password: ""})
     const [error, setError] = useState(null)
     const history = useHistory()
 
-    const changeEmail = (param) => {
-        setEmail(param.target.value)
-    }
-
-    const changePassword = (param) => {
-        setPassword(param.target.value)
+    const changeInput = (e) => {
+        setUser({...user, [e.target.name] : e.target.value})
     }
 
     const submit = async () => {
         setLoading(true)
-        await login(email, password, setError, history)
+        await login(user, setError, history)
         setLoading(false)
     }
 
@@ -64,27 +59,25 @@ const Login = () => {
                         </Row>
                         <Row><h4 className="legend"><span>hoặc</span></h4></Row>
                         <Row>
-                            <Form>
-                                <Form.Group className="form-group">
-                                    <Form.Label>Tài khoản đăng nhập</Form.Label>
-                                    <br />
-                                    <Form.Control type="text" className="login-input" placeholder="abc@xyz.com" name="login-field" onChange={changeEmail} />
-                                </Form.Group>
+                            <Form.Group className="form-group">
+                                <Form.Label>Tài khoản đăng nhập</Form.Label>
+                                <br />
+                                <Form.Control type="text" className="login-input" placeholder="abc@xyz.com" name="email" onChange={changeInput} />
+                            </Form.Group>
 
-                                <Form.Group className="form-group" >
-                                    <Form.Label>Mật khẩu</Form.Label>
-                                    <br />
-                                    <Form.Control type="password" className="login-input" placeholder="********************" name="password-field" onChange={changePassword} />
-                                </Form.Group>
+                            <Form.Group className="form-group" >
+                                <Form.Label>Mật khẩu</Form.Label>
+                                <br />
+                                <Form.Control type="password" className="login-input" placeholder="********************" name="password" onChange={changeInput} />
+                            </Form.Group>
 
-                                <span className="login-quote">Quên mật khẩu? <Link to="/" className="login-link">Lấy lại mật khẩu</Link></span>
-                                <Form.Group className="form-group" >
-                                    <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng nhập</button>
-                                </Form.Group>
-                                <div class="alert">
-                                    {error}
-                                </div>
-                            </Form>
+                            <span className="login-quote">Quên mật khẩu? <Link to="/" className="login-link">Lấy lại mật khẩu</Link></span>
+                            <Form.Group className="form-group" >
+                                <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng nhập</button>
+                            </Form.Group>
+                            <div class="alert">
+                                {error}
+                            </div>
                         </Row>
                     </div>
 

@@ -23,6 +23,8 @@ import AdminRoute from './Components/AdminRoute';
 import PublicRoute from './Components/PublicRoute';
 import GuideContainer from './Container/GuideContainer';
 import TermsContainer from './Container/TermsContainer';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
+
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -55,8 +57,10 @@ function App() {
           <PrivateRoute path="/profile" component={Profile}/>
         </Switch>
       </Router>
-      
-      
+      <MessengerCustomerChat
+        pageId="100512912473471"
+        appId="261060188914961"
+      /> 
     </div>
   );
 }

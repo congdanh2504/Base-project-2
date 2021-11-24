@@ -14,7 +14,6 @@ const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhi�
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
     const changeUserMenu = () => setUserMenu(!userMenu);
-    console.log(user);
     const history = useHistory()
 
     const logout = () => {
@@ -31,15 +30,12 @@ function DisplayUser({ user }) {
                     <div onClick={changeUserMenu} className="navbar-profile-image"><img src={user.imageAddress ? user.imageAddress : defaultImage} alt="" /></div>
                     <div className={userMenu ? "user-dropdown active" : "user-dropdown"}>
                         <ul className="user-dropdown-list">
-
                             {user.type == "admin" ? <li className="user-dropdown-item" ><BiIcons.BiGroup /> <span><Link to="/admin/home">Adminstration</Link></span> </li> :
                                 <li className="user-dropdown-item" ><BiIcons.BiUserPin /> <span><Link to="/profile/user">Trang cá nhân</Link></span> </li>}
                             <li className="user-dropdown-item" onClick={logout}><FiIcons.FiLogOut /> <span>Đăng xuất</span> </li>
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         )
     } else {
@@ -50,7 +46,6 @@ function DisplayUser({ user }) {
                 </NavLink>
             </div>
         )
-
     }
 }
 

@@ -6,18 +6,16 @@ import Moment from 'react-moment'
 import Pagination from 'react-js-pagination'
 import Modal from 'react-modal';
 import { CKEditor } from 'ckeditor4-react'
-import { Blog } from '../../model/Blog'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileBlog = () => {
+    const [loading, setLoading] = useState(false)
     const [blogs, setBlogs] = useState(null)
     const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
     const [modalIsOpenDelete, setIsOpenDelete] = useState(false);
     const [idDelete, setIdDelete] = useState(null)
-    const [id, setID] = useState(null)
-    const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
+    const [blog, setBlog] = useState({id: "", title: "", description: ""})
     const [content, setContent] = useState(null)
     const customStylesEdit = {
         content: {
@@ -48,12 +46,8 @@ const ProfileBlog = () => {
         },    
     };
 
-    const changeTitle = (param) => {
-        setTitle(param.target.value)
-    }
-
-    const changeDescription = (param) => {
-        setDescription(param.target.value)
+    const changeInput = (e) => {
+        setBlog({...blog, [e.target.name] : e.target.value})
     }
 
     const changeContent = (param) => {
@@ -61,9 +55,10 @@ const ProfileBlog = () => {
     }
 
     const submit = async () => {
-        const blog = new Blog(title, description, null, content)
-        await editBlog(id, blog, toast)
+        setLoading(true)
+        await editBlog(blog, content, toast)
         await getUserBlogs(setBlogs)
+        setLoading(false)
         setIsOpenEdit(false)
     }
 
@@ -84,13 +79,13 @@ const ProfileBlog = () => {
                 <div className="post-desc col-xl-12">
                 <h1>Sửa blog</h1>  
                 <Form.Group as={Row} className="my-3">
-                    <Form.Control onChange={changeTitle} defaultValue={title} placeholder="Tiêu đề" type="text" className="post-input"/>
+                    <Form.Control onChange={changeInput} defaultValue={blog.title} name="title" placeholder="Tiêu đề" type="text" className="post-input"/>
                 </Form.Group>
                 <Form.Group as={Row} className="my-3">
-                    <Form.Control onChange={changeDescription} defaultValue={description} placeholder="Mô tả" type="text" className="post-input"/>
+                    <Form.Control onChange={changeInput} name="description" defaultValue={blog.description} placeholder="Mô tả" type="text" className="post-input"/>
                 </Form.Group>
                 <CKEditor onChange={changeContent} initData={content} />
-                <button onClick={submit} className="login-button">Xác nhận</button>
+                <button onClick={submit} disabled={loading} className="login-button">{loading && <span className="fa fa-refresh fa-spin"></span>}Xác nhận</button>
                 </div>
                 
             </Modal>
@@ -124,23 +119,21 @@ const ProfileBlog = () => {
                         <th></th>
                         <th></th>
                     </tr>
-                    {blogs && blogs.data[0].map((blog, index) => {
+                    {blogs && blogs.data[0].map((_blog, index) => {
                         return <tr>
-                            <td>{blog.title}</td>
-                            <td className="profile-table-image"><img src={blog.imageAddress} alt="" /></td>
+                            <td>{_blog.title}</td>
+                            <td className="profile-table-image"><img src={_blog.imageAddress} alt="" /></td>
                             <td><Moment format="YYYY/MM/DD">
-                            {blog.created_at}
+                            {_blog.created_at}
                             </Moment></td>
-                            <td><Link to={`/blog/${blog._id}`}>Dẫn đến bài viết</Link></td>
+                            <td><Link to={`/blog/${_blog._id}`}>Dẫn đến bài viết</Link></td>
                             <td><button onClick={() => {
-                                setIdDelete(blog._id)
+                                setIdDelete(_blog._id)
                                 setIsOpenDelete(true)
                             }} className="user-item-delete">Xóa</button></td>  
                             <td><button onClick={() => {
-                                setID(blog._id)
-                                setTitle(blog.title)
-                                setDescription(blog.description)
-                                setContent(blog.content)
+                                setBlog({...blog, ["id"] : _blog._id, ["title"] : _blog.title, ["description"] : _blog.description})
+                                setContent(_blog.content)
                                 setIsOpenEdit(true)
                             }} className="user-item-edit">Sửa</button></td>                      
                         </tr>

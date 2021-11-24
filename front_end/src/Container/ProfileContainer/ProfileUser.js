@@ -3,21 +3,17 @@ import { Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/Common';
 import { updateProfile } from '../../api/loginAPI';
-import { User } from '../../model/User';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProfileUser = () => {
-    const [name, setName] = useState(getUser().name);
-    const [phone, setPhone] = useState(getUser().phone);
-    const [zalo, setZalo] = useState(getUser().zalo);
-    const [fb, setFb] = useState(getUser().fb);
-    const [imageAddress, setImageAddress] = useState(null);
+    const [loading, setLoading] = useState(false)
+    const [user, setUser] = useState({name: getUser().name, phone: getUser().phone, zalo: getUser().zalo, fb: getUser().fb, imageAddress: null})
     const [overviewAvatar, setOverviewAvatar] = useState(getUser().imageAddress)
 
     const changeAvatar = (param) => {
         var file = param.target.files[0];
-        setImageAddress(file);
+        setUser({...user, ["imageAddress"] : file})
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = function (e) {
@@ -25,9 +21,14 @@ const ProfileUser = () => {
         }.bind(this);
     }
 
-    const submit = () => {
-        const user = new User(name, phone, zalo, fb, imageAddress)
-        updateProfile(user, toast)
+    const changeInput = (e) => {
+        setUser({...user, [e.target.name] : e.target.value})
+    }
+
+    const submit = async () => {
+        setLoading(true)
+        await updateProfile(user, toast)
+        setLoading(false)
     }
 
     return (
@@ -39,19 +40,19 @@ const ProfileUser = () => {
             <Row className="profile-items">
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Tên hiển thị</Col>
-                    <Col><input type="text" value={name} onChange={e => setName(e.target.value)} /></Col>
+                    <Col><input type="text" value={user.name} name="name" onChange={changeInput} /></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Số điện thoại</Col>
-                    <Col><input type="phone" value={phone} onChange={e => setPhone(e.target.value)} /></Col>
+                    <Col><input type="phone" value={user.phone} name="phone" onChange={changeInput} /></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Zalo</Col>
-                    <Col><input type="email" value={zalo} onChange={e => setZalo(e.target.value)} /></Col>
+                    <Col><input type="email" value={user.zalo} name="zalo" onChange={changeInput} /></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">FaceBook</Col>
-                    <Col><input type="email" value={fb} onChange={e => setFb(e.target.value)} placeholder="https://www.facebook.com/blery.alex/"/></Col>
+                    <Col><input type="email" value={user.fb} name="fb" onChange={changeInput} placeholder="https://www.facebook.com/blery.alex/"/></Col>
                 </Row>
                 <Row className="profile-item"> 
                     <Col className="col-md-2 offset-md-2 col-form-label">Mật khẩu</Col>
@@ -75,7 +76,7 @@ const ProfileUser = () => {
 
                 <Row className="profile-item">
                     <Col className="col-md-2"></Col>
-                    <Col><button className="save-button" onClick={submit}>Lưu và thay đổi</button></Col>
+                    <Col><button disabled={loading} className="save-button" onClick={submit}>{loading && <span className="fa fa-refresh fa-spin"></span>}Lưu và thay đổi</button></Col>
                 </Row>
             </Row>
         </div>

@@ -14,7 +14,7 @@ export const addRentItem = async (rentItem, toast) => {
         area: rentItem.area,
         amount: rentItem.amount,
         province: rentItem.province,
-        detailLocation: rentItem.detailLocation
+        detailLocation: `${rentItem.street}, ${rentItem.ward}, ${rentItem.district}, ${rentItem.province}`
     }))
     await axios({
         method: 'post',
@@ -28,13 +28,13 @@ export const addRentItem = async (rentItem, toast) => {
     })
 }
 
-export const addBlog = async (blog, toast) => {
+export const addBlog = async (blog, content, toast) => {
     var formData = new FormData();
     formData.append('image', blog.image)
     formData.append('document', JSON.stringify({
         title: blog.title,
         description: blog.description,
-        content: blog.content,
+        content: content,
     }))
     await axios({
         method: 'post',
