@@ -14,6 +14,7 @@ const dropdownItems = [{ 'name': 'Thuê một người' }, { 'name': 'Thuê nhi�
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
     const changeUserMenu = () => setUserMenu(!userMenu);
+    console.log(user);
     const history = useHistory()
 
     const logout = () => {

@@ -7,10 +7,12 @@ const Card = (props) => {
                 <div className="card-image">
                     <img src={props.obj.imagesAddress.path1} />
                 </div>
-                <Link to={`/post/${props.obj._id.$oid ? props.obj._id.$oid : props.obj._id}`} ><h2>{props.obj.title}</h2></Link>
-                <span className="far fa-eye">
+                <div className="mt-3"><span className="far fa-eye">
                 {" " + props.obj.views}
-                </span>   
+                </span> </div>
+                
+                <Link to={`/post/${props.obj._id.$oid ? props.obj._id.$oid : props.obj._id}`} ><h2>{props.obj.title}</h2></Link>
+                  
             </div>
             <div className="card-detail">
                 <div className="card-detail-col">

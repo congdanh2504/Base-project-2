@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png'
+import defaultImage from '../../assets/images/login.png'
 import { Row, Col } from 'react-bootstrap';
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
-import { SidebarData } from './SidebarData' 
+import { SidebarData } from './SidebarData'
 import { Router, Switch, Route, useRouteMatch } from 'react-router-dom'
+import { getUser } from '../../api/Common';
 import "./style.css"
 import ProfileUser from './ProfileUser';
 import ProfileBlog from './ProfileBlog';
@@ -13,6 +15,7 @@ import ProfilePost from './ProfilePost';
 import ProfileContract from './ProfileContract';
 
 const Index = () => {
+    const [user,setUser] = useState(getUser());
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
     let { path, url } = useRouteMatch();
@@ -28,7 +31,15 @@ const Index = () => {
                     </Col>
                 </Col>
 
-                <Col  className="right">
+                <Col className="right">
+                    <div className="user-field">
+                        <div className="user-image">
+                            <img src={(user.imageAddress) ? user.imageAddress : defaultImage} alt="" />
+                        </div>
+                        <div className="user-name">
+                            <p>{user.name}</p>
+                        </div>
+                    </div>
                     <div className="searchbar-container">
                         <div className="searchbar" >
                             <AiIcons.AiOutlineSearch />
