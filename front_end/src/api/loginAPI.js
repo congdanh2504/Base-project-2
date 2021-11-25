@@ -124,3 +124,20 @@ export const changePasswordUser = async (inf, toast) => {
         else toast.error("Mật khẩu mới phải dài hơn 8 kí tự")
     })
 }
+
+export const resetPassword = async (email, toast) => {
+    await axios({
+        method: 'post',
+        url: `${BASE_URL}user/resetPassword`,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            email: email
+        }
+    }).then(res => {
+        toast.success("Thành công")
+    }).catch ( err => {
+        // if (err.response.status == 404)
+        toast.error("Mật khẩu cũ không đúng")
+        // else toast.error("Mật khẩu mới phải dài hơn 8 kí tự")
+    })
+}

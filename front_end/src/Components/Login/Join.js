@@ -8,6 +8,7 @@ import GoogleLogin from "react-google-login";
 import { loginWithGG, register } from '../../api/loginAPI';
 
 const Join = () => {
+  const [check, setCheck] = useState(false)
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState({email: "", password: "", username: "", repassword: ""})
   const [errorInput, setErrorInput] = useState({email: null, password: null, username: null, repassword: null})
@@ -87,10 +88,10 @@ const Join = () => {
                   {errorInput.repassword && <div class="alert alert-danger">{errorInput.repassword}</div>}
                   {error && <div class="alert alert-danger">{error}</div>}
               </Form.Group>
-              <Form.Control type="checkbox" value="term" name="term" required></Form.Control>
-              <span className="login-quote">Tôi đồng ý với <Link to="/" className="login-link">điều khoản sử dụng</Link></span>
+              <Form.Control type="checkbox" value="term" name="term" onClick={() => setCheck(!check)} required></Form.Control>
+              <span className="login-quote">Tôi đồng ý với <Link to="/terms" className="login-link">điều khoản sử dụng</Link></span>
               <Form.Group className="form-group" >
-              <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng ký</button>
+              <button disabled={loading || !check} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng ký</button>
               </Form.Group>
               </Form>
               <div class="alert">

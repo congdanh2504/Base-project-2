@@ -24,6 +24,7 @@ import PublicRoute from './Components/PublicRoute';
 import GuideContainer from './Container/GuideContainer';
 import TermsContainer from './Container/TermsContainer';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import ForgotPassword from './Components/Login/ForgotPassword';
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
@@ -44,6 +45,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={MainContainer} />
           <PublicRoute path="/login" component={Login}/>
+          <PublicRoute path="/forgot" component={ForgotPassword}/>
           <PublicRoute path="/join" component={Join}/>
           <Route path="/blog" exact component={BlogContainer}/>
           <PrivateRoute path="/postBlog" component={PostBlog}/>

@@ -71,7 +71,7 @@ const Login = () => {
                                 <Form.Control type="password" className="login-input" placeholder="********************" name="password" onChange={changeInput} />
                             </Form.Group>
 
-                            <span className="login-quote">Quên mật khẩu? <Link to="/" className="login-link">Lấy lại mật khẩu</Link></span>
+                            <span className="login-quote">Quên mật khẩu? <Link to="/forgot" className="login-link">Lấy lại mật khẩu</Link></span>
                             <Form.Group className="form-group" >
                                 <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng nhập</button>
                             </Form.Group>
