@@ -134,10 +134,10 @@ export const resetPassword = async (email, toast) => {
             email: email
         }
     }).then(res => {
-        toast.success("Thành công")
+        toast.success("Gửi thành công, vui lòng check mail")
     }).catch ( err => {
-        // if (err.response.status == 404)
-        toast.error("Mật khẩu cũ không đúng")
-        // else toast.error("Mật khẩu mới phải dài hơn 8 kí tự")
+        if (err.response.status == 404)
+        toast.error("Email không tồn tại trong hệ thống")
+        else toast.error("Có lỗi khi gửi, vui lòng thử lại")
     })
 }
