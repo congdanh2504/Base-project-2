@@ -1,15 +1,37 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/Common';
-import { updateProfile } from '../../api/loginAPI';
+import { changePasswordUser, updateProfile } from '../../api/loginAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Modal from 'react-modal';
 
 const ProfileUser = () => {
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState({name: getUser().name, phone: getUser().phone, zalo: getUser().zalo, fb: getUser().fb, imageAddress: null})
+    const [changePassword, setChangePassword] = useState({id: getUser()._id, email: getUser().email, oldPassword: "", newPassword: "", confirmNewPassword: ""})
     const [overviewAvatar, setOverviewAvatar] = useState(getUser().imageAddress)
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const customStyles = {
+        content: {
+            height: "70%",
+            width: "70%",
+            top: '55%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            position: 'absolute',
+            zIndex: '10',
+            overflowY: 'scroll'
+        },    
+    };
+
+    const changeInputPassword = (e) => {
+        setChangePassword({...changePassword, [e.target.name] : e.target.value})
+    }
 
     const changeAvatar = (param) => {
         var file = param.target.files[0];
@@ -29,6 +51,17 @@ const ProfileUser = () => {
         setLoading(true)
         await updateProfile(user, toast)
         setLoading(false)
+    }
+
+    const changePass = async () => {
+        if(changePassword.newPassword !== changePassword.confirmNewPassword) {
+            toast.info("Mật khẩu mới không trùng khớp")
+            return
+        }
+        setLoading(true)
+        await changePasswordUser(changePassword, toast)
+        setLoading(false)
+        setIsOpen(false)
     }
 
     return (
@@ -56,7 +89,7 @@ const ProfileUser = () => {
                 </Row>
                 <Row className="profile-item"> 
                     <Col className="col-md-2 offset-md-2 col-form-label">Mật khẩu</Col>
-                    <Col><Link to="/">Đổi mật khẩu</Link></Col>
+                    <Col><button onClick={() => setIsOpen(true)} >Đổi mật khẩu</button></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label ">Ảnh đại diện</Col>
@@ -73,6 +106,29 @@ const ProfileUser = () => {
                         />
                     </Col>
                 </Row>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setIsOpen(false)}
+                    style={customStyles}
+                >
+                    <h1>Đổi mật khẩu</h1>
+                    <Form.Group className="form-group" >
+                        <Form.Label>Mật khẩu cũ</Form.Label>
+                        <br />
+                        <Form.Control type="password" className="login-input" placeholder="********************" name="oldPassword" onChange={changeInputPassword} />
+                    </Form.Group>
+                    <Form.Group className="form-group" >
+                        <Form.Label>Mật khẩu mới</Form.Label>
+                        <br />
+                        <Form.Control type="password" className="login-input" placeholder="********************" name="newPassword" onChange={changeInputPassword} />
+                    </Form.Group>
+                    <Form.Group className="form-group" >
+                        <Form.Label>Nhập lại mật khẩu mới</Form.Label>
+                        <br />
+                        <Form.Control type="password" className="login-input" placeholder="********************" name="confirmNewPassword" onChange={changeInputPassword} />
+                    </Form.Group>
+                    <button disabled={loading} className="save-button" onClick={changePass}>{loading && <span className="fa fa-refresh fa-spin"></span>}Lưu và thay đổi</button>
+                </Modal>
 
                 <Row className="profile-item">
                     <Col className="col-md-2"></Col>

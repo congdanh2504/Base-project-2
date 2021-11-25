@@ -132,7 +132,7 @@ const ProfileBlog = () => {
                                 setIsOpenDelete(true)
                             }} className="user-item-delete">Xóa</button></td>  
                             <td><button onClick={() => {
-                                setBlog({...blog, ["id"] : _blog._id, ["title"] : _blog.title, ["description"] : _blog.description})
+                                setBlog({...blog, "id" : _blog._id, "title" : _blog.title, "description" : _blog.description})
                                 setContent(_blog.content)
                                 setIsOpenEdit(true)
                             }} className="user-item-edit">Sửa</button></td>                      

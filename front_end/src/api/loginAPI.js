@@ -104,3 +104,23 @@ export const updateProfile = async (user, toast) => {
         toast.error("Không thành công")
     })
 }
+
+export const changePasswordUser = async (inf, toast) => {
+    await axios({
+        method: 'patch',
+        url: `${BASE_URL}user/password?token=${getToken()}`,
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            email: inf.email,
+            id: inf.id,
+            oldPassword : inf.oldPassword,
+            newPassword: inf.newPassword
+        }
+    }).then(res => {
+        toast.success("Thành công")
+    }).catch ( err => {
+        if (err.response.status == 404)
+        toast.error("Mật khẩu cũ không đúng")
+        else toast.error("Mật khẩu mới phải dài hơn 8 kí tự")
+    })
+}

@@ -54,11 +54,11 @@ const ProfilePost = () => {
     }
 
     const changeType = (param) => {
-        setRentItem({...rentItem, ["type"] : param.label})
+        setRentItem({...rentItem, "type" : param.label})
     }
 
     const changeProvince = (param) => {
-        setRentItem({...rentItem, ["province"] : param.label})
+        setRentItem({...rentItem, "province" : param.label})
     }
 
     const submit = async () => {
@@ -159,11 +159,10 @@ const ProfilePost = () => {
                             <td><Link to={`/post/${_rentItem._id}`}>Dẫn đến bài đăng</Link></td>
                             <td><button onClick={() => {
                                 setIdDelete(_rentItem._id)
-
                                 setIsOpenDelete(true)
                             }} className="user-item-delete">Xóa</button></td>
                             <td><button onClick={() => {
-                                setRentItem({...rentItem, ["id"] : _rentItem._id, ["type"] : _rentItem.type, ["title"] : _rentItem.title,["description"] : _rentItem.description,["detailLocation"] : _rentItem.address.detailLocation,["province"] : _rentItem.address.province,["people"] : _rentItem.people,["amount"] : _rentItem.amount,["area"] : _rentItem.area})
+                                setRentItem({...rentItem, "id" : _rentItem._id, "type" : _rentItem.type, "title" : _rentItem.title,"description" : _rentItem.description,"detailLocation" : _rentItem.address.detailLocation,"province" : _rentItem.address.province,"people" : _rentItem.people,"amount" : _rentItem.amount,"area" : _rentItem.area})
                                 setIsOpenEdit(true)
                             }} className="user-item-edit">Sửa</button></td>
                         </tr>
