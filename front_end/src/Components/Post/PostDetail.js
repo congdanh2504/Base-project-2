@@ -33,33 +33,70 @@ const PostDetail = () => {
     const [other, setOther] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [rentalPeriod, setRentalPeriod] = useState(1)
+    const [user, setUser] = useState(getUser());
     const customStyles = {
         content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
         },
     };
-    const [payment,setPayment] = useState(null)
+    const [payment, setPayment] = useState(null)
     const changePayment = method => setPayment(method);
-    
+
     useEffect(() => {
-        getById(id.id, setRentItem, setOther)         
+        getById(id.id, setRentItem, setOther)
     }, [idChange])
-    
+
     const submit = () => {
-        const contract = new Contract(rentItem.user._id, rentItem.amount*rentalPeriod, id.id, rentalPeriod)
+        const contract = new Contract(rentItem.user._id, rentItem.amount * rentalPeriod, id.id, rentalPeriod)
         addContract(contract, toast)
         setIsOpen(false)
     }
+    // console.log(user);
 
+    const CommentSection = () => {
+        return (<div className="comment-section" >
+            <div className='main-comment'>
+                <div className="main-comment-img">
+                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
+                </div>
+                <div className="main-comment-input">
+                    <input type="text" placeholder='Add a comment ...' />
+                    
+                </div>
+                <input type="submit" value="Đăng" className='login-button submit-button' />
+            </div>
+            <div className="user-comment">
+                <div className="main-comment-img">
+                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
+                </div>
+                <div className="main-comment-content">
+                    <Link to='/' className='user-name'>tuan anh</Link>
+                    <div className="comment-content">asjkh askjdh kj ahskdj ahsdkj wqewqkdhak djh</div>
+                    <div className="time-stamp">123h</div>
+                </div>
+            </div>
+            <div className="user-comment">
+                <div className="main-comment-img">
+                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
+                </div>
+                <div className="main-comment-content">
+                    <Link to='/' className='user-name'>tuan anh</Link>
+                    <div className="comment-content">asjkh askjdh kj ahskdj ahsdkj wqewqkdhak djh</div>
+                    <div className="time-stamp">123h</div>
+                </div>
+            </div>
+
+        </div>);
+    }
     return (
         <>
-            <Navbar />      
-            <ToastContainer/>
+            <Navbar />
+            <ToastContainer />
             {rentItem ? <Row className="post-detail">
                 <Col xl="8">
                     <div className="post-detail-header">
@@ -133,7 +170,6 @@ const PostDetail = () => {
                             src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBT-FcupKSzJG1IuC4ZtNyQ-Qg0rdoY47k&q=${rentItem.address.detailLocation}`}>
                         </iframe>
                     </div>
-                   
                 </Col>
                 <Col xl="4" className="relevant">
                     <div className="relevant-container">
@@ -141,28 +177,31 @@ const PostDetail = () => {
                         <ul className="relevant-list">
                             {other && other.map((_rentItem, index) => {
                                 return <li className="relevant-item">
-                                <div className="relevant-item-image">
-                                    <img src={_rentItem.imagesAddress.path1} alt="" />
-                                </div>
-                                <div className="relevant-item-content">
-                                <Link onClick={() => {
-                                    setChange(_rentItem._id)
-                                }} to={`/post/${_rentItem._id}`}  ><h5 className="relevant-item-title">{_rentItem.title}</h5></Link> 
-                                    <p className="relevant-item-price">
-                                        <GiIcons.GiPriceTag />
-                                        <span>{_rentItem.amount} VND/Tháng</span>
-                                    </p>
-                                </div>
-                            </li>
+                                    <div className="relevant-item-image">
+                                        <img src={_rentItem.imagesAddress.path1} alt="" />
+                                    </div>
+                                    <div className="relevant-item-content">
+                                        <Link onClick={() => {
+                                            setChange(_rentItem._id)
+                                        }} to={`/post/${_rentItem._id}`}  ><h5 className="relevant-item-title">{_rentItem.title}</h5></Link>
+                                        <p className="relevant-item-price">
+                                            <GiIcons.GiPriceTag />
+                                            <span>{_rentItem.amount} VND/Tháng</span>
+                                        </p>
+                                    </div>
+                                </li>
                             })}
                         </ul>
                     </div>
 
                 </Col>
-                {getUser() && 
-                <div className="navbar-login">
-                    <button onClick={() => {setIsOpen(true)}} style={{ height: '30px' }} className="login-button">Đặt cọc</button>
-                </div>}
+                <Col xl='7'>
+                    <CommentSection />
+                </Col>
+                {getUser() &&
+                    <div className="navbar-login">
+                        <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Đặt cọc</button>
+                    </div>}
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={() => setIsOpen(false)}
@@ -174,24 +213,24 @@ const PostDetail = () => {
                             setRentalPeriod(parseInt(e.target.value))
                         }} type='number' placeholder="Số tháng"></Form.Control>
                     </Form.Group>
-                    <h4>Giá: {rentItem.amount*rentalPeriod} VNĐ</h4>
+                    <h4>Giá: {rentItem.amount * rentalPeriod} VNĐ</h4>
                     <h4>Chọn phương thức thanh toán: </h4>
                     <ul className="payment-list">
-                        <li className={(payment=='momo')?"payment-item chosen":"payment-item"} ><img src={momo} onClick={()=>changePayment('momo')}/> </li>
-                        <li className={(payment=='paypal')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('paypal')}><img src={paypal} /> </li>
-                        <li className={(payment=='viettelpay')?"payment-item chosen":"payment-item"} onClick={()=>changePayment('viettelpay')}><img src={viettelpay}/> </li>
+                        <li className={(payment == 'momo') ? "payment-item chosen" : "payment-item"} ><img src={momo} onClick={() => changePayment('momo')} /> </li>
+                        <li className={(payment == 'paypal') ? "payment-item chosen" : "payment-item"} onClick={() => changePayment('paypal')}><img src={paypal} /> </li>
+                        <li className={(payment == 'viettelpay') ? "payment-item chosen" : "payment-item"} onClick={() => changePayment('viettelpay')}><img src={viettelpay} /> </li>
                     </ul>
                     <Form.Control onChange={(e) => setCheck(!check)} type="checkbox" value="term" name="term" required></Form.Control>
                     <span className="login-quote">Tôi đồng ý với các<Link to="/terms" className="login-link">điều khoản sử dụng</Link></span>
                     <div className="model-button-field">
-                    <button onClick={() => setIsOpen(false)} className="alter-button">Hủy</button>
-                    <button disabled={!check} onClick={submit} className="login-button">Xác nhận</button>
+                        <button onClick={() => setIsOpen(false)} className="alter-button">Hủy</button>
+                        <button disabled={!check} onClick={submit} className="login-button">Xác nhận</button>
                     </div>
-                    
+
                 </Modal>
-            </Row>: <Loading/>}
-            
-            <Footer/>
+            </Row> : <Loading />}
+
+            <Footer />
         </>
     )
 }
