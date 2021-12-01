@@ -58,7 +58,7 @@ const PostDetail = () => {
     }
     // console.log(user);
 
-    const CommentSection = () => {
+    const CommentSection = ({users}) => {
         return (<div className="comment-section" >
             <div className='main-comment'>
                 <div className="main-comment-img">
@@ -70,16 +70,8 @@ const PostDetail = () => {
                 </div>
                 <input type="submit" value="Đăng" className='login-button submit-button' />
             </div>
-            <div className="user-comment">
-                <div className="main-comment-img">
-                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
-                </div>
-                <div className="main-comment-content">
-                    <Link to='/' className='user-name'>tuan anh</Link>
-                    <div className="comment-content">asjkh askjdh kj ahskdj ahsdkj wqewqkdhak djh</div>
-                    <div className="time-stamp">123h</div>
-                </div>
-            </div>
+
+            {/* comment bottom */}
             <div className="user-comment">
                 <div className="main-comment-img">
                     <img src={(user) ? user.imageAddress : defaultImage} alt="" />
