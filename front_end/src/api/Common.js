@@ -1,5 +1,5 @@
 export const getUser = () => {
-    const userStr = sessionStorage.getItem('user')
+    const userStr = localStorage.getItem('user')
     if (userStr) {
         return JSON.parse(userStr)
     }
@@ -7,20 +7,20 @@ export const getUser = () => {
 }
 
 export const getToken = () => {
-    return sessionStorage.getItem('token')
+    return localStorage .getItem('token')
 }
 
 export const setUserSession = (user) => {
-    sessionStorage.setItem('user', JSON.stringify(user))
+    localStorage .setItem('user', JSON.stringify(user))
 }
 
 export const setTokenSession = (token) => {
-    sessionStorage.setItem('token', token)
+    localStorage .setItem('token', token)
 }
 
 export const removeUserSession = () => {
-    sessionStorage.removeItem('user')
-    sessionStorage.removeItem('token')
+    localStorage .removeItem('user')
+    localStorage .removeItem('token')
 }
 
 export const BASE_URL = "https://rentapartment.herokuapp.com/api/" 

@@ -3,7 +3,6 @@ import CustomSelect from '../CustomSelect'
 import "./style.css"
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import { getDistricts, getProvinces, getWards } from '../../api/api'
-import { RentItem } from '../../model/RentItem';
 import { addRentItem } from '../../api/post';
 import Navbar from '../../Components/Navbar'
 import PostCard from '../MostRent/Card'
@@ -15,9 +14,10 @@ const PostForm = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     const [districtOptions, changeDistrictOptions] = useState([]);
     const [wardOptions, changeWardOptions] = useState([]);
-    const [province, changeProvince] = useState("");
+    const [rentItem, setRentItem] = useState({title: "", type: "", description: "", people: "", amount: "",area: "", image1: null, image2: null,image3: null, province: "", district: "", ward: "", street: ""})
+
     const updateProvince = (param) => {
-        changeProvince(param.label)
+        setRentItem({...rentItem, ["province"] : param.label})
         async function fetchDistricts() {
             let response = await getDistricts(param.value)
             changeDistrictOptions(response)
@@ -25,9 +25,8 @@ const PostForm = () => {
         fetchDistricts()
     }
 
-    const [district, changeDistrict] = useState("");
     const updateDistrict = (param) => {
-        changeDistrict(param.label)
+        setRentItem({...rentItem, ["district"] : param.label})
         async function fetchWards() {
             let response = await getWards(param.value)
             changeWardOptions(response)
@@ -35,52 +34,26 @@ const PostForm = () => {
         fetchWards()
     }
 
-    const [ward, changeWard] = useState("");
-    const updateWard = (param) => changeWard(param.label)
-    const [street, changeStreet] = useState("");
-    const updateStreet = (param) => changeStreet(param.target.value)
-    const [num, changeNum] = useState("");
-    const updateNum = (param) => changeNum(param.target.value)
-    var defaultLocation = `${num} ${street}, ${ward}, ${district}, ${province}`;
+    const changeWard = (param) => {
+        setRentItem({...rentItem, ["ward"] : param.label})
+    }
+
+    let defaultLocation = `${rentItem.street}, ${rentItem.ward}, ${rentItem.district}, ${rentItem.province}`
 
     const typeOpt = [{"value": 1, "label": "Trọ"},{"value": 2, "label": "Căn hộ"}, {"value": 3, "label": "Nhà"},{"value": 4, "label": "Villa"}];
-    const [title, setTitle] = useState("")
-    const [type, setType] = useState("")
-    const [description, setDescription] = useState("")
-    const [people, setPeople] = useState("")
-    const [amount, setAmount] = useState("")
-    const [area, setArea] = useState("")
-    const [image1, setImage1] = useState(null)
-    const [image2, setImage2] = useState(null)
-    const [image3, setImage3] = useState(null)
+    
     const [imageOverview, setImageOverview] = useState(null)
 
-    const changeTitle = (param) => {
-        setTitle(param.target.value)
+    const changeInput = (e) => {
+        setRentItem({...rentItem, [e.target.name] : e.target.value})
     }
 
     const changeType = (param) => {
-        setType(param.label)
-    }
-
-    const changeDescription = (param) => {
-        setDescription(param.target.value)
-    }
-
-    const changePeople = (param) => {
-        setPeople(param.target.value)
-    }
-
-    const changeAmount = (param) => {
-        setAmount(param.target.value)
-    }
-
-    const changeArea = (param) => {
-        setArea(param.target.value)
+        setRentItem({...rentItem, ["type"] : param.label})
     }
 
     const changeImage1 = (param) => {
-        setImage1(param.target.files[0])
+        setRentItem({...rentItem, ["image1"] : param.target.files[0]})
         var file = param.target.files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -89,16 +62,11 @@ const PostForm = () => {
         }.bind(this);
     }
 
-    const changeImage2 = (param) => {
-        setImage2(param.target.files[0])
-    }
-
-    const changeImage3 = (param) => {
-        setImage3(param.target.files[0])
+    const changeImage = (param) => {
+        setRentItem({...rentItem, [param.target.name] : param.target.files[0]})
     }
 
     const submit = async () => {
-        const rentItem = new RentItem(title, description, type, people, area, province, defaultLocation, amount, image1, image2, image3)
         setLoading(true)
         await addRentItem(rentItem, toast)
         setLoading(false)
@@ -116,20 +84,19 @@ const PostForm = () => {
         "_id" : {
             "$oid" : "6179510e075c0000da004062"
         },
+        "views": 0,
         "address" : {
             "detailLocation" : "112 Nguyễn Minh Châu, Phường Hoà Quý, Quận Ngũ Hành Sơn, Thành phố Đà Nẵng",
-            "province" : province,
+            "province" : rentItem.province,
         },
-        "amount" : amount,
-        "area" : area,
-        "description" : description,
+        "amount" : rentItem.amount,
+        "area" : rentItem.area,
+        "description" : rentItem.description,
         "imagesAddress" : {
             "path1" : imageOverview,
-            "path2" : "https://drive.google.com/uc?export=view&id=17T53MleWXEeavHuidRD8p4JkrOX4e18X",
-            "path3" : "https://drive.google.com/uc?export=view&id=1bkJk-qQVCVnBe0Dt0ew_C28gP653C8NJ",
         },
-        "people" : people,
-        "title" : title,
+        "people" : rentItem.people,
+        "title" : rentItem.title,
     }
 
     return (
@@ -153,15 +120,11 @@ const PostForm = () => {
                                 <CustomSelect label="Quận/Huyện" onChange={updateDistrict} opts={districtOptions} />
                             </Col>
                             <Col className="post-address-col">
-                                <CustomSelect label="Phường/Xã" onChange={updateWard} opts={wardOptions} />
+                                <CustomSelect label="Phường/Xã" onChange={changeWard} opts={wardOptions} />
                             </Col>
                             <Col className="post-address-col">
-                                <input type="text" placeholder="Đường/Phố" id="post-address-input" onChange={updateStreet} />
+                                <input type="text" placeholder="Đường/Phố" name="street" id="post-address-input" onChange={changeInput} />
                             </Col>
-                            <Col className="post-address-col">
-                                <input type="text" placeholder="Số nhà" id="post-address-input" onChange={updateNum} />
-                            </Col>
-
                         </Col>
 
                         <Col className="map">
@@ -178,46 +141,43 @@ const PostForm = () => {
                     </Row>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Tiêu đề</Form.Label>
-                        <Form.Control type="text" className="post-input" onChange={changeTitle}/>
+                        <Form.Control type="text" className="post-input" name="title" onChange={changeInput}/>
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Loại hình</Form.Label>
-                        <CustomSelect opts={typeOpt} onChange={changeType}/>
+                        <CustomSelect opts={typeOpt} name="type" onChange={changeType}/>
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Nội dung mô tả</Form.Label>
-                        <Form.Control as="textarea" className="post-input post-textarea" onChange={changeDescription} />
+                        <Form.Control as="textarea" className="post-input post-textarea" name="description" onChange={changeInput} />
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Số người ở</Form.Label>
-                        <Form.Control type="number" className="post-input mb-2 col-xl-6" onChange={changePeople} />
+                        <Form.Control type="number" className="post-input mb-2 col-xl-6" name="people" onChange={changeInput} />
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Giá cho thuê(VND/Tháng)</Form.Label>
-                        <Form.Control type="text" className="post-input mb-2 col-xl-6" onChange={changeAmount} placeholder="VD: 10000000" />
+                        <Form.Control type="text" className="post-input mb-2 col-xl-6" name="amount" onChange={changeInput} placeholder="VD: 10000000" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Diện tích(m<sup>2</sup>)</Form.Label>
-                        <Form.Control type="text" className="post-input mb-2 col-xl-6" onChange={changeArea} placeholder="VD: 50" />
+                        <Form.Control type="text" className="post-input mb-2 col-xl-6" name="area" onChange={changeInput} placeholder="VD: 50" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Hình ảnh 1</Form.Label>
                         <Form.Control type="file" className="post-input mb-2 col-xl-6" onChange={changeImage1}  />
-                        {/* <Form.Text>Dùng nút <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd> để chọn nhiều ảnh</Form.Text> */}
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Hình ảnh 2</Form.Label>
-                        <Form.Control type="file" className="post-input mb-2 col-xl-6" onChange={changeImage2}  />
-                        {/* <Form.Text>Dùng nút <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd> để chọn nhiều ảnh</Form.Text> */}
+                        <Form.Control type="file" className="post-input mb-2 col-xl-6" name="image2" onChange={changeImage}  />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Hình ảnh 3</Form.Label>
-                        <Form.Control type="file" className="post-input mb-2 col-xl-6" onChange={changeImage3}  />
-                        {/* <Form.Text>Dùng nút <kbd>Shift</kbd> hoặc <kbd>Ctrl</kbd> để chọn nhiều ảnh</Form.Text> */}
+                        <Form.Control type="file" className="post-input mb-2 col-xl-6" name="image3" onChange={changeImage}  />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" > {loading && <span className="fa fa-refresh fa-spin"></span>} Xác nhận và đăng</button>
@@ -231,8 +191,6 @@ const PostForm = () => {
                 </Col>
             </Form>
         </div>
-
-
     )
 }
 

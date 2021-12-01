@@ -8,37 +8,20 @@ import GoogleLogin from "react-google-login";
 import { loginWithGG, register } from '../../api/loginAPI';
 
 const Join = () => {
+  const [check, setCheck] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [rePassword, setRePassword] = useState("")
-  const [userNameError, setUserNameError] = useState(null)
-  const [emailError, setEmailError] = useState(null)
-  const [passwordError, setPasswordError] = useState(null)
-  const [rePasswordError, setRePasswordError] = useState(null)
+  const [user, setUser] = useState({email: "", password: "", username: "", repassword: ""})
+  const [errorInput, setErrorInput] = useState({email: null, password: null, username: null, repassword: null})
   const [error, setError] = useState(null)
   const history = useHistory()
 
-  const changeUsername = (param) => {
-    setUsername(param.target.value)
-  }
-
-  const changeEmail = (param) => {
-    setEmail(param.target.value)
-  }
-
-  const changePassword = (param) => {
-    setPassword(param.target.value)
-  }
-
-  const changeRePassword = (param) => {
-    setRePassword(param.target.value)
+  const changeInput = (e) => {
+    setUser({...user, [e.target.name] : e.target.value})
   }
 
   const submit = async () => {
     setLoading(true)
-    await register(email, username, password, rePassword, setEmailError, setUserNameError, setPasswordError, setRePasswordError, history)
+    await register(user, errorInput, setErrorInput, history)
     setLoading(false)
   }
 
@@ -77,46 +60,45 @@ const Join = () => {
             <Row><h4 className="legend"><span>hoặc</span></h4></Row>
             <Row>
               <Form>
-                <Form.Group className="form-group">
-                  <Form.Label>Email</Form.Label>
-                  <br />
-                  <Form.Control type="email" className="login-input" placeholder="abc@xyz.com" name="login-field" onChange={changeEmail} required />
-                  {emailError && <div class="alert alert-danger">{emailError}</div>}
-                </Form.Group>
+              <Form.Group className="form-group">
+                <Form.Label>Email</Form.Label>
+                <br />
+                <Form.Control type="email" className="login-input" placeholder="abc@xyz.com" name="email" onChange={changeInput} required />
+                {errorInput.email && <div class="alert alert-danger">{errorInput.email}</div>}
+              </Form.Group>
 
-                <Form.Group className="form-group">
-                  <Form.Label>Tên người dùng</Form.Label>
-                  <br />
-                  <Form.Control type="text" className="login-input" placeholder="Nguyen Van A" onChange={changeUsername} required />
-                  {userNameError && <div class="alert alert-danger">{userNameError}</div>}
-                </Form.Group>
+              <Form.Group className="form-group">
+                <Form.Label>Tên người dùng</Form.Label>
+                <br />
+                <Form.Control type="text" className="login-input" placeholder="Nguyen Van A" name="username" onChange={changeInput} required />
+                {errorInput.username && <div class="alert alert-danger">{errorInput.username}</div>}
+              </Form.Group>
 
-                <Form.Group className="form-group" >
-                  <Form.Label>Mật khẩu</Form.Label>
-                  <br />
-                  <Form.Control type="password" className="login-input" placeholder="********************" name="rePassword-field" onChange={changePassword} required />
-                  {passwordError && <div class="alert alert-danger">{passwordError}</div>}
-                </Form.Group>
+              <Form.Group className="form-group" >
+                <Form.Label>Mật khẩu</Form.Label>
+                <br />
+                <Form.Control type="password" className="login-input" placeholder="********************" name="password" onChange={changeInput} required />
+                {errorInput.password && <div class="alert alert-danger">{errorInput.password}</div>}
+              </Form.Group>
 
-                <Form.Group className="form-group" >
-                  <Form.Label>Nhập lại mật khẩu</Form.Label>
-                  <br />
-                  <Form.Control type="password" className="login-input" placeholder="********************" name="password-field" onChange={changeRePassword} required />
-                    {rePasswordError && <div class="alert alert-danger">{rePasswordError}</div>}
-                    {error && <div class="alert alert-danger">{error}</div>}
-                </Form.Group>
-                <Form.Control type="checkbox" value="term" name="term" required></Form.Control>
-                <span className="login-quote">Tôi đồng ý với <Link to="/" className="login-link">điều khoản sử dụng</Link></span>
-                <Form.Group className="form-group" >
-                <button disabled={loading} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng ký</button>
-                </Form.Group>
-                <div class="alert">
-                  {error}
-                </div>
+              <Form.Group className="form-group" >
+                <Form.Label>Nhập lại mật khẩu</Form.Label>
+                <br />
+                <Form.Control type="password" className="login-input" placeholder="********************" name="repassword" onChange={changeInput} required />
+                  {errorInput.repassword && <div class="alert alert-danger">{errorInput.repassword}</div>}
+                  {error && <div class="alert alert-danger">{error}</div>}
+              </Form.Group>
+              <Form.Control type="checkbox" value="term" name="term" onClick={() => setCheck(!check)} required></Form.Control>
+              <span className="login-quote">Tôi đồng ý với <Link to="/terms" className="login-link">điều khoản sử dụng</Link></span>
+              <Form.Group className="form-group" >
+              <button disabled={loading || !check} onClick={submit} className="post-input save-button mb-2 col-xl-12" >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng ký</button>
+              </Form.Group>
               </Form>
+              <div class="alert">
+                {error}
+              </div>
             </Row>
           </div>
-
         </Col>
       </Row>
     </>

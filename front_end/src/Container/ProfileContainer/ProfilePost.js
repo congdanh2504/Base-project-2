@@ -12,21 +12,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProfilePost = () => {
+    const [loading, setLoading] = useState(false)
     const [provinceOptions, changeProvinceOptions] = useState([]);
+    const [rentItem, setRentItem] = useState({id: "", title: "", type: "", description: "", people: "", amount: "",area: "", province: "", detailLocation: ""})
     const typeOpt = [{ "value": 1, "label": "Trọ" }, { "value": 2, "label": "Căn hộ" }, { "value": 3, "label": "Nhà" }, { "value": 4, "label": "Villa" }];
     const [rentItems, setRentItems] = useState(null)
     const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
     const [modalIsOpenDelete, setIsOpenDelete] = useState(false);
     const [idDelete, setIdDelete] = useState(null)
-    const [id, setId] = useState(null)
-    const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
-    const [type, setType] = useState(null)
-    const [people, setPeople] = useState(null)
-    const [area, setArea] = useState(null)
-    const [amount, setAmount] = useState(null)
-    const [detailLocation, setDetailLocation] = useState(null)
-    const [province, setProvince] = useState(null)
     const customStylesEdit = {
         content: {
             height: "70%",
@@ -56,42 +49,23 @@ const ProfilePost = () => {
         },
     };
 
-    const changeTitle = (param) => {
-        setTitle(param.target.value)
+    const changeInput = (e) => {
+        setRentItem({...rentItem, [e.target.name] : e.target.value})
     }
 
     const changeType = (param) => {
-        setType(param.label)
-    }
-
-    const changeDescription = (param) => {
-        setDescription(param.target.value)
-    }
-
-    const changePeople = (param) => {
-        setPeople(param.target.value)
-    }
-
-    const changeAmount = (param) => {
-        setAmount(param.target.value)
-    }
-
-    const changeArea = (param) => {
-        setArea(param.target.value)
-    }
-
-    const changeDetailLocation = (param) => {
-        setDetailLocation(param.target.value)
+        setRentItem({...rentItem, "type" : param.label})
     }
 
     const changeProvince = (param) => {
-        setProvince(param.label)
+        setRentItem({...rentItem, "province" : param.label})
     }
 
     const submit = async () => {
-        const rentItem = new RentItem(title, description, type, people, area, province, detailLocation, amount, null, null, null)
-        await editRentItem(id, rentItem, toast)
+        setLoading(true)
+        await editRentItem(rentItem, toast)
         await getUserRentItems(setRentItems)
+        setLoading(false)
         setIsOpenEdit(false)
     }
 
@@ -115,31 +89,31 @@ const ProfilePost = () => {
                 <div className="post-desc col-xl-12">
                     <h1>Sửa bài đăng</h1>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control onChange={changeTitle} defaultValue={title} placeholder="Tiêu đề" type="text" className="post-input" />
+                        <Form.Control onChange={changeInput} name="title" defaultValue={rentItem.title} placeholder="Tiêu đề" type="text" className="post-input" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control onChange={changeDescription} defaultValue={description} placeholder="Mô tả" type="text" className="post-input" />
+                        <Form.Control onChange={changeInput} name="description" defaultValue={rentItem.description} placeholder="Mô tả" type="text" className="post-input" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control onChange={changeDetailLocation} defaultValue={detailLocation} placeholder="Địa chỉ chi tiết" type="text" className="post-input" />
+                        <Form.Control onChange={changeInput} name="detailLocation" defaultValue={rentItem.detailLocation} placeholder="Địa chỉ chi tiết" type="text" className="post-input" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <CustomSelect defaultValue={province} label="Tỉnh/Thành phố" onChange={changeProvince} opts={provinceOptions} />
+                        <CustomSelect defaultValue={rentItem.province} label="Tỉnh/Thành phố" onChange={changeProvince} opts={provinceOptions} />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <CustomSelect defaultValue={type} placeholder="Loại hình" opts={typeOpt} onChange={changeType} />
+                        <CustomSelect defaultValue={rentItem.type} placeholder="Loại hình" opts={typeOpt} onChange={changeType} />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control defaultValue={people} placeholder="Số người ở" type="number" className="post-input mb-2 col-xl-6" onChange={changePeople} />
+                        <Form.Control defaultValue={rentItem.people} name="people" placeholder="Số người ở" type="number" className="post-input mb-2 col-xl-6" onChange={changeInput} />
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control defaultValue={amount} placeholder="Giá cho thuê(VND/Tháng)" type="text" className="post-input mb-2 col-xl-6" onChange={changeAmount} placeholder="VD: 10000000" />
+                        <Form.Control defaultValue={rentItem.amount} placeholder="Giá cho thuê(VND/Tháng)" name="amount" type="text" className="post-input mb-2 col-xl-6" onChange={changeInput} placeholder="VD: 10000000" />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
-                        <Form.Control defaultValue={area} placeholder="Diện tích m2" type="text" className="post-input mb-2 col-xl-6" onChange={changeArea} placeholder="VD: 50" />
+                        <Form.Control defaultValue={rentItem.area} placeholder="Diện tích m2" name="area" type="text" className="post-input mb-2 col-xl-6" onChange={changeInput} placeholder="VD: 50" />
                     </Form.Group>
-                    <button onClick={submit} className="login-button">Xác nhận</button>
+                    <button onClick={submit} disabled={loading} className="login-button">{loading && <span className="fa fa-refresh fa-spin"></span>}Xác nhận</button>
                 </div>
 
             </Modal>
@@ -174,30 +148,21 @@ const ProfilePost = () => {
                         <th></th>
                         <th></th>
                     </tr>
-                    {rentItems && rentItems.data[0].map((rentItem, index) => {
+                    {rentItems && rentItems.data[0].map((_rentItem, index) => {
                         return <tr>
-                            <td>{rentItem.title}</td>
-                            <td className="profile-table-image"><img src={rentItem.imagesAddress.path1} alt="" /></td>
-                            <td>{rentItem.amount}</td>
+                            <td>{_rentItem.title}</td>
+                            <td className="profile-table-image"><img src={_rentItem.imagesAddress.path1} alt="" /></td>
+                            <td>{_rentItem.amount}</td>
                             <td><Moment format="YYYY/MM/DD">
-                                {rentItem.created_at}
+                                {_rentItem.created_at}
                             </Moment></td>
-                            <td><Link to={`/post/${rentItem._id}`}>Dẫn đến bài đăng</Link></td>
+                            <td><Link to={`/post/${_rentItem._id}`}>Dẫn đến bài đăng</Link></td>
                             <td><button onClick={() => {
-                                setIdDelete(rentItem._id)
-
+                                setIdDelete(_rentItem._id)
                                 setIsOpenDelete(true)
                             }} className="user-item-delete">Xóa</button></td>
                             <td><button onClick={() => {
-                                setId(rentItem._id)
-                                setType(rentItem.type)
-                                setTitle(rentItem.title)
-                                setDescription(rentItem.description)
-                                setDetailLocation(rentItem.address.detailLocation)
-                                setProvince(rentItem.address.province)
-                                setPeople(rentItem.people)
-                                setAmount(rentItem.amount)
-                                setArea(rentItem.area)
+                                setRentItem({...rentItem, "id" : _rentItem._id, "type" : _rentItem.type, "title" : _rentItem.title,"description" : _rentItem.description,"detailLocation" : _rentItem.address.detailLocation,"province" : _rentItem.address.province,"people" : _rentItem.people,"amount" : _rentItem.amount,"area" : _rentItem.area})
                                 setIsOpenEdit(true)
                             }} className="user-item-edit">Sửa</button></td>
                         </tr>
