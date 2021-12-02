@@ -3,55 +3,104 @@
 namespace App\Models;
 
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\PaginationController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Blog extends Model
 {
     use HasFactory;
     protected $collection = 'blogs';
     protected $fillable = [
-        'userID',
-        'name',
-        'html',
-        'imageAddress'
+        "userId",
+        "views",
+        "title",
+        "description",
+        "imageAddress",
+        "content"
     ];
 
     public function user() {
-        return $this->belongsTo(User::class, 'userID');
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public static function getAllBlogs() {
+        $projections = ['id', 'imageAddress', 'description', 'title', 'created_at', 'views', 'userId'];
+        $allBlogs = Blog::all($projections);
+        $allBlogsWithUser = array();
+        foreach($allBlogs as $blog) {
+            $blog->user;
+            array_push($allBlogsWithUser, $blog);
+        }
+        $allBlogsWithUser = array_reverse($allBlogsWithUser, true);
+        $data = PaginationController::paginate($allBlogsWithUser, 6);
+        return $data;
     }
 
     public static function addBlog(Request $request) {
-        $userID = $request->input('userID');
-        $name = $request->input('name');
-        $html = $request->input('html');
-        $imageAddress = $request->input('imageAddress');
+       
+        $document = json_decode($request->document);
+        $image = $request->image;    
+        $path = ImageController::saveFile($image);
+        $user = Auth::user();
+        $userId = $user['id'];
+        $title = $document->title;
+        
+
+        $description = $document->description;
+        $content = $document->content;    
+
         Blog::create([
-            'userID' => $userID,
-            'name' => $name,
-            'html' => $html,
-            'imageAddress' => $imageAddress,
+            'userId' => $userId,
+            'title' => $title,
+            'content' => $content,
+            'description' => $description,
+            'imageAddress' => $path,
+            'views' => 0
         ]);
     }
 
     public static function updateBlog(Request $request) {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $html = $request->input('html');
-        $image = $request->file('imageAddress');
-        $imageAddress = ImageController::saveImage($image);
-        Blog::where('id', $id)
-            ->update([
-                'name' => $name, 
-                'html' => $html,
-                'imageAddress' => $imageAddress
-            ]);
+        $id = $request->input('id'); 
+        $title = $request->input('title');
+        $content = $request->input('content');
+        $description = $request->input('description');
+        $blog = Blog::find($id);
+        $blog->title = $title;
+        $blog->description = $description;
+        $blog->content = $content;
+        $blog->save();
     }
 
     public static function deleteBlog(Request $request) {
         $id = $request->input('id');
-        Blog::where('id', $id)->delete();
+        $blog = BLog::find($id);
+        $blog->delete();
+    }
+
+    public static function getById($id) {
+        $blog = Blog::find($id);
+        $blog->views = $blog->views + 1;
+        $blog->save();
+        $blog->user;
+        return $blog;
+    }
+
+    public static function getByLimit($limit) {
+        $newBlogs= Blog::latest()->take(intval($limit))->get();
+        $newBlogsUsers= array();
+        foreach($newBlogs as $blog){
+            $blog->user;
+            array_push($newBlogsUsers, $blog);
+        }
+        return $newBlogsUsers;
+    }
+
+    public static function getUserBlogs() {
+        $user = Auth::user();
+        return PaginationController::paginate(array($user->getUserBlogs()->get()), 5) ;
     }
 }

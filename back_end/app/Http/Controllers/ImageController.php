@@ -2,26 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Testing\File;
+use Exception;
+use Storage;
+use Illuminate\Support\Str;
 
 class ImageController extends Controller
 {
-    public static function saveImages($images) {
-        $imagesAddress = array();
-        foreach ($images as $image) {
-            $imageAddress = ImageController::saveImage($image);
-            array_push($imagesAddress, $imageAddress);
-        } 
-    }
-
-    private static function deleteImage($imageAddress) {
-        File::delete($imageAddress);
-    }
-
-    public static function saveImage($image) {
-        $dir = '/images/';
-        $image->store($dir, 'public'); 
-        return "storage".$dir.$image->hashName();
+    public static function saveFile($image) {
+        $extension = $image->extension();
+        $uuid = Str::uuid()->toString();
+        $fileName = $uuid.'.'.$extension;
+        $googleDriveStorage = Storage::disk('google');
+        $googleDriveStorage->put($fileName, file_get_contents($image->getRealPath()));
+        $fileinfo = collect($googleDriveStorage->listContents('/', false))
+        ->where('type', 'file')
+        ->where('name', $fileName)
+        ->first();
+        $contents = $fileinfo['path'];
+        return "https://drive.google.com/uc?export=view&id=".$contents;
     }
 }

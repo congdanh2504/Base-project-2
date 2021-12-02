@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
     public function getAllBlogs() {
-        return DB::collection('blogs')->paginate(5);
+        return Blog::getAllBlogs();
     }
 
     public function getAllUserBlogs() {
@@ -20,7 +18,7 @@ class BlogController extends Controller
     }
 
     public function addBlog(Request $request) {
-        Blog::addBlog($request);
+        return Blog::addBlog($request);
     }
 
     public function updateBlog(Request $request) {
@@ -29,5 +27,17 @@ class BlogController extends Controller
 
     public function deleteBlog(Request $request) {
         Blog::deleteBlog($request);
+    }
+
+    public function getById($id) {
+        return Blog::getById($id);
+    }
+
+    public function getByLimit($limit) {
+        return Blog::getByLimit($limit);
+    }
+
+    public function getUserBlogs() {
+        return Blog::getUserBlogs();
     }
 }

@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\DB;
 class RentItemController extends Controller
 {
     public function getAllRentItems() {
-        return DB::collection('rentItems')->paginate(5);
+        return RentItem::getAllRentItems();
     }
 
-    public function getAllUserRentItems() {
-        $user = Auth::user();
-        return $user->getAllUserRentItems()->get();
+    public function getUserRentItems() {
+        return RentItem::getUserRentItems();
     }
 
     public function addRentItem(Request $request) {
@@ -28,5 +27,28 @@ class RentItemController extends Controller
 
     public function deleteRentItem(Request $request) {
         RentItem::deleteRentItem($request);
+    }
+
+    public function getById($id) {
+       return RentItem::getById($id);
+    }
+
+    public function getByLimit($limit) {
+        return RentItem::getByLimit($limit);
+    }
+
+    public function getByProvince($province) {
+        return RentItem::getByProvince($province);
+    }
+
+    public function search() {
+        $province = request('province');
+        $type = request('type');
+        $amount = request('amount');
+        return RentItem::search($province, $type, $amount);
+    }
+
+    public function addComment(Request $request) {
+        return RentItem::addComment($request);
     }
 }

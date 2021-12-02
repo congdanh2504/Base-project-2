@@ -38,7 +38,6 @@ export const setLimitRentItems = (setRentItems, limit) => {
 }
 
 export const getOther = (setOther, province) => {
-  console.log("request")
   axios({
     method: 'get',
     url: `${BASE_URL}rentItem/province/${province}`,
@@ -104,5 +103,17 @@ export const editRentItem = async (rentItem, toast) => {
     toast.success("Thành công")
   }).catch(err => {
     toast.error("Không thành công")
+  })
+}
+
+export const addComment = async (comment) => {
+  await axios({
+    method: 'post',
+    url: `${BASE_URL}rentItem/addComment?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: comment.id,
+      message: comment.message
+    }
   })
 }

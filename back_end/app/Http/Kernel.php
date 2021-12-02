@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'adminAuth' => \App\Http\Middleware\CheckAdminAccess::class,
+        'admin' => \App\Http\Middleware\Admin::class,
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class, 
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

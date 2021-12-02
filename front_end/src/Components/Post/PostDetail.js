@@ -10,7 +10,7 @@ import * as BiIcons from 'react-icons/bi'
 import * as BsIcons from 'react-icons/bs'
 import { Row, Col, Form } from 'react-bootstrap'
 import { useParams } from 'react-router';
-import { getById, getOther } from '../../api/rentItem';
+import { addComment, getById, getOther } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
 import Footer from '../../Components/Footer'
@@ -27,13 +27,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const PostDetail = () => {
     const id = useParams('id');
+    const [loading, setLoading] = useState(false)
+    const [comment, setComment] = useState({id: id.id, message: ""})
     const [idChange, setChange] = useState(id)
     const [check, setCheck] = useState(false)
     const [rentItem, setRentItem] = useState(null)
     const [other, setOther] = useState(null)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [rentalPeriod, setRentalPeriod] = useState(1)
-    const [user, setUser] = useState(getUser());
     const customStyles = {
         content: {
             top: '50%',
@@ -51,39 +52,35 @@ const PostDetail = () => {
         getById(id.id, setRentItem, setOther)
     }, [idChange])
 
+    const changeComment = (e) => {
+        setComment({...comment, [e.target.name]: e.target.value})
+    }
+
     const submit = () => {
         const contract = new Contract(rentItem.user._id, rentItem.amount * rentalPeriod, id.id, rentalPeriod)
         addContract(contract, toast)
         setIsOpen(false)
     }
-    // console.log(user);
+    
+    const addCmt = async () => {
+        setLoading(true)
+        await addComment(comment)
+        setLoading(false)
+        getById(id.id, setRentItem, setOther)
+    }
 
-    const CommentSection = ({users}) => {
-        return (<div className="comment-section" >
-            <div className='main-comment'>
-                <div className="main-comment-img">
-                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
-                </div>
-                <div className="main-comment-input">
-                    <input type="text" placeholder='Add a comment ...' />
-                    
-                </div>
-                <input type="submit" value="Đăng" className='login-button submit-button' />
-            </div>
-
-            {/* comment bottom */}
+    const CommentSection = ({comment}) => {
+        return (
             <div className="user-comment">
                 <div className="main-comment-img">
-                    <img src={(user) ? user.imageAddress : defaultImage} alt="" />
+                    <img src={comment.user.imageAddress ? comment.user.imageAddress : defaultImage} alt="" />
                 </div>
                 <div className="main-comment-content">
-                    <Link to='/' className='user-name'>tuan anh</Link>
-                    <div className="comment-content">asjkh askjdh kj ahskdj ahsdkj wqewqkdhak djh</div>
-                    <div className="time-stamp">123h</div>
+                    <Link to='/' className='user-name'>{comment.user.name}</Link>
+                    <div className="comment-content">{comment.message}</div>
+                    <div className="time-stamp">{comment.created_at}</div>
                 </div>
-            </div>
-
-        </div>);
+            </div>);
     }
     return (
         <>
@@ -187,13 +184,30 @@ const PostDetail = () => {
                     </div>
 
                 </Col>
-                <Col xl='7'>
-                    <CommentSection />
-                </Col>
                 {getUser() &&
                     <div className="navbar-login">
                         <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Đặt cọc</button>
                     </div>}
+                <Col xl='7'>
+                <div className="comment-section" >
+                    {getUser() && <div className='main-comment'>
+                        <div className="main-comment-img">
+                            <img src={getUser().imageAddress ? getUser().imageAddress : defaultImage} alt="" />
+                        </div>
+                        <div className="main-comment-input">
+                            <input type="text" name="message" onChange={changeComment} placeholder='Add a comment ...' />
+                            
+                        </div>
+                        <button disabled={loading} type="submit" onClick={addCmt} className='login-button submit-button' >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng</button>
+                    </div>}
+
+                    {rentItem.comments.map((_comment, index) => {
+                        console.log(_comment)
+                        return <CommentSection comment={_comment}/>
+                    })}
+                </div>
+                </Col>
+               
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={() => setIsOpen(false)}

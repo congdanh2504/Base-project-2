@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+import Home from './home';
 
 function Example() {
     return (
@@ -7,9 +9,18 @@ function Example() {
             <div className="row justify-content-center">
                 <div className="col-md-8">
                     <div className="card">
-                        <div className="card-header">Example Component</div>
-
-                        <div className="card-body">I'm an example component!</div>
+                        
+                        <button onClick={() => {
+                            axios({
+                                method: 'get',
+                                url: `https://rentapartment.herokuapp.com/api/rentItems`,
+                                headers: {'Content-Type': 'application/json'},
+                              }).then(response => {
+                                console.log(response.data)
+                              }).catch(error => {
+                                console.log("error")
+                              });
+                        }}>ok</button>
                     </div>
                 </div>
             </div>

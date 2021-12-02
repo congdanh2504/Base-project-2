@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RentItemController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContractController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,23 +22,33 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
-
 Route::post('/loginWithGG',[AuthController::class, 'loginWithGG']);
 
-Route::get('/rentItems', [RentItemController::class, 'getAllRentItems']);
+Route::post('/user/resetPassword', [AuthController::class, 'resetPassword']);
 
-Route::get('/blogs', [BlogController::class, 'getAllBlogs']);
+Route::get('/rentItem', [RentItemController::class, 'getAllRentItems']);
+
+Route::get('/rentItem/{id}', [RentItemController::class, 'getById']);
+
+Route::get('/rentItem/province/{province}', [RentItemController::class, 'getByProvince']);
+
+Route::get('/blog', [BlogController::class, 'getAllBlogs']);
+
+Route::get('/blog/{id}', [BlogController::class, 'getById']);
+
+Route::get('/blog/limit/{limit}', [BlogController::class, 'getByLimit']);
+
+Route::get('/rentItem/limit/{limit}', [RentItemController::class, 'getByLimit']);
+
+Route::get('/search', [RentItemController::class, 'search']);
 
 Route::middleware('auth.jwt')->group(function () {
 
-    Route::get('/user',[AuthController::class, 'user']);
+    Route::get('/user', [AuthController::class, 'user']);
 
-    Route::middleware('adminAuth')->group(function () { 
-        
-        Route::get('/getAllUsers', [AdminController::class, 'getAllUsers']);
+    Route::post('/contract',[ContractController::class, 'addContract']);
 
-    }); 
+    Route::get('/user/contract',[ContractController::class, 'getUserContracts']);
 
     Route::post('/updateProfile', [AuthController::class, 'updateProfile']);
 
@@ -45,17 +56,34 @@ Route::middleware('auth.jwt')->group(function () {
 
     Route::get('/userBlogItems', [BlogController::class, 'getAllUserBlogs']);
 
-    Route::post('/addRentItem', [RentItemController::class, 'addRentItem']);
+    Route::post('/rentItem', [RentItemController::class, 'addRentItem']);
 
-    Route::delete('/deleteRentItem' , [RentItemController::class, 'deleteRentItem']);
+    Route::delete('/rentItem' , [RentItemController::class, 'deleteRentItem']);
 
-    Route::patch('/updateRentItem', [RentItemController::class, 'updateRentItem']);
+    Route::patch('/rentItem', [RentItemController::class, 'updateRentItem']);
 
-    Route::post('/addBlog', [BlogController::class, 'addBlog']);
+    Route::get('/user/rentItem' , [RentItemController::class, 'getUserRentItems']);
 
-    Route::delete('/deleteBlog', [BlogController::class, 'deleteBlog']);
+    Route::post('/blog', [BlogController::class, 'addBlog']);
 
-    Route::patch('/updateBlog', [BlogController::class, 'updateBlog']);
+    Route::delete('/blog', [BlogController::class, 'deleteBlog']);
+
+    Route::patch('/blog', [BlogController::class, 'updateBlog']);
+
+    Route::get('/user/blog' , [BlogController::class, 'getUserBlogs']);
+
+    Route::patch('/user/password', [AuthController::class, 'changePassword']);
+
+    Route::post('rentItem/addComment', [RentItemController::class, 'addComment']);
+
+    Route::middleware('admin')->group(function () {
+        Route::prefix('admin')->group(function () {
+            Route::get('/user', [AdminController::class, 'getAllUsers']);
+            Route::get('/contract', [ContractController::class, 'getAllContracts']);
+            Route::delete('/user', [AdminController::class, 'deleteUser']);
+            Route::get('/report', [AdminController::class, 'getReport']);
+        });  
+    });
 });
 
 
