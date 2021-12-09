@@ -32,7 +32,7 @@ export const register = async (user, errorInput, setErrorInput, history) => {
             repassword: user.repassword,
         }
     }).then(response => {
-        history.push("/login")
+        history.push("/signin")
     }).catch(error => {
         if (error.response.status === 409) {
             setErrorInput({...errorInput, ["email"] : error.response.data.message})

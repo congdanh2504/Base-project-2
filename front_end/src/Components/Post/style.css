@@ -276,12 +276,7 @@
 }
 .navbar-login svg{
     font-size: 1.8rem;
-    opacity: .6;
-    transition: .2s;
     cursor: pointer;
-}
-.navbar-login svg:hover{
-    opacity: 1;
 }
 .payment-list{
     display: flex;
