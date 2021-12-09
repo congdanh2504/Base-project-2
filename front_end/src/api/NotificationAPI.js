@@ -1,14 +1,13 @@
 import axios from "axios";
 import { BASE_URL, getToken } from "./Common";
 
-export const getUserNotifications = (setNotification) => {
-    axios({
+export const getUserNotifications = async () => {
+    let response = await axios({
         method: 'get',
         url: `${BASE_URL}notification/userNotifications?token=${getToken()}`,
         headers: {'Content-Type': 'application/json'}
-    }).then(response => {
-        setNotification(response.data)
     })
+    return response.data
 }
 
 export const seenNotification = (notificationId) => {

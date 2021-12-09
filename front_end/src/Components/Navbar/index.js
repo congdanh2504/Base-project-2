@@ -8,18 +8,30 @@ import { useHistory } from 'react-router'
 import { getUser, removeUserSession } from '../../api/Common'
 import * as FiIcons from 'react-icons/fi'
 import * as BiIcons from 'react-icons/bi'
-import { getUserNotifications } from '../../api/NotificationAPI'
+import { getUserNotifications, seenNotification } from '../../api/NotificationAPI'
 
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
     const [notiState, setNotiState] = useState(false); //noti dropdown
-    const [label, setLabel] = useState(true); // notification label 
+    const [label, setLabel] = useState(false); // notification label 
     const changeUserMenu = () => setUserMenu(!userMenu);
-    const [notifications, setNotification] = useState(null)
+    const [notifications, setNotifications] = useState([])
     const history = useHistory()
+    const [unreadNotifications, setUnreadNotifications] = useState([])
+    const [isUnreadSelect, setIsUnreadSelect] = useState(false)
 
     useEffect(() => {
-        getUserNotifications(setNotification);
+        async function init() {
+            const response = await getUserNotifications();
+            setNotifications(response)
+            response.map((notification, index) => {
+                if (notification.isSeen == false) {
+                    setLabel(true)
+                    setUnreadNotifications(oldArray => [...oldArray, notification]);
+                }
+            })
+        }
+        init()
     }, [])
 
     const logout = () => {
@@ -27,23 +39,16 @@ function DisplayUser({ user }) {
         history.push('/')
         window.location.reload()
     }
+
     //set 'noti-item' to 'noti-item unread' to set unread state
-    const NotiItem = (item) => {
+    const NotiItem = ({item}) => {
         return (
-            <>
-                <li >
-                    <Link className='noti-item unread' to='/'>
-                        <div className="noti-user-image"><img src={defaultImage} alt="" /></div>
-                        <span>ABC đã xyz bài thuê của bạn</span>
-                    </Link>
-                </li>
-                <li >
-                    <Link className='noti-item' to='/'>
-                        <div className="noti-user-image"><img src={defaultImage} alt="" /></div>
-                        <span>ABC đã xyz bài thuê của bạn</span>
-                    </Link>
-                </li>
-            </>
+            <li >
+                <Link className={`noti-item ${!item.isSeen && 'unread'}`} to={item.type == "rentItem" ? `/post/${item.postId}` : `/blog/${item.postId}`} onClick={() => seenNotification(item._id)}>
+                    <div className="noti-user-image"><img src={item.sender.imageAddress ? item.sender.imageAddress : defaultImage} alt="" /></div>
+                    <span>{item.sender.name} đã {item.action == "rent" ? "thuê phòng của bạn" : "bình luận bài đăng của bạn"} </span>
+                </Link>
+            </li>
         )
     }
 
@@ -55,11 +60,17 @@ function DisplayUser({ user }) {
                 <div className={notiState ? "noti-dropdown active" : "noti-dropdown"}>
                     <h4 className='noti-title'>Thông báo</h4>
                     <div className="noti-filter">
-                        <div className="noti-filter-item active" name='all'>All</div>
-                        <div className="noti-filter-item" name='unread'>Unread</div>
+                        <div className={`noti-filter-item ${!isUnreadSelect && 'active'}`} onClick={() => setIsUnreadSelect(false)} name='all'>All</div>
+                        <div className={`noti-filter-item ${isUnreadSelect && 'active'}`} onClick={() => setIsUnreadSelect(true)} name='unread'>Unread</div>
                     </div>
                     <ul className='noti-dropdown-list'>
-                        <NotiItem />
+                        {isUnreadSelect ? unreadNotifications.map((notification, index) => {
+                            return <NotiItem item={notification}/>
+                        }) : notifications.map((notification, index) => {
+                            return <NotiItem item={notification}/>
+                        })}
+                        {isUnreadSelect && unreadNotifications.length == 0 && <p>Không có thông báo nào!</p>}
+                        {!isUnreadSelect && notifications.length == 0 && <p>Không có thông báo nào!</p>}
                     </ul>
                 </div>
                 <div>
