@@ -190,7 +190,7 @@ const PostDetail = () => {
                 </Col>
                 {getUser() &&
                     <div className="navbar-login">
-                        <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Thanh toán</button>
+                        <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Thuê ngay</button>
                     </div>}
                 <Col xl='7'>
                 <div className="comment-section" >

@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProfilePost = () => {
     const [loading, setLoading] = useState(false)
     const [provinceOptions, changeProvinceOptions] = useState([]);
-    const [rentItem, setRentItem] = useState({id: "", title: "", type: "", description: "", people: "", amount: "",area: "", province: "", detailLocation: ""})
+    const [rentItem, setRentItem] = useState({id: "", title: "", type: "", description: "", people: "", amount: "",area: "", province: "", detailLocation: "", available: 0})
     const typeOpt = [{ "value": 1, "label": "Trọ" }, { "value": 2, "label": "Căn hộ" }, { "value": 3, "label": "Nhà" }, { "value": 4, "label": "Villa" }];
     const [rentItems, setRentItems] = useState(null)
     const [modalIsOpenEdit, setIsOpenEdit] = useState(false);
@@ -109,6 +109,9 @@ const ProfilePost = () => {
 
                     <Form.Group as={Row} className="my-3">
                         <Form.Control defaultValue={rentItem.amount} placeholder="Giá cho thuê(VND/Tháng)" name="amount" type="text" className="post-input mb-2 col-xl-6" onChange={changeInput} placeholder="VD: 10000000" />
+                    </Form.Group>
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Control defaultValue={rentItem.amount} placeholder="Phòng có sẵn" name="available" type="text" className="post-input mb-2 col-xl-6" onChange={changeInput} />
                     </Form.Group>
                     <Form.Group as={Row} className="my-3">
                         <Form.Control defaultValue={rentItem.area} placeholder="Diện tích m2" name="area" type="text" className="post-input mb-2 col-xl-6" onChange={changeInput} placeholder="VD: 50" />

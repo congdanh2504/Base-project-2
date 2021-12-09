@@ -18,7 +18,6 @@ const ForgotPassword = () => {
         setLoading(false)
     }
 
-
     return (
         <>
             <ToastContainer/>
