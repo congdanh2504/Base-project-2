@@ -12,9 +12,9 @@ import { Link } from 'react-router-dom'
 const Index = () => {
     const typeOptions = [{"value": 1, "label": "Trọ"},{"value": 2, "label": "Căn hộ"}, {"value": 3, "label": "Nhà"},{"value": 4, "label": "Villa"}];
     const [provinceOptions, changeProvinceOptions] = useState([]);
-    const [province, setProvince] = useState(null)
-    const [type, setType] = useState(null)
-    const [amount, setAmount] = useState(null)
+    const [province, setProvince] = useState("")
+    const [type, setType] = useState("")
+    const [amount, setAmount] = useState("")
 
     const changeProvince = (param) => {
         setProvince(param.label)

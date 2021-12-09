@@ -5,24 +5,49 @@ import { Link } from 'react-router-dom'
 import defaultImage from '../../assets/images/login.png'
 import { useParams } from 'react-router'
 import * as AiIcons from 'react-icons/ai'
-import { getById, getLimitBlogs } from '../../api/BlogAPI'
+import { addCommentBlog, getById, getLimitBlogs } from '../../api/BlogAPI'
 import Loading from '../../Components/Loading'
 import Footer from '../../Components/Footer'
 import Moment from 'react-moment'
+import { getUser } from '../../api/Common'
 
 const BlogDetail = () => {
     const [blog, setBlog] = useState(null)
     const id = useParams('id')
+    const [loading, setLoading] = useState(false)
     const [other, setOther] = useState(null)
     const [idChange, setChange] = useState(id)
+    const [comment, setComment] = useState({id: id.id, message: ""})
 
     useEffect(() => {
         getById(id.id, setBlog)
         getLimitBlogs(setOther, 3)
-    }, [idChange])
+    }, [idChange]) 
 
-    const [heartState, setHeartState] = useState(false);
-    const changeHeartState = () => setHeartState(!heartState);
+    const changeComment = (e) => {
+        setComment({...comment, [e.target.name]: e.target.value})
+    }
+
+    const addCmt = async () => {
+        setLoading(true)
+        await addCommentBlog(comment)
+        setLoading(false)
+        getById(id.id, setBlog)
+    }
+
+    const CommentSection = ({comment}) => {
+        return (
+            <div className="user-comment">
+                <div className="main-comment-img">
+                    <img src={comment.user.imageAddress ? comment.user.imageAddress : defaultImage} alt="" />
+                </div>
+                <div className="main-comment-content">
+                    <Link to='/' className='user-name'>{comment.user.name}</Link>
+                    <div className="comment-content">{comment.message}</div>
+                    <div className="time-stamp">{comment.created_at}</div>
+                </div>
+            </div>);
+    }
     return (
         <>
             <Navbar />
@@ -35,8 +60,7 @@ const BlogDetail = () => {
                                     <img src={blog.user.imageAddress ? blog.user.imageAddress : defaultImage} alt="" />
                                 </div>
                                 <div className="author-info">
-                                    <Link to="/"> {blog.user.name} </Link>
-                                    <span onClick={changeHeartState}>{(heartState) ? <AiIcons.AiFillHeart /> : <AiIcons.AiOutlineHeart />} 1234</span>
+                                    <div> {blog.user.name} </div>
                                 </div>
                             </div>
                         </div>
@@ -50,8 +74,9 @@ const BlogDetail = () => {
                     <article class="blog-article">
                         <h2>{blog.title}</h2>
                         <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
-                    </article>
+                    </article>      
                 </Col>
+                
                 <Col xl="3" className="blog-detail-side">
                     <div className="blog-detail-side-1">
                         <h3>Có thể bạn quan tâm</h3>
@@ -70,6 +95,24 @@ const BlogDetail = () => {
                             })}
                         </ul>
                     </div>
+                </Col>
+                <Col xl='7'>
+                <div className="comment-section" >
+                    {getUser() && <div className='main-comment'>
+                        <div className="main-comment-img">
+                            <img src={getUser().imageAddress ? getUser().imageAddress : defaultImage} alt="" />
+                        </div>
+                        <div className="main-comment-input">
+                            <input type="text" name="message" onChange={changeComment} placeholder='Add a comment ...' />
+                            
+                        </div>
+                        <button disabled={loading} type="submit" onClick={addCmt} className='login-button submit-button' >{loading && <span className="fa fa-refresh fa-spin"></span>}Đăng</button>
+                    </div>}
+
+                    {blog.comments.map((_comment, index) => {
+                        return <CommentSection comment={_comment}/>
+                    })}
+                </div>   
                 </Col>
             </Row>:<Loading/>}
             <Footer/>

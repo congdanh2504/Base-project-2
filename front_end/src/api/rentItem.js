@@ -106,7 +106,7 @@ export const editRentItem = async (rentItem, toast) => {
   })
 }
 
-export const addComment = async (comment) => {
+export const addCommentRentItem = async (comment) => {
   await axios({
     method: 'post',
     url: `${BASE_URL}rentItem/addComment?token=${getToken()}`,

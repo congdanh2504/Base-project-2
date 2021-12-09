@@ -10,7 +10,7 @@ import * as BiIcons from 'react-icons/bi'
 import * as BsIcons from 'react-icons/bs'
 import { Row, Col, Form } from 'react-bootstrap'
 import { useParams } from 'react-router';
-import { addComment, getById, getOther } from '../../api/rentItem';
+import { addCommentRentItem, getById, getOther } from '../../api/rentItem';
 import Loading from '../Loading';
 import defaultImage from '../../assets/images/login.png'
 import Footer from '../../Components/Footer'
@@ -64,7 +64,7 @@ const PostDetail = () => {
     
     const addCmt = async () => {
         setLoading(true)
-        await addComment(comment)
+        await addCommentRentItem(comment)
         setLoading(false)
         getById(id.id, setRentItem, setOther)
     }
@@ -136,13 +136,17 @@ const PostDetail = () => {
                             <GiIcons.GiPriceTag />
                             <span>{rentItem.amount} VND/Tháng</span>
                         </Col>
-                        <Col xl="3" className="post-detail-info-area">
+                        <Col xl="5" className="post-detail-info-area">
                             <BiIcons.BiShapeSquare />
                             <span>{rentItem.area} m <sup>2</sup></span>
                         </Col>
-                        <Col xl="3" className="post-detail-info-num">
+                        <Col xl="5" className="post-detail-info-num">
                             <BsIcons.BsPeopleFill />
                             <span>{rentItem.people} người</span>
+                        </Col>
+                        <Col xl="5" className="post-detail-info-num">
+                            <BsIcons.BsDoorOpen />
+                            <span>Còn {rentItem.available} phòng có sẵn</span>
                         </Col>
                     </Row>
                 </Col>
@@ -186,7 +190,7 @@ const PostDetail = () => {
                 </Col>
                 {getUser() &&
                     <div className="navbar-login">
-                        <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Đặt cọc</button>
+                        <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Thanh toán</button>
                     </div>}
                 <Col xl='7'>
                 <div className="comment-section" >
@@ -202,7 +206,6 @@ const PostDetail = () => {
                     </div>}
 
                     {rentItem.comments.map((_comment, index) => {
-                        console.log(_comment)
                         return <CommentSection comment={_comment}/>
                     })}
                 </div>

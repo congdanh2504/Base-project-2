@@ -1,5 +1,4 @@
 import React from 'react'
-// css in app.css =p
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
@@ -13,8 +12,8 @@ const GuideContainer = () => {
                         <h2>Hướng dẫn đăng tin</h2>
                         <div className="article-body">
                             <p>Chào bạn, sau đây là hướng dẫn sử dụng cho thành viên website houseHub.</p>
-                            <p>Nếu bạn chưa có tài khoản, hãy <Link href="/join" className="highlight-link">đăng ký tại đây</Link> trước khi bắt đầu đăng tin mới.</p>
-                            <p>Nếu đã có tài khoản, sau khi đăng nhập vào website, bạn bấm vào nút <Link href="/join" className="highlight-link">ĐĂNG TIN</Link> để bắt đầu.</p>
+                            <p>Nếu bạn chưa có tài khoản, hãy <Link to="/join" className="highlight-link">đăng ký tại đây</Link> trước khi bắt đầu đăng tin mới. (Lưu ý: bạn phải cập nhật thông tin cá nhân trước khi đăng tin)</p>
+                            <p>Nếu đã có tài khoản, sau khi đăng nhập vào website, bạn bấm vào nút <Link to="/Post" className="highlight-link">ĐĂNG TIN</Link> để bắt đầu.</p>
                             <p>Khi đăng tin các bạn đọc kỹ mô tả từng bước, nhập đầy đủ và chính xác nội dung cho tin đăng, đặc biệt là mục Giá và Diện tích. Những tin có nội dung hình ảnh rõ ràng, đầy đủ sẽ có tỉ lệ xem cao hơn 50%.</p>
                             <p>Lưu ý khi đăng tin:</p>
                             <p>+ Điền đầy đủ các thông tin bắt buộc vào các ô nhập liệu trong phần đăng tin.</p>
@@ -29,7 +28,7 @@ const GuideContainer = () => {
                             <p>Đăng nhập bằng tài khoản đã có đầy đủ thông tin</p>
                             <p>Chọn bất kỳ bài đăng nào bạn quan tâm</p>
                             <p>Chọn đặt cọc và sử dụng bất kỳ hình thức thanh toán nào website đề cập</p>
-                            <p>Bấm vào nút xác nhận, khi xác nhận đồng nghĩa với việc bạn đã chấp nhận các <Link href="/join" className="highlight-link"> điều khoản </Link> website đưa ra</p>
+                            <p>Bấm vào nút xác nhận, khi xác nhận đồng nghĩa với việc bạn đã chấp nhận các <Link to="/terms" className="highlight-link"> điều khoản </Link> website đưa ra</p>
                             <p>Nếu thành công website sẽ hiện một thông báo màu xanh với chữ đặt cọc thành công, ngược lại website sẽ đưa ra thông báo màu đỏ với dòng chữ thất bại</p>
                         </div>
                     </article>
@@ -42,11 +41,6 @@ const GuideContainer = () => {
                             <p>+ Thanh toán qua ViettelPay cho số tài khoản chủ nhà trọ đã cung cấp</p>
                         </div>
                     </article>
-
-                    <div className="remind">
-                        <h2>Bạn đã nắm rõ? Vậy thì bắt đầu thôi</h2>
-                        <button className="login-button">Bắt đầu ngay</button>
-                    </div>
                 </div>
             </div>
             <Footer />

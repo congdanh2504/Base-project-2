@@ -75,3 +75,15 @@ export const editBlog = async (blog, content, toast) => {
   })
 }
 
+export const addCommentBlog = async (comment) => {
+  await axios({
+    method: 'post',
+    url: `${BASE_URL}blog/addComment?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      id: comment.id,
+      message: comment.message
+    }
+  })
+}
+

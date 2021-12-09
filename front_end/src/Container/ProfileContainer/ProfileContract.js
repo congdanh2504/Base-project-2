@@ -23,19 +23,19 @@ const ProfileContract = () => {
                         <th>Người thuê</th>
                         <th>Người cho thuê</th>
                         <th>Số tiền (VNĐ)</th>
-                        <th>Thời gian</th>
                         <th>Ngày thuê</th>
+                        <th>Ngày hết hạn</th>
                         <th>Link bài thuê</th>
                     </tr>
                     {contracts && contracts.data[0].map((contract, index) => {
                         return <tr>
                         <td>{contract.user1.name}</td>
                         <td>{contract.user2.name}</td>
-                        <td>{contract.rent}</td>
-                        <td>{contract.period} (Tháng)</td>
-                        <td><Moment format="YYYY/MM/DD">
+                        <td>{contract.rent}</td>          
+                        <td><Moment format="MM/DD/YYYY">
                         {contract.created_at}
                         </Moment></td>
+                        <td>{contract.expirationDate}</td>
                         <td><Link to={`/post/${contract.rentItemId}`}>Dẫn đến bài đăng</Link></td>
                     </tr>
                     })}

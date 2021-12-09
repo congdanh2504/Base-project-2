@@ -14,6 +14,7 @@ export const addRentItem = async (rentItem, toast) => {
         area: rentItem.area,
         amount: rentItem.amount,
         province: rentItem.province,
+        available: rentItem.available,
         detailLocation: `${rentItem.street}, ${rentItem.ward}, ${rentItem.district}, ${rentItem.province}`
     }))
     await axios({

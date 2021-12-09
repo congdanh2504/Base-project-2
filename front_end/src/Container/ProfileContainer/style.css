@@ -334,6 +334,7 @@
     width: 850px;
 }
 table{
+    margin-bottom: 20px;
     border-collapse: collapse;
     width: 100%;
 }

@@ -14,7 +14,7 @@ const PostForm = () => {
     const [provinceOptions, changeProvinceOptions] = useState([]);
     const [districtOptions, changeDistrictOptions] = useState([]);
     const [wardOptions, changeWardOptions] = useState([]);
-    const [rentItem, setRentItem] = useState({title: "", type: "", description: "", people: "", amount: "",area: "", image1: null, image2: null,image3: null, province: "", district: "", ward: "", street: ""})
+    const [rentItem, setRentItem] = useState({title: "", type: "", description: "", people: "", amount: "",area: "", image1: null, image2: null,image3: null, province: "", district: "", ward: "", street: "", available: 1})
 
     const updateProvince = (param) => {
         setRentItem({...rentItem, ["province"] : param.label})
@@ -130,7 +130,7 @@ const PostForm = () => {
                         <Col className="map">
                             <iframe
                                 loading="lazy"
-                                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBT-FcupKSzJG1IuC4ZtNyQ-Qg0rdoY47k&q=${defaultLocation}`}>
+                                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBT-FcupKSzJG1IuC4ZtNyQ-Qg0rdoY47k&q=${defaultLocation},vietnam`}>
                             </iframe>
                         </Col>
                     </Row>
@@ -157,6 +157,11 @@ const PostForm = () => {
                     <Form.Group as={Row} className="my-3">
                         <Form.Label>Số người ở</Form.Label>
                         <Form.Control type="number" className="post-input mb-2 col-xl-6" name="people" onChange={changeInput} />
+                    </Form.Group>
+                    
+                    <Form.Group as={Row} className="my-3">
+                        <Form.Label>Số phòng có sẵn</Form.Label>
+                        <Form.Control type="number" className="post-input mb-2 col-xl-6" name="available" onChange={changeInput} />
                     </Form.Group>
 
                     <Form.Group as={Row} className="my-3">

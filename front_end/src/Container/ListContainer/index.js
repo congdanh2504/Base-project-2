@@ -18,9 +18,9 @@ const Index = () => {
     const amount = params.get('amount')
     const [rentItems, setRentItems] = useState()
     const [provinces, setProvinces] = useState()
-    const [provinceSe, setProvince] = useState(null)
-    const [typeSe, setType] = useState(null)
-    const [amountSe, setAmount] = useState(null)
+    const [provinceSe, setProvince] = useState("")
+    const [typeSe, setType] = useState("")
+    const [amountSe, setAmount] = useState("")
 
     const changeProvince = (param) => {
         setProvince(param.label)
@@ -35,12 +35,12 @@ const Index = () => {
     }
     
     const submit = () => {
-        if (provinceSe && typeSe && amountSe)
+        if (provinceSe || typeSe || amountSe)
         searchRentItem(setRentItems, provinceSe, typeSe, amountSe)
     }
 
     useEffect(() => {
-        if (province && type && amount) {
+        if (province || type || amount) {
             searchRentItem(setRentItems, province, type, amount)
         } else {
             getRentItems(setRentItems)

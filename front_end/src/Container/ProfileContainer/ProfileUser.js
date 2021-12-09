@@ -70,6 +70,9 @@ const ProfileUser = () => {
             <Row>
                 <h1 className="profile-title">Sửa thông tin cá nhân</h1>
             </Row>
+            <Row>
+                <h4 className="profile-title">Lưu ý: cập nhật profile để có thể đăng tin</h4>
+            </Row>
             <Row className="profile-items">
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label">Tên hiển thị</Col>
@@ -89,7 +92,7 @@ const ProfileUser = () => {
                 </Row>
                 <Row className="profile-item"> 
                     <Col className="col-md-2 offset-md-2 col-form-label">Mật khẩu</Col>
-                    <Col><button onClick={() => setIsOpen(true)} >Đổi mật khẩu</button></Col>
+                    <Col><button className="save-button" onClick={() => setIsOpen(true)} >Đổi mật khẩu</button></Col>
                 </Row>
                 <Row className="profile-item">
                     <Col className="col-md-2 offset-md-2 col-form-label ">Ảnh đại diện</Col>

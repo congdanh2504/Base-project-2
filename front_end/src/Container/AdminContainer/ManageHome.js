@@ -27,7 +27,7 @@ function ManageHome() {
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Users</h6>
+                    <h6 class="text-muted">Người dùng</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-primary w-50"></div>
                     </div>
@@ -47,7 +47,7 @@ function ManageHome() {
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Rent items</h6>
+                    <h6 class="text-muted">Bài thuê</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-success w-50"></div>
                     </div>
@@ -67,7 +67,7 @@ function ManageHome() {
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Contracts</h6>
+                    <h6 class="text-muted">Hợp đồng</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-danger w-50"></div>
                     </div>
@@ -87,7 +87,7 @@ function ManageHome() {
                     </div>
                   </div>
                   <div class="dash-widget-info">
-                    <h6 class="text-muted">Blogs</h6>
+                    <h6 class="text-muted">Blog</h6>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-warning w-50"></div>
                     </div>

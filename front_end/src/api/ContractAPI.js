@@ -2,6 +2,8 @@ import axios from 'axios'
 import { BASE_URL, getToken } from './Common'
 
 export const addContract = async (contract, toast) => {
+    let d = new Date();
+    d.setDate(d.getDate() + 30*contract.period)
     axios({
         method: 'post',
         url: `${BASE_URL}contract?token=${getToken()}`,
@@ -10,12 +12,12 @@ export const addContract = async (contract, toast) => {
             userId2 : contract.userId2,
             rent : contract.rent,
             rentItemId : contract.rentItemId,
-            period: contract.period
+            expirationDate: d.toLocaleDateString()
         }
     }).then(res => {
         toast.success("Thành công")
     }).catch(err => {
-        toast.error("Không thành công")
+        toast.error(err.response.data.message)
     })
 }
 
