@@ -10,8 +10,8 @@ export const getUserNotifications = async () => {
     return response.data
 }
 
-export const seenNotification = (notificationId) => {
-    axios({
+export const seenNotification = async (notificationId) => {
+    await axios({
         method: 'post',
         url: `${BASE_URL}notification?token=${getToken()}`,
         headers: {'Content-Type': 'application/json'},

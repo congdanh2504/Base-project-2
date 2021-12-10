@@ -11,18 +11,17 @@ import Footer from '../../Components/Footer'
 import Moment from 'react-moment'
 import { getUser } from '../../api/Common'
 
-const BlogDetail = () => {
+const BlogDetail = (props) => {
     const [blog, setBlog] = useState(null)
     const id = useParams('id')
     const [loading, setLoading] = useState(false)
     const [other, setOther] = useState(null)
-    const [idChange, setChange] = useState(id)
     const [comment, setComment] = useState({id: id.id, message: ""})
 
     useEffect(() => {
         getById(id.id, setBlog)
         getLimitBlogs(setOther, 3)
-    }, [idChange]) 
+    }, [props.match.params.id]) 
 
     const changeComment = (e) => {
         setComment({...comment, [e.target.name]: e.target.value})
@@ -42,7 +41,7 @@ const BlogDetail = () => {
                     <img src={comment.user.imageAddress ? comment.user.imageAddress : defaultImage} alt="" />
                 </div>
                 <div className="main-comment-content">
-                    <Link to='/' className='user-name'>{comment.user.name}</Link>
+                    <div className='user-name'><b>{comment.user.name}</b></div>
                     <div className="comment-content">{comment.message}</div>
                     <div className="time-stamp">{comment.created_at}</div>
                 </div>
@@ -60,7 +59,7 @@ const BlogDetail = () => {
                                     <img src={blog.user.imageAddress ? blog.user.imageAddress : defaultImage} alt="" />
                                 </div>
                                 <div className="author-info">
-                                    <div> {blog.user.name} </div>
+                                    <div><b>{blog.user.name}</b></div>
                                 </div>
                             </div>
                         </div>
@@ -87,9 +86,7 @@ const BlogDetail = () => {
                                     <img src={_blog.imageAddress} alt="" />
                                 </div>
                                 <div className="relevant-item-content">
-                                <Link onClick={() => {
-                                    setChange(_blog._id)
-                                }} to={`/blog/${_blog._id}`}  ><h5 className="relevant-item-title">{_blog.title}</h5></Link> 
+                                <Link to={`/blog/${_blog._id}`}  ><h5 className="relevant-item-title">{_blog.title}</h5></Link> 
                                 </div>
                             </li>
                             })}

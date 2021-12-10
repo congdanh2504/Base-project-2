@@ -44,10 +44,14 @@ function DisplayUser({ user }) {
     const NotiItem = ({item}) => {
         return (
             <li >
-                <Link className={`noti-item ${!item.isSeen && 'unread'}`} to={item.type == "rentItem" ? `/post/${item.postId}` : `/blog/${item.postId}`} onClick={() => seenNotification(item._id)}>
+                <div className={`noti-item ${!item.isSeen && 'unread'}`} onClick={ async () => {
+                    if (!item.isSeen)
+                    await seenNotification(item._id)
+                    history.push(item.type == "rentItem" ? `/post/${item.postId}` : `/blog/${item.postId}`)
+                } }>
                     <div className="noti-user-image"><img src={item.sender.imageAddress ? item.sender.imageAddress : defaultImage} alt="" /></div>
                     <span>{item.sender.name} đã {item.action == "rent" ? "thuê phòng của bạn" : "bình luận bài đăng của bạn"} </span>
-                </Link>
+                </div>
             </li>
         )
     }

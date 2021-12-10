@@ -25,15 +25,14 @@ import { Contract } from '../../model/Contract';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const PostDetail = () => {
+const PostDetail = (props) => {
     const id = useParams('id');
     const [loading, setLoading] = useState(false)
     const [comment, setComment] = useState({id: id.id, message: ""})
-    const [idChange, setChange] = useState(id)
     const [check, setCheck] = useState(false)
     const [rentItem, setRentItem] = useState(null)
     const [other, setOther] = useState(null)
-    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false)
     const [rentalPeriod, setRentalPeriod] = useState(1)
     const customStyles = {
         content: {
@@ -50,7 +49,7 @@ const PostDetail = () => {
 
     useEffect(() => {
         getById(id.id, setRentItem, setOther)
-    }, [idChange])
+    }, [props.match.params.id])
 
     const changeComment = (e) => {
         setComment({...comment, [e.target.name]: e.target.value})
@@ -174,9 +173,7 @@ const PostDetail = () => {
                                         <img src={_rentItem.imagesAddress.path1} alt="" />
                                     </div>
                                     <div className="relevant-item-content">
-                                        <Link onClick={() => {
-                                            setChange(_rentItem._id)
-                                        }} to={`/post/${_rentItem._id}`}  ><h5 className="relevant-item-title">{_rentItem.title}</h5></Link>
+                                        <Link to={`/post/${_rentItem._id}`}  ><h5 className="relevant-item-title">{_rentItem.title}</h5></Link>
                                         <p className="relevant-item-price">
                                             <GiIcons.GiPriceTag />
                                             <span>{_rentItem.amount} VND/Tháng</span>
@@ -188,10 +185,11 @@ const PostDetail = () => {
                     </div>
 
                 </Col>
-                {getUser() &&
+                {(getUser() && rentItem.available > 0 && getUser()._id != rentItem.user._id) &&
                     <div className="navbar-login">
                         <button onClick={() => { setIsOpen(true) }} style={{ height: '30px' }} className="login-button">Thuê ngay</button>
                     </div>}
+                {rentItem.available < 1 && <p><b>Đã hết phòng</b></p>}
                 <Col xl='7'>
                 <div className="comment-section" >
                     {getUser() && <div className='main-comment'>
