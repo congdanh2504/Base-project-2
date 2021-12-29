@@ -45,3 +45,13 @@ export const getReport = (setReport) =>  {
     setReport(response.data.report)
   })
 }
+
+export const getAllNotifications = (setNotifications) =>  {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}admin/notification?token=${getToken()}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then(response => {        
+    setNotifications(response.data)
+  })
+}

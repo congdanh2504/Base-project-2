@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { getReport } from '../../api/AdminAPI'
+import { getAllNotifications, getReport } from '../../api/AdminAPI'
 import Loading from '../../Components/Loading'
 import LineChart from './LineChart'
+import defaultImage from '../../assets/images/login.png'
+import { Link } from 'react-router-dom'
+import Moment from 'react-moment'
 
 function ManageHome() {
     const [report, setReport] = useState(null)
+    const [notifications, setNotifications] = useState([])
 
     useEffect(() => {
         getReport(setReport)
+        getAllNotifications(setNotifications)
     }, [])
 
     return (
@@ -107,6 +112,18 @@ function ManageHome() {
           </div>
         </> : <Loading/>
         }
+        <h2>Các hoạt động gần đây</h2>
+        {notifications.map((item, index) => {
+          return <li >
+          <Link className='noti-item' to={item.type == "rentItem" ? `/post/${item.postId}` : `/blog/${item.postId}`}>
+              <div className="noti-user-image"><img src={item.sender.imageAddress ? item.sender.imageAddress : defaultImage} alt="" /></div>
+              <span>{item.sender.name} đã {item.action == "rent" ? `thuê phòng của ${item.receiver.name}` : `bình luận bài đăng của ${item.receiver.name}`} </span>
+              <span><Moment format="YYYY/MM/DD hh:mm:ss">
+                {item.created_at}
+                </Moment></span>
+          </Link>
+        </li>
+        })}
         </Container>
         
     )
