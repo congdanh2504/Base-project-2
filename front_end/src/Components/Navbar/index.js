@@ -41,14 +41,14 @@ function DisplayUser({ user }) {
     }
 
     //set 'noti-item' to 'noti-item unread' to set unread state
-    const NotiItem = ({item}) => {
+    const NotiItem = ({ item }) => {
         return (
             <li >
-                <div className={`noti-item ${!item.isSeen && 'unread'}`} onClick={ async () => {
+                <div className={`noti-item ${!item.isSeen && 'unread'}`} onClick={async () => {
                     if (!item.isSeen)
-                    await seenNotification(item._id)
+                        await seenNotification(item._id)
                     history.push(item.type == "rentItem" ? `/post/${item.postId}` : `/blog/${item.postId}`)
-                } }>
+                }}>
                     <div className="noti-user-image"><img src={item.sender.imageAddress ? item.sender.imageAddress : defaultImage} alt="" /></div>
                     <span>{item.sender.name} đã {item.action == "rent" ? "thuê phòng của bạn" : "bình luận bài đăng của bạn"} </span>
                 </div>
@@ -69,9 +69,9 @@ function DisplayUser({ user }) {
                     </div>
                     <ul className='noti-dropdown-list'>
                         {isUnreadSelect ? unreadNotifications.map((notification, index) => {
-                            return <NotiItem item={notification}/>
+                            return <NotiItem item={notification} />
                         }) : notifications.map((notification, index) => {
-                            return <NotiItem item={notification}/>
+                            return <NotiItem item={notification} />
                         })}
                         {isUnreadSelect && unreadNotifications.length == 0 && <p>Không có thông báo nào!</p>}
                         {!isUnreadSelect && notifications.length == 0 && <p>Không có thông báo nào!</p>}
@@ -100,15 +100,35 @@ function DisplayUser({ user }) {
         )
     }
 }
-
-function index() {
+const searchResultItem = (item) => {
+    return (
+        <li className="search-result-item">
+            <div className="search-result-image">
+                <img src="https://picsum.photos/100/200" alt="" />
+            </div>
+            <Link to='/' className="search-result-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem inventore maiores magnam veritatis. Fugiat blanditiis quisquam laborum libero atque ipsa, quae iusto, ab, doloremque sapiente magnam tempore doloribus provident dolores?</Link>
+        </li>
+    )
+}
+function Index() {
+    const [searchToggle, setSearchToggle] = useState(true);
     return (
         <>
             <div className="navbar-container">
 
                 <div className="navbar-content">
                     <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
-
+                    <div className="navbar-search-container">
+                        <div className="navbar-search">
+                            <BiIcons.BiSearchAlt />
+                            <input type="text" className='navbar-search-input' />
+                            {searchToggle ? <div className="search-result-container">
+                                <ul className="search-result-list">
+                                    {searchResultItem()}
+                                </ul>
+                            </div> : <></>}
+                        </div>
+                    </div>
                     <div className="navbar-menu">
                         <ul className="navbar-list">
                             <li >
@@ -139,4 +159,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
