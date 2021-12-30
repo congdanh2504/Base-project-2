@@ -3,15 +3,12 @@ import { BASE_URL, getToken } from "./Common";
 
 export const getRentItems = (setRentItems, pageNumber = 1) => {
     axios({
-        method: 'get',
-        url: `${BASE_URL}rentItem?page=${pageNumber}`,
-        headers: {'Content-Type': 'application/json'},
-      }).then(response => {
-        setRentItems(response.data)
-        console.log(response.data)
-      }).catch(error => {
-
-    });
+      method: 'get',
+      url: `${BASE_URL}rentItem?page=${pageNumber}`,
+      headers: {'Content-Type': 'application/json'},
+    }).then(response => {
+      setRentItems(response.data)
+    })
 }
 
 export const getById = (id, setRentItem, setOther=null)  => {
@@ -115,5 +112,16 @@ export const addCommentRentItem = async (comment) => {
       id: comment.id,
       message: comment.message
     }
+  })
+}
+
+export const searchByTitle = (setItems, title) => {
+  axios({
+    method: 'get',
+    url: `${BASE_URL}searchAll?title=${title}`,
+    headers: {'Content-Type': 'application/json'},
+  }).then((response) => {
+    console.log(response.data)
+    setItems(response.data)
   })
 }

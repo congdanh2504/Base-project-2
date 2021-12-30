@@ -286,7 +286,7 @@
     outline: none;
 }
 .search-result-container{
-    width: 300px;
+    width: 400px;
     top: 70px;
     position: absolute;
     background-color: white;
@@ -309,7 +309,7 @@
     background-color: #e6e6e6;
 }
 .search-result-image{
-    min-width: 70px;
+    min-width: 110px;
     min-height: 70px;
     max-width: 70px;
     max-height: 70px;

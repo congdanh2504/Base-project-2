@@ -9,6 +9,7 @@ import { getUser, removeUserSession } from '../../api/Common'
 import * as FiIcons from 'react-icons/fi'
 import * as BiIcons from 'react-icons/bi'
 import { getUserNotifications, seenNotification } from '../../api/NotificationAPI'
+import { getRentItems, searchByTitle } from '../../api/rentItem'
 
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
@@ -104,27 +105,42 @@ const searchResultItem = (item) => {
     return (
         <li className="search-result-item">
             <div className="search-result-image">
-                <img src="https://picsum.photos/100/200" alt="" />
+                <img src={item.area ? item.imagesAddress.path1 : item.imageAddress} alt="" />
             </div>
-            <Link to='/' className="search-result-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem inventore maiores magnam veritatis. Fugiat blanditiis quisquam laborum libero atque ipsa, quae iusto, ab, doloremque sapiente magnam tempore doloribus provident dolores?</Link>
+            <Link to={item.area ? `/post/${item._id}` : `/blog/${item._id}`} className="search-result-title">{item.title}</Link>
         </li>
     )
 }
 function Index() {
-    const [searchToggle, setSearchToggle] = useState(true);
+    const [searchItems, setSearchItems] = useState(null);
+    const [searchToggle, setSearchToggle] = useState(false);
+    let typingTimer;
+    let doneTypingInterval = 1000;
+
+    const onSearching = (e) => {   
+        clearTimeout(typingTimer);
+        if (e.target.value) {
+            typingTimer = setTimeout(() => {
+                searchByTitle(setSearchItems, e.target.value)
+            }, doneTypingInterval);
+        }
+    }
+
     return (
         <>
             <div className="navbar-container">
-
                 <div className="navbar-content">
                     <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
                     <div className="navbar-search-container">
-                        <div className="navbar-search">
+                        <div className="navbar-search" onFocus={() => {setSearchToggle(true)}}  
+                        onBlur={() => {setSearchToggle(false)}}>
                             <BiIcons.BiSearchAlt />
-                            <input type="text" className='navbar-search-input' />
-                            {searchToggle ? <div className="search-result-container">
+                            <input type="text" className='navbar-search-input' onChange={onSearching}/>
+                            {searchToggle && searchItems ? <div className="search-result-container">
                                 <ul className="search-result-list">
-                                    {searchResultItem()}
+                                    {searchItems.map((item, index) => {
+                                        return searchResultItem(item)
+                                    })}
                                 </ul>
                             </div> : <></>}
                         </div>
