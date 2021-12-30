@@ -9,7 +9,7 @@ import { getUser, removeUserSession } from '../../api/Common'
 import * as FiIcons from 'react-icons/fi'
 import * as BiIcons from 'react-icons/bi'
 import { getUserNotifications, seenNotification } from '../../api/NotificationAPI'
-import { getRentItems, searchByTitle } from '../../api/rentItem'
+import { getRentItems, searchAll, searchRentItem } from '../../api/rentItem'
 
 function DisplayUser({ user }) {
     const [userMenu, setUserMenu] = useState(false);
@@ -112,18 +112,20 @@ const searchResultItem = (item) => {
     )
 }
 function Index() {
+    const [allItems, setAllItems] = useState(null);
     const [searchItems, setSearchItems] = useState(null);
     const [searchToggle, setSearchToggle] = useState(false);
-    let typingTimer;
-    let doneTypingInterval = 1000;
+
+    useEffect(() => {
+        searchAll(setAllItems)
+    }, [])
 
     const onSearching = (e) => {   
-        clearTimeout(typingTimer);
-        if (e.target.value) {
-            typingTimer = setTimeout(() => {
-                searchByTitle(setSearchItems, e.target.value)
-            }, doneTypingInterval);
-        }
+        setSearchItems(allItems.filter((item) => {
+            let lowercaseTitleSearch = e.target.value.toLowerCase();
+            let lowercaseTitle = item.title.toLowerCase();
+            return lowercaseTitle.includes(lowercaseTitleSearch)
+        }))
     }
 
     return (

@@ -115,10 +115,10 @@ export const addCommentRentItem = async (comment) => {
   })
 }
 
-export const searchByTitle = (setItems, title) => {
+export const searchAll = (setItems) => {
   axios({
     method: 'get',
-    url: `${BASE_URL}searchAll?title=${title}`,
+    url: `${BASE_URL}searchAll`,
     headers: {'Content-Type': 'application/json'},
   }).then((response) => {
     console.log(response.data)
