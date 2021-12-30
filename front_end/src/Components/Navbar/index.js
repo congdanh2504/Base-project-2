@@ -113,7 +113,7 @@ const searchResultItem = (item) => {
 }
 function Index() {
     const [allItems, setAllItems] = useState(null);
-    const [searchItems, setSearchItems] = useState(null);
+    const [searchItems, setSearchItems] = useState([]);
     const [searchToggle, setSearchToggle] = useState(false);
 
     useEffect(() => {
@@ -121,11 +121,16 @@ function Index() {
     }, [])
 
     const onSearching = (e) => {   
-        setSearchItems(allItems.filter((item) => {
+        setSearchItems(allItems && allItems.filter((item) => {
             let lowercaseTitleSearch = e.target.value.toLowerCase();
             let lowercaseTitle = item.title.toLowerCase();
             return lowercaseTitle.includes(lowercaseTitleSearch)
         }))
+        if(e.target.value != '' && searchItems.length != 0){
+            setSearchToggle(true);
+        }else{
+            setSearchToggle(false);
+        }
     }
 
     return (
@@ -134,8 +139,10 @@ function Index() {
                 <div className="navbar-content">
                     <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
                     <div className="navbar-search-container">
-                        <div className="navbar-search" onFocus={() => {setSearchToggle(true)}}  
-                        onBlur={() => {setSearchToggle(false)}}>
+                        <div className="navbar-search"   
+                        >
+                            {/* onFocus={() => {setSearchToggle(true)}} */}
+                            {/* onBlur={() => {setSearchToggle(false)}} */}
                             <BiIcons.BiSearchAlt />
                             <input type="text" className='navbar-search-input' onChange={onSearching}/>
                             {searchToggle && searchItems ? <div className="search-result-container">

@@ -296,6 +296,11 @@
 }
 .search-result-list{
     padding: 5px;
+    max-height: 560px;
+    overflow-y: scroll;
+}
+.search-result-list::-webkit-scrollbar{
+    width: 0;
 }
 .search-result-item{
     border-radius: 20px;
