@@ -101,9 +101,10 @@ function DisplayUser({ user }) {
         )
     }
 }
-const searchResultItem = (item) => {
+const searchResultItem = (item, setIsClickItem) => {
     return (
-        <li className="search-result-item">
+        <li className="search-result-item" onMouseEnter={() => {setIsClickItem(true)}}
+        onMouseLeave={() => {setIsClickItem(false)}}>
             <div className="search-result-image">
                 <img src={item.area ? item.imagesAddress.path1 : item.imageAddress} alt="" />
             </div>
@@ -115,21 +116,19 @@ function Index() {
     const [allItems, setAllItems] = useState(null);
     const [searchItems, setSearchItems] = useState([]);
     const [searchToggle, setSearchToggle] = useState(false);
+    const [isClickItem, setIsClickItem] = useState(false);
 
     useEffect(() => {
         searchAll(setAllItems)
     }, [])
 
     const onSearching = (e) => {   
-        setSearchItems(allItems && allItems.filter((item) => {
-            let lowercaseTitleSearch = e.target.value.toLowerCase();
-            let lowercaseTitle = item.title.toLowerCase();
-            return lowercaseTitle.includes(lowercaseTitleSearch)
-        }))
-        if(e.target.value != '' && searchItems.length != 0){
-            setSearchToggle(true);
-        }else{
-            setSearchToggle(false);
+        if (allItems) {
+            setSearchItems(allItems && allItems.filter((item) => {
+                let lowercaseTitleSearch = e.target.value.toLowerCase();
+                let lowercaseTitle = item.title.toLowerCase();
+                return lowercaseTitle.includes(lowercaseTitleSearch)
+            }))
         }
     }
 
@@ -139,16 +138,15 @@ function Index() {
                 <div className="navbar-content">
                     <NavLink to='/' className="navbar-logo"><img src={logo} alt="logo" /></NavLink>
                     <div className="navbar-search-container">
-                        <div className="navbar-search"   
-                        >
-                            {/* onFocus={() => {setSearchToggle(true)}} */}
-                            {/* onBlur={() => {setSearchToggle(false)}} */}
+                        <div className="navbar-search" onFocus={() => {setSearchToggle(true)}}
+                            onBlur={() => {if (!isClickItem) setSearchToggle(false)}}
+                        >   
                             <BiIcons.BiSearchAlt />
                             <input type="text" className='navbar-search-input' onChange={onSearching}/>
-                            {searchToggle && searchItems ? <div className="search-result-container">
+                            {searchToggle && searchItems && searchItems.length > 0 ? <div className="search-result-container">
                                 <ul className="search-result-list">
                                     {searchItems.map((item, index) => {
-                                        return searchResultItem(item)
+                                        return searchResultItem(item, setIsClickItem)
                                     })}
                                 </ul>
                             </div> : <></>}
